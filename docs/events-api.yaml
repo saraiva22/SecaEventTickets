@@ -1,0 +1,281 @@
+openapi: 3.0.1
+info:
+  title: Events API
+  description: This is a simple API for managing events
+  contact:
+    email1: a49465@alunos.isel.pt
+    email2: a49462@alunos.isel.pt
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.0
+servers:
+  - description: Localhost server for testing API
+    url: http://localhost:8080/
+
+security:
+  - bearerAuth: []
+tags:
+- name: Events
+- name: Users
+- name: Groups
+paths:
+  /events:
+    get:
+      tags:
+      - Events
+      summary: 
+      description: Shows all events
+      operationId: getEvents
+      security: []
+      requestBody:
+        description: Get all events
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AllEvents'
+        required: true
+      responses:
+        200:
+          description: all events received
+          content:
+            content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Events'
+        400:
+          $ref: "#/components/responses/400BadRequest"   
+  /events/popular:
+    get:
+      tags:
+      - Events
+      summary: gets most popular events
+      description: Lists most popular events
+      operationID: getPopularEvents
+      security: []
+      requestBody:
+        description: Get most popular events
+        content:
+          application/json:
+          schema:
+            $ref: '#/components/schemas/PopularEvents'
+          required: true
+      responses:
+        200:
+          description: most popular events received
+          content:
+            content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PopularEvents'
+        400:
+          $ref: "#/components/responses/400BadRequest"   
+  /users:
+    post:
+      tags:
+      - Users
+      summary: adds a user
+      description: Adds a user to the system
+      operationId: addUser
+      security: []
+      requestBody:
+        description: User to add
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewUser'
+        required: true
+      responses:
+        201:
+          description: user created
+          content:
+            application/json:
+              schema:
+                required:
+                - token
+                type: object
+                properties:
+                  token:
+                    type: string
+                    format: uuid
+        400:
+          description: Invalid input, object invalid
+          content: {}
+  /groups:
+    get:
+      tags:
+      - Groups
+      summary: get all groups
+      description: Lists all existing groups
+      operationId: getGroups
+      responses:
+        200:
+          description: get all groups
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Groups'
+        400:
+          $ref: "#/components/responses/400BadRequest"     
+    post:
+      tags:
+      - Groups
+      summary: adds a groups
+      description: Adds a group to the system
+      operationId: addGroup
+      security:
+        - bearerAuth: []
+      parameters:
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+          format: uuid
+      requestBody:
+        description: Group to add
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewGroup'
+        required: false
+      responses:
+        201:
+          description: Group created
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NewGroupCreated'
+        400:
+          description: Invalid input, object invalid
+          content: {}
+  /groups/{groupId}:
+    get:
+      tags:
+      - Groups
+      summary: Get a group given its id
+      operationId: getGroupById
+      security:
+        - bearerAuth: []
+      parameters:
+      - name: Authorization
+        in: header
+        schema:
+          type: string
+          format: uuid
+      - name: groupId
+        in: path
+        description: ID of group that to be fetched
+        required: true
+        schema:
+          type: integer
+          minimum: 0
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Group'
+        400:
+          $ref: "#/components/responses/400BadRequest"
+        404:
+          $ref: "#/components/responses/404NotFound"
+    put:
+      tags:
+      - Groups
+      summary: updates a group
+      description: Updates a Group in the system
+      operationId: updateGroup
+      security:
+        - bearerAuth: []
+      parameters:
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - name: groupId
+        in: path
+        description: ID of the group to be deleted
+        required: true
+        schema:
+          type: integer
+      requestBody:
+        description: Group to update
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewGroup'
+        required: false
+      responses:
+        201:
+          description: group updated
+          content: {}
+        404:
+          $ref: "#/components/responses/404NotFound"  
+    delete:
+      tags:
+      - Events
+      summary: Delete a group by ID
+      description: Delete a group by ID
+      operationId: deleteGroup
+      security:
+        - bearerAuth: []
+      parameters:
+      - name: groupId
+        in: path
+        description: ID of the group to be deleted
+        required: true
+        schema:
+          type: integer
+      responses:
+        200:
+          description: "Group successfully deleted"
+          content: {}
+        400:
+          $ref: "#/components/responses/400BadRequest"
+        404:
+          $ref: "#/components/responses/404NotFound"
+  /groups/{groupId}/events:
+  # tem de ser acabado ver melhor
+    get:
+      tags:
+      - Groups
+      summary: Get a group events given by group Id
+      operationId: getGroupEvents
+      security:
+        - bearerAuth: []
+      parameters:
+      - name: Authorization
+        in: header
+        schema:
+          type: string
+          format: uuid
+      - name: groupId
+        in: path
+        description: ID of group that to be fetched
+        required: true
+        schema:
+          type: integer
+          minimum: 0
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Group'
+        400:
+          $ref: "#/components/responses/400BadRequest"
+        404:
+          $ref: "#/components/responses/404NotFound"
+    /groups/{groupId}/events/{eventsId}:
+      # specific event according to an id
