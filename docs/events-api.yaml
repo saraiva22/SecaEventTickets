@@ -3,50 +3,61 @@ info:
   title: Events API
   description: This is a simple API for managing events
   contact:
-    email1: a49465@alunos.isel.pt
-    email2: a49462@alunos.isel.pt
+    email: a49465&a49462@alunos.isel.pt
   license:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
   version: 1.0.0
 servers:
   - description: Localhost server for testing API
-    url: http://localhost:8080/
+    url: http://localhost:8080
 
 security:
   - bearerAuth: []
 tags:
-- name: Events
-- name: Users
-- name: Groups
+
+- name: Events  
+- name: PopularEvents 
+- name: Users 
+- name: Groups  
+- name: Group  
+- name: GroupEvents  
+- name: GroupEvent
 paths:
   /events:
     get:
       tags:
       - Events
-      summary: 
+      summary: get Events
       description: Shows all events
-      operationId: getEvents
-      security: []
-      requestBody:
-        description: Get all events
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/AllEvents'
+      operationId: getEventsById
+      security:
+        - bearerAuth: []
+      parameters:
+      - name: Authorization
+        in: header
+        schema:
+          type: string
+          format: uuid
+      - name: taskId
+        in: path
+        description: ID of task that to be fetched
         required: true
+        schema:
+          type: integer
+          minimum: 0
       responses:
         200:
           description: all events received
           content:
-            content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Events'
+                $ref: '#/components/schemas/Events'
         400:
           $ref: "#/components/responses/400BadRequest"   
+        404:
+          $ref: "#/components/responses/404NotFound"
+          
   /events/popular:
     get:
       tags:
@@ -245,6 +256,8 @@ paths:
         404:
           $ref: "#/components/responses/404NotFound"
   /groups/{groupId}/events:
+  
+
   # tem de ser acabado ver melhor
     get:
       tags:
@@ -276,6 +289,39 @@ paths:
         400:
           $ref: "#/components/responses/400BadRequest"
         404:
-          $ref: "#/components/responses/404NotFound"
-    /groups/{groupId}/events/{eventsId}:
+          $ref: "#/components/responses/404NotFound"       
+  /groups/{groupId}/events/{eventsId}:
+   # tem de ser acabado ver melhor
+    get:
+      tags:
+      - Groups
+      summary: Get a group events given by group Id
+      operationId: getGroupEvents
+      security:
+        - bearerAuth: []
+      parameters:
+      - name: Authorization
+        in: header
+        schema:
+          type: string
+          format: uuid
+      - name: groupId
+        in: path
+        description: ID of group that to be fetched
+        required: true
+        schema:
+          type: integer
+          minimum: 0
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Group'
+        400:
+          $ref: "#/components/responses/400BadRequest"
+        404:
+          $ref: "#/components/responses/404NotFound"       
       # specific event according to an id
+  
