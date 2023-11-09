@@ -1,0 +1,215 @@
+{
+    "openapi": "3.0.1",
+    "info": {
+        "title": "SECA API",
+        "description": "",
+        "contact": {
+            "email": "you@your-company.com"
+        },
+        "license": {
+            "name": "Apache 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+        },
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "/"
+        }
+    ],
+    "tags": [
+        {
+            "name": "Events"
+        },
+        {
+            "name": "Users"
+        },
+        {
+            "name": "Groups"
+        }
+      ],
+    "paths": {
+        "/events": {
+            "get": {
+                "tags": [
+                    "Events"
+                ],
+                "summary": "all events",
+                "description": "Shows all events",
+                "operationId": "getEvents",
+                "parameters": [
+                    {
+                      "name": "Authorization",
+                      "in": "header",
+                      "required": true,
+                      "schema": {
+                        "type": "string",
+                        "format": "uuid"
+                      }
+                    },
+                    {
+                      "name": "searchString",
+                      "in": "query",
+                      "description": "pass an optional search string for looking up jokes with that text",
+                      "schema": {
+                        "type": "string"
+                      }
+                    },
+                    {
+                      "name": "skip",
+                      "in": "query",
+                      "description": "number of records to skip for pagination",
+                      "schema": {
+                        "minimum": 0,
+                        "type": "integer"
+                      }
+                    },
+                    {
+                      "name": "limit",
+                      "in": "query",
+                      "description": "maximum number of records to return",
+                      "schema": {
+                        "maximum": 50,
+                        "minimum": 0,
+                        "type": "integer"
+                      }
+                    }
+                  ],
+                "responses": {
+                    "200": {
+                        "description": "most popular events received",
+                        "content": {
+                          "application/json": {
+                            "schema": {
+                              "type": "array",
+                              "items": {
+                                  "$ref": "#/components/schemas/Events"
+                              }
+                            }
+                          }
+                        }
+                    },
+                    "400": {
+                      "description": "Object invalid",
+                      "content": {}
+                    }
+                },
+                "x-codegen-request-body-name": "events"
+            }
+        },
+        "/events/popular":{
+            "get":{
+                "tags": [
+                    "Events"
+                ],
+                "summary": "gets most popular events",
+                "description": "Lists most popular events",
+                "operationId": "getPopularEvents",
+                "parameters": [
+                    {
+                      "name": "Authorization",
+                      "in": "header",
+                      "required": true,
+                      "schema": {
+                        "type": "string",
+                        "format": "uuid"
+                      }
+                    },
+                    {
+                      "name": "searchString",
+                      "in": "query",
+                      "description": "pass an optional search string for looking up jokes with that text",
+                      "schema": {
+                        "type": "string"
+                      }
+                    },
+                    {
+                      "name": "skip",
+                      "in": "query",
+                      "description": "number of records to skip for pagination",
+                      "schema": {
+                        "minimum": 0,
+                        "type": "integer"
+                      }
+                    },
+                    {
+                      "name": "limit",
+                      "in": "query",
+                      "description": "maximum number of records to return",
+                      "schema": {
+                        "maximum": 50,
+                        "minimum": 0,
+                        "type": "integer"
+                      }
+                    }
+                  ],
+                "responses": {
+                    "200": {
+                      "description": "most popular events received",
+                      "content": {
+                        "application/json": {
+                          "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/components/schemas/Events"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "400": {
+                      "description": "Object invalid",
+                      "content": {}
+                    }
+                },
+                "x-codegen-request-body-name": "events"
+            }
+        },
+        "/users":{
+            "post":{
+                "tags": [
+                    "Users"
+                ],
+                "summary": "adds a user",
+                "description": "Adds a user to the system",
+                "operationId": "addUser",
+                "requestBody": {
+                    "description": "User to add",
+                    "content": {
+                      "application/json": {
+                        "schema": {
+                          "$ref": "#/components/schemas/NewUser"
+                        }
+                      }
+                    },
+                    "required": false
+                  },
+                  "responses": {
+                    "201": {
+                      "description": "user created",
+                      "content": {
+                        "application/json": {
+                          "schema": {
+                            "required": [
+                              "token"
+                            ],
+                            "type": "object",
+                            "properties": {
+                              "token": {
+                                "type": "string",
+                                "format": "uuid"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "400": {
+                      "description": "Invalid input, object invalid",
+                      "content": {}
+                    }
+                  }
+            }
+        }
+    }
+}
