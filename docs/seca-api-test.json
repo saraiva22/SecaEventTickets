@@ -211,5 +211,38 @@
                   }
             }
         }
+    },
+    "components": {
+        "schemas": {
+          "Events": {
+            "required": [
+              "id",
+              "text"
+            ],
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "integer",
+                "example": 1
+              },
+              "text": {
+                "type": "string",
+                "example": "Feira do leitão"
+              }
+            }
+          },
+          "NewUser": {
+            "required": [
+              "userName"
+            ],
+            "type": "object",
+            "properties": {
+              "userName": {
+                "type": "string",
+                "example": "carol"
+              }
+            }
+          }
+        }
     }
 }
