@@ -23,32 +23,32 @@ paths:
     get:
       tags:
         - Events
-      summary: All events
-      description: Shows all events
-      operationId: getEvents
+      summary: Search events by name.
+      description: Events by name.
+      operationId: getSearchedEvents
       parameters:
-      - name: keyword
-        in: query
-        description: Query to match in event title
-        schema:
-          type: string
-        required: true 
-      - name: s
-        in: query
-        description: number of events per page (page size)
-        schema:
-          minimum: 1
-          default: 30
-          type: integer
-        required: false
-      - name: p
-        in: query
-        description: page number
-        schema:
-          minimum: 0
-          default: 1
-          type: integer
-        required: false
+        - name: keyword
+          in: query
+          description: Query to match in event title
+          schema:
+            type: string
+          required: true
+        - name: s
+          in: query
+          description: number of events per page (page size)
+          schema:
+            minimum: 1
+            default: 30
+            type: integer
+          required: false
+        - name: p
+          in: query
+          description: page number
+          schema:
+            minimum: 0
+            default: 1
+            type: integer
+          required: false
       responses:
         200:
           description: all events received
@@ -101,7 +101,7 @@ paths:
         - Users
       summary: adds a user
       description: Adds a user to the system
-      operationId: addUser
+      operationId: createUser
       security: []
       requestBody:
         description: User to add
@@ -149,7 +149,7 @@ paths:
         - Groups
       summary: adds a groups
       description: Adds a group to the system
-      operationId: addGroup
+      operationId: createGroup
       security:
         - bearerAuth: []
       parameters:
@@ -181,7 +181,7 @@ paths:
       tags:
         - Groups
       summary: Get a group given its id
-      operationId: getGroupById
+      operationId: getGroupsDetails
       security:
         - bearerAuth: []
       parameters:
@@ -203,7 +203,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Groups"
+                $ref: "#/components/schemas/GroupDetails"
         400:
           $ref: "#/components/responses/400BadRequest"
         404:
@@ -305,7 +305,7 @@ paths:
         404:
           $ref: "#/components/responses/404NotFound"
   /groups/{groupId}/events/{eventsId}:
-    get:
+    delete:
       tags:
         - Groups
       summary: Get an event from all the events in a given group with its ID
@@ -329,11 +329,8 @@ paths:
             minimum: 0
       responses:
         200:
-          description: successful operation
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/GroupEvent"
+          description: "Group successfully deleted"
+          content: {}
         400:
           $ref: "#/components/responses/400BadRequest"
         404:
@@ -349,15 +346,18 @@ components:
         - $ref: "#/components/schemas/Events"
         - type: object
           required:
-            - eventId
+            - name
             - text
           properties:
             id:
               type: integer
               example: 1
-            text:
+            name:
               type: string
               example: "Feira do leitão"
+            description:
+              type: string
+              example: "Feira tradicional do Minho"
     NewUser:
       allOf:
         - $ref: "#/components/schemas/NewUser"
@@ -370,7 +370,7 @@ components:
               type: integer
               example: 1
             username:
-              type: string 
+              type: string
               example: Francisco
     Groups:
       allOf:
@@ -382,6 +382,40 @@ components:
             id:
               type: integer
               example: 1
+    GroupDetails:
+      allOf:
+        - $ref: "#/components/schemas/GroupDetails"
+        - type: object
+          required:
+            - groupId
+            - nameGroup
+            - description
+            - events
+            - nameEvent
+            - date
+          properties:
+            groupId:
+              type: object
+              example:
+                {
+                  nameGroup: "Football events",
+                  description: "This group is only for football events",
+                  events:
+                    [
+                      {
+                        nameEvent: "Benfica x Sporting",
+                        date: 12/11/2023,
+                        segment: "ainda não sei",
+                        genre: Futebol,
+                      },
+                      {
+                        nameEvent: "Oceanário de Lisboa",
+                        date: 04/01/2023,
+                        segment: "ainda não sei",
+                        genre: Família,
+                      },
+                    ],
+                }
     NewGroup:
       required:
         - name
@@ -392,7 +426,7 @@ components:
           type: string
           example: Football events
         description:
-          type: string 
+          type: string
           example: This group is only for football events
     Group:
       allOf:
@@ -404,7 +438,7 @@ components:
             id:
               type: integer
               example: 1
-    NewGroupEvent: 
+    NewGroupEvent:
       allOf:
         - $ref: "#/components/schemas/NewGroupEvent"
         - type: object
@@ -414,32 +448,6 @@ components:
             id:
               type: integer
               example: 1
-    GroupEvent: 
-      allOf:
-        - $ref: "#/components/schemas/GroupEvent"
-        - type: object
-          required:
-            - groupId
-            - nameGroup
-            - description
-            - eventId
-            - nameEvent
-            - date
-            - genre
-          properties:
-            groupId:
-              type: object
-              example: {
-               name: "Football events",
-               description: "This group is only for football events"
-               }
-            eventId:
-              type: object
-              example:  {
-                nameEvent: "Benfica x Sporting",
-                date: 12/11/2023,
-                genre: undefined
-              }
     MissingParameter:
       type: object
       properties:
