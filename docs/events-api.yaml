@@ -313,15 +313,16 @@ paths:
       security:
         - bearerAuth: []
       parameters:
-        - name: eventsId
+        - name: groupId
           in: path
+          description: ID of group that to be fetched
           required: true
           schema:
             type: string
             format: uuid
-        - name: eventsId
+        - name: eventId
           in: path
-          description: ID of group that to be fetched
+          description: ID of event that to be fetched
           required: true
           schema:
             type: integer
@@ -332,7 +333,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Groups"
+                $ref: "#/components/schemas/GroupEvent"
         400:
           $ref: "#/components/responses/400BadRequest"
         404:
@@ -348,7 +349,7 @@ components:
         - $ref: "#/components/schemas/Events"
         - type: object
           required:
-            - id
+            - eventId
             - text
           properties:
             id:
@@ -376,7 +377,7 @@ components:
         - $ref: "#/components/schemas/Groups"
         - type: object
           required:
-            - id
+            - groupId
           properties:
             id:
               type: integer
@@ -398,7 +399,7 @@ components:
         - $ref: "#/components/schemas/NewGroup"
         - type: object
           required:
-            - id
+            - groupId
           properties:
             id:
               type: integer
@@ -408,11 +409,37 @@ components:
         - $ref: "#/components/schemas/NewGroupEvent"
         - type: object
           required:
-            - id
+            - eventId
           properties:
             id:
               type: integer
               example: 1
+    GroupEvent: 
+      allOf:
+        - $ref: "#/components/schemas/GroupEvent"
+        - type: object
+          required:
+            - groupId
+            - nameGroup
+            - description
+            - eventId
+            - nameEvent
+            - date
+            - genre
+          properties:
+            groupId:
+              type: object
+              example: {
+               name: "Football events",
+               description: "This group is only for football events"
+               }
+            eventId:
+              type: object
+              example:  {
+                nameEvent: "Benfica x Sporting",
+                date: 12/11/2023,
+                genre: undefined
+              }
     MissingParameter:
       type: object
       properties:
