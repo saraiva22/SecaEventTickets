@@ -1,0 +1,14 @@
+
+### GET popular events
+GET https://localhost:8080/events/popular
+
+
+### POST new group
+POST http://localhost:8080/groups
+Content-Type: application/json
+
+{
+    "name": "IPW group",
+    "description": "Developing SECA API"
+}
+
