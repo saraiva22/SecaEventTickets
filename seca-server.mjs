@@ -15,21 +15,23 @@ app.use(express.json())
 
 app.get('/events', eventsApi.getShearchedEvents)
 
-app.get('/events/search', eventsApi.getPopularEvents)
+app.get('/events/popular', eventsApi.getPopularEvents)
 
-app.get('/users', usersApi.addUser)
+//app.post('/users', usersApi.addUser)
+
+//app.get('/groups', groupsApi.getAllGroups)
 
 app.post('/groups', groupsApi.createGroup)
 
-app.get('/groups/:groupId', groupsApi.getGroup)
+//app.get('/groups/:groupId', groupsApi.getGroup)
 
-app.get('/groups/:groupId', groupsApi.updateGroup)
+//app.put('/groups/:groupId', groupsApi.updateGroup)
 
-app.get('/groups/:groupId', groupsApi.deleteGroup)
+//app.delete('/groups/:groupId', groupsApi.deleteGroup)
 
-app.get('/groups/:groupId/events', groupsApi.addEventToGroup)
+//app.post('/groups/:groupId/events', groupsApi.addEventToGroup)
 
-app.get('/groups/:groupId/events/:eventsId', groupsApi.deleteEventFromGroup)
+//app.delete('/groups/:groupId/events/:eventsId', groupsApi.deleteEventFromGroup)
 
 app.listen(PORT, () => console.log(`Server listening in http://localhost:${PORT}`))
 

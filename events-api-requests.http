@@ -1,7 +1,9 @@
 
 ### GET popular events
-GET https://localhost:8080/events/popular
+GET http://localhost:8080/events/popular
 
+### GET Search events by name.
+GET http://localhost:8080/events
 
 ### POST new group
 POST http://localhost:8080/groups
