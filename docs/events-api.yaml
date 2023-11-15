@@ -347,7 +347,6 @@ components:
         - type: object
           required:
             - name
-            - text
           properties:
             id:
               type: integer
@@ -355,9 +354,6 @@ components:
             name:
               type: string
               example: "Feira do leitão"
-            description:
-              type: string
-              example: "Feira tradicional do Minho"
     NewUser:
       allOf:
         - $ref: "#/components/schemas/NewUser"
@@ -393,29 +389,44 @@ components:
             - events
             - nameEvent
             - date
+            - segment 
+            - genre
           properties:
             groupId:
-              type: object
-              example:
-                {
-                  nameGroup: "Football events",
-                  description: "This group is only for football events",
-                  events:
-                    [
-                      {
-                        nameEvent: "Benfica x Sporting",
-                        date: 12/11/2023,
-                        segment: "ainda não sei",
-                        genre: Futebol,
-                      },
-                      {
-                        nameEvent: "Oceanário de Lisboa",
-                        date: 04/01/2023,
-                        segment: "ainda não sei",
-                        genre: Família,
-                      },
-                    ],
-                }
+              type: integer
+              example: 1
+            nameGroup: 
+              type: string
+              example: "Football events"
+            description:
+              type: string
+              example: "This group is only for football events"
+            events: 
+              type: array
+            nameEvent:
+              type: integer
+            date: 
+              type: string
+            time: 
+              type: string
+            segment:
+              type: string
+  
+            #    example: [
+            #          {
+            #           nameEvent: "Benfica x Sporting",
+            #           date: 12/11/2023,
+            #            segment: "ainda não sei",
+            #            genre: Futebol,
+            #         },
+            #          {
+            #            nameEvent: "Oceanário de Lisboa",
+            #            date: 04/01/2023,
+            #            segment: "ainda não sei",
+            #            genre: Família,
+            #          },
+            #        ]
+
     NewGroup:
       required:
         - name
