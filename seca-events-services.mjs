@@ -3,6 +3,8 @@ import { readFile, writeFile } from "node:fs/promises";
 const keyCarolina = "HV0SEcncD1AbMPARE2lOJZqdsVg3pXiX";
 //const keyFrancisco = "7SgPqRlqGPcGEgFz5TYT01W1iUZlDFNl";
 
+const POPULAR_EVENTS = new Array()
+
 export async function getPopularEvents(req, rsp) {
   try {
     let result = await fetch(
@@ -10,25 +12,24 @@ export async function getPopularEvents(req, rsp) {
         keyCarolina
     );
     let popularEvents = await result.json();
-    const listEvents = popularEvents["_embedded"]["events"].map((value) => {
-    const classifications = value.classifications[0];
+    let listEvents = await popularEvents["_embedded"]["events"].map((value) => {
+      const classifications = value.classifications[0];
 
-    return {
-        name: value.name,
-        date: value.dates.start.localDate,
-        time: value.dates.start.localTime,
-        segment:
-          classifications != undefined ? classifications.segment.name : undefined,
-        genre: classifications != undefined ? classifications.genre.name : undefined,
-        url: value.url
-      };
+      POPULAR_EVENTS.push({
+          name: value.name,
+          date: value.dates.start.localDate,
+          time: value.dates.start.localTime,
+          segment:
+            classifications != undefined ? classifications.segment.name : undefined,
+          genre: classifications != undefined ? classifications.genre.name : undefined,
+          url: value.url
+      })
     });
-    
-    rsp.status(200).json(listEvents);
+    return POPULAR_EVENTS
   } catch (err) {
-    console.log("Error occurred");
-    console.log(err);
+    console.log("ERRO")
   }
+  return []
 }
 
 export async function getSearchedEvents(req, rsp) {

@@ -1,6 +1,6 @@
 import * as groupServices from './seca-groups-services.mjs'
 
-export function getAllGroups(req, rsp) {
+export function _getAllGroups(req, rsp) {
     const groups = groupServices.getAllGroups(req, rsp)
     rsp.status(200).json(
         {
@@ -10,7 +10,7 @@ export function getAllGroups(req, rsp) {
     )
 }
 
-export function createGroup(req, rsp) {
+export function _createGroup(req, rsp) {
     const group = groupServices.createGroup(req, rsp)
     rsp.status(201).json(
         {
@@ -20,7 +20,7 @@ export function createGroup(req, rsp) {
     )
 }
 
-export function deleteGroup(req, rsp) {
+export function _deleteGroup(req, rsp) {
     const dlt = groupServices.deleteGroup(req, rsp)
     if(!dlt.length) {
         rsp.status(404).json(
