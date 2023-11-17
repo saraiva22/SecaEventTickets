@@ -5,7 +5,10 @@ GET http://localhost:8080/events/popular
 ### GET Search events by name.
 GET http://localhost:8080/events
 
-### POST new group
+### GET All groups
+GET http://localhost:8080/groups
+
+### POST New group
 POST http://localhost:8080/groups
 Content-Type: application/json
 
@@ -13,4 +16,7 @@ Content-Type: application/json
     "name": "IPW group",
     "description": "Developing SECA API"
 }
+
+### DELETE delete group
+DELETE http://localhost:8080/groups/6
 
