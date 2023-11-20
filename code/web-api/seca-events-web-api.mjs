@@ -1,4 +1,4 @@
-import * as eventServices from './seca-events-services.mjs'
+import * as eventServices from '../services/seca-events-services.mjs'
 
 export async function _getPopularEvents(req, rsp) {
     const popularEvents = await eventServices.getPopularEvents(req, rsp)

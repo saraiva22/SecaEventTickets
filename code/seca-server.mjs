@@ -1,8 +1,14 @@
 import cors from "cors";
 import express from "express";
-import * as eventsApi from "./seca-events-web-api.mjs";
-import * as usersApi from "./seca-users-web-api.mjs";
-import * as groupsApi from "./seca-groups-web-api.mjs";
+
+import * as secaData from "./data/local/seca-data-mem.mjs"
+import * as eventsApi from "./web-api/seca-events-web-api.mjs";
+import * as usersApi from "./web-api/seca-users-web-api.mjs";
+import * as groupsApi from "./web-api/seca-groups-web-api.mjs";
+import * as groupsService from "./services/seca-groups-services.mjs"
+
+const secaDataServices = groupsService.default(secaData)    // function de services getAllGroups
+const groupsWebApi = groupsApi.default(secaDataServices)       // function de web api 
 
 const PORT = 8080;
 
@@ -19,15 +25,15 @@ app.get("/events/popular", eventsApi._getPopularEvents);
 
 //app.post('/users', usersApi.addUser)
 
-app.get('/groups', groupsApi._getAllGroups)
+app.get('/groups', groupsWebApi.getAllGroups)
 
-app.post("/groups", groupsApi._createGroup);
+app.post("/groups", groupsWebApi.createGroup);
 
 //app.get('/groups/:groupId', groupsApi.getGroup)
 
 //app.put('/groups/:groupId', groupsApi.updateGroup)
 
-app.delete('/groups/:groupId', groupsApi._deleteGroup)
+app.delete('/groups/:groupId', groupsWebApi.deleteGroup)
 
 //app.post('/groups/:groupId/events', groupsApi.addEventToGroup)
 

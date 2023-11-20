@@ -3,7 +3,7 @@ import { readFile, writeFile } from "node:fs/promises";
 const keyCarolina = "HV0SEcncD1AbMPARE2lOJZqdsVg3pXiX";
 //const keyFrancisco = "7SgPqRlqGPcGEgFz5TYT01W1iUZlDFNl";
 
-const POPULAR_EVENTS = new Array()
+const POPULAR_EVENTS = new Array();
 
 export async function getPopularEvents(req, rsp) {
   try {
@@ -16,20 +16,23 @@ export async function getPopularEvents(req, rsp) {
       const classifications = value.classifications[0];
 
       POPULAR_EVENTS.push({
-          name: value.name,
-          date: value.dates.start.localDate,
-          time: value.dates.start.localTime,
-          segment:
-            classifications != undefined ? classifications.segment.name : undefined,
-          genre: classifications != undefined ? classifications.genre.name : undefined,
-          url: value.url
-      })
+        name: value.name,
+        date: value.dates.start.localDate,
+        time: value.dates.start.localTime,
+        segment:
+          classifications != undefined
+            ? classifications.segment.name
+            : undefined,
+        genre:
+          classifications != undefined ? classifications.genre.name : undefined,
+        url: value.url,
+      });
     });
-    return POPULAR_EVENTS
+    return POPULAR_EVENTS;
   } catch (err) {
-    console.log("ERRO")
+    console.log("ERRO");
   }
-  return []
+  return [];
 }
 
 export async function getSearchedEvents(req, rsp) {

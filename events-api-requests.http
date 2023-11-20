@@ -20,3 +20,5 @@ Content-Type: application/json
 ### DELETE delete group
 DELETE http://localhost:8080/groups/6
 
+### CREATE NEW USER
+POST http://localhost:8080/users

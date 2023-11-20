@@ -378,6 +378,16 @@ components:
             id:
               type: integer
               example: 1
+            name:
+              type: string
+              example: "Jolas à sexta"
+            description:
+              type: string
+              example: "Grupo para marcar uma jola"
+          
+            #id: 
+              #type: integer
+              #example: 2
     GroupDetails:
       allOf:
         - $ref: "#/components/schemas/GroupDetails"
