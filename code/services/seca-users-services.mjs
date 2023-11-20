@@ -1,18 +1,15 @@
+import errors from "../errors.mjs";
 
-const USERS = new Array()
+export default function (secaData) {
+    if(!secaData) {
+        throw errors.INVALID_PARAMETER("SECA DATA")
+    }
 
-let nextIdp = USERS.length+1
+    return {
+        createUser: createUser
+    }
 
-export function addUser(username){
-    if(!USERS.find(u => u.name == username)) {
-        const user = {
-            id: nextIdp++,
-            name: username,
-            token: crypto.randomUUID()
-        }
-
-        USERS.push(user)
-        return true
-    } 
-    return false
+    function createUser(username) {
+        return secaData.createUser(username)
+    }
 }

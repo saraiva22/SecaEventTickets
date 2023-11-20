@@ -3,17 +3,22 @@ import express from "express";
 
 import * as secaTmData from './data/tm-events-data.mjs'
 import * as secaData from "./data/local/seca-data-mem.mjs"
-import * as eventsService from './web-api/seca-events-web-api.mjs'
-import * as eventsApi from "./web-api/seca-events-web-api.mjs";
-import * as usersApi from "./web-api/seca-users-web-api.mjs";
-import * as groupsApi from "./web-api/seca-groups-web-api.mjs";
-import * as groupsService from "./services/seca-groups-services.mjs"
+import * as secaUsersData from './data/local/seca-users-data-mem.mjs'
+import eventsService from './web-api/seca-events-web-api.mjs'
+import eventsApi from "./web-api/seca-events-web-api.mjs";
+import usersService from './services/seca-users-services.mjs'
+import usersApi from "./web-api/seca-users-web-api.mjs";
+import groupsApi from "./web-api/seca-groups-web-api.mjs";
+import groupsService from "./services/seca-groups-services.mjs"
 
-const secaEventsServices = eventsService.default(secaTmData)
-const eventsWebApi = eventsApi.default(secaEventsServices)
+const secaEventsServices = eventsService(secaTmData)
+const eventsWebApi = eventsApi(secaEventsServices)
 
-const secaGroupsServices = groupsService.default(secaData)    // function de services getAllGroups
-const groupsWebApi = groupsApi.default(secaGroupsServices)       // function de web api 
+const secaGroupsServices = groupsService(secaData)   
+const groupsWebApi = groupsApi(secaGroupsServices)     
+
+const secaUsersServices = usersService(secaUsersData)
+const usersWebApi = usersApi(secaUsersServices)
 
 const PORT = 8080;
 
@@ -28,7 +33,7 @@ app.use(express.json());
 
 app.get("/events/popular", eventsWebApi.getPopularEvents);
 
-//app.post('/users', usersApi.addUser)
+app.post('/users', usersWebApi.createUser)
 
 app.get('/groups', groupsWebApi.getAllGroups)
 

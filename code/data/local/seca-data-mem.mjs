@@ -1,11 +1,11 @@
 import errors from "../../errors.mjs";
 
-let groups = [];
+let GROUPS = [];
 
 let nextId = 0;
 
 export function getAllGroups() {
-  return groups;
+  return GROUPS;
 }
 
 export function createGroup(groupName, groupDescription) {
@@ -15,15 +15,15 @@ export function createGroup(groupName, groupDescription) {
     description: groupDescription,
     events: [],
   }
-  groups.push(group)
+  GROUPS.push(group)
   return group;
 }
 
 export function deleteGroup(groupId) {
-  const groupIndex = groups.findIndex(i => i.id == groupId);
+  const groupIndex = GROUPS.findIndex(i => i.id == groupId);
   if (groupIndex != -1) {
-    groups.splice(groupIndex, 1);
-    return groups;
+    GROUPS.splice(groupIndex, 1);
+    return GROUPS;
   }
   throw errors.GROUP_NOT_FOUND;
 }
