@@ -1,3 +1,4 @@
+import errors from "../../errors.mjs";
 
 let groups = [];
 
@@ -24,5 +25,5 @@ export function deleteGroup(groupId) {
     groups.splice(groupIndex, 1);
     return groups;
   }
-  return [];
+  throw errors.GROUP_NOT_FOUND;
 }

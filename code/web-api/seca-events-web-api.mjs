@@ -1,15 +1,29 @@
-import * as eventServices from '../services/seca-events-services.mjs'
+import errors from "../errors.mjs"
 
-export async function _getPopularEvents(req, rsp) {
-    const popularEvents = await eventServices.getPopularEvents(req, rsp)
-    //console.log(popularEvents)
-    if(popularEvents.length != 0) {
-        rsp.status(200).json({
-            status: "Success - Popular Events sent",
-            popularEvents: popularEvents
-        });
+export default function (secaServices) {
+    if(!secaServices) {
+        throw errors.INVALID_PARAMETER("SECA DATA")
     }
-    rsp.status(404).json({
-        status: "Failure"
-    })
+
+    return {
+        getPopularEvents: getPopularEvents
+    }
+
+    async function getPopularEvents(req, rsp) {
+        try {
+            const popular = await secaServices.getPopularEvents()
+            rsp.status(200).json(
+                {
+                    status: "Success - showing the most popular events",
+                    popularEvents: popular
+                }
+            )
+        } catch(err) {
+            rsp.status(400).json(
+                {
+                    status: "Failure - failed to get the most popular events"
+                }
+            )
+        }
+    }
 }

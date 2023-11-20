@@ -1,6 +1,6 @@
 import errors from "../errors.mjs";
 
-export default function groupsApi(secaServices) {
+export default function (secaServices) {
     if(!secaServices) {
         throw errors.INVALID_PARAMETER("SECA DATA")
     }

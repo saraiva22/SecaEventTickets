@@ -1,14 +1,19 @@
 import cors from "cors";
 import express from "express";
 
+import * as secaTmData from './data/tm-events-data.mjs'
 import * as secaData from "./data/local/seca-data-mem.mjs"
+import * as eventsService from './web-api/seca-events-web-api.mjs'
 import * as eventsApi from "./web-api/seca-events-web-api.mjs";
 import * as usersApi from "./web-api/seca-users-web-api.mjs";
 import * as groupsApi from "./web-api/seca-groups-web-api.mjs";
 import * as groupsService from "./services/seca-groups-services.mjs"
 
-const secaDataServices = groupsService.default(secaData)    // function de services getAllGroups
-const groupsWebApi = groupsApi.default(secaDataServices)       // function de web api 
+const secaEventsServices = eventsService.default(secaTmData)
+const eventsWebApi = eventsApi.default(secaEventsServices)
+
+const secaGroupsServices = groupsService.default(secaData)    // function de services getAllGroups
+const groupsWebApi = groupsApi.default(secaGroupsServices)       // function de web api 
 
 const PORT = 8080;
 
@@ -21,7 +26,7 @@ app.use(express.json());
 
 //app.get("/events", eventsApi.getSearchedEvents);
 
-app.get("/events/popular", eventsApi._getPopularEvents);
+app.get("/events/popular", eventsWebApi.getPopularEvents);
 
 //app.post('/users', usersApi.addUser)
 
