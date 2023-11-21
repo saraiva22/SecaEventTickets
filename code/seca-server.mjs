@@ -1,20 +1,23 @@
 import cors from "cors";
 import express from "express";
 
+// DATA IMPORTS
 import * as secaTmData from './data/tm-events-data.mjs'
-import * as secaData from "./data/local/seca-data-mem.mjs"
+import * as secaGroupsData from "./data/local/seca-groups-data-mem.mjs"
 import * as secaUsersData from './data/local/seca-users-data-mem.mjs'
+// SERVICE IMPORTS
 import eventsService from './web-api/seca-events-web-api.mjs'
-import eventsApi from "./web-api/seca-events-web-api.mjs";
 import usersService from './services/seca-users-services.mjs'
+import groupsService from "./services/seca-groups-services.mjs"
+// WEB API IMPORTS
+import eventsApi from "./web-api/seca-events-web-api.mjs";
 import usersApi from "./web-api/seca-users-web-api.mjs";
 import groupsApi from "./web-api/seca-groups-web-api.mjs";
-import groupsService from "./services/seca-groups-services.mjs"
 
 const secaEventsServices = eventsService(secaTmData)
 const eventsWebApi = eventsApi(secaEventsServices)
 
-const secaGroupsServices = groupsService(secaData)   
+const secaGroupsServices = groupsService(secaGroupsData, secaUsersData)   
 const groupsWebApi = groupsApi(secaGroupsServices)     
 
 const secaUsersServices = usersService(secaUsersData)

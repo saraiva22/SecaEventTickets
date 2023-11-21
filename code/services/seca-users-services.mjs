@@ -6,10 +6,15 @@ export default function (secaData) {
     }
 
     return {
-        createUser: createUser
+        createUser: createUser,
+        getUserId: getUserId
     }
 
     function createUser(username) {
         return secaData.createUser(username)
+    }
+
+    function getUserId(token) {
+        return secaData.getUserId(token)
     }
 }

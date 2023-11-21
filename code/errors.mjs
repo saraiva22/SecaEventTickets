@@ -2,7 +2,7 @@ export const ERROR_CODES = {
     INVALID_PARAMETER: 1,
     USER_NOT_FOUND: 2,
     GROUP_NOT_FOUND: 3,
-    NOT_AUTHORIZDED: 4
+    NOT_AUTHORIZED: 4
 }
 
 function Error(code, description) {
@@ -20,7 +20,7 @@ export default {
   GROUP_NOT_FOUND: (idGroup) => {
     return Error(3, `Group not found ${idGroup}`)
   },
-  NOT_AUTHORIZDED: () => {
+  NOT_AUTHORIZED: () => {
     return Error(4, "Not authorized")
   }
 };

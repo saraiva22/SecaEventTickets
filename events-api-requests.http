@@ -1,3 +1,5 @@
+#@token = 14d72b99-48f6-48d3-94d3-5a4dcfd96c81
+@token = 14d72b99-48f6-48d3-94d3-5a4dcfd96c80
 
 ### GET popular events
 GET http://localhost:8080/events/popular
@@ -7,18 +9,24 @@ GET http://localhost:8080/events
 
 ### GET All groups
 GET http://localhost:8080/groups
+Authorization: Bearer {{token}}
 
 ### POST New group
 POST http://localhost:8080/groups
+Authorization: Bearer {{token}}
 Content-Type: application/json
-
 {
     "name": "IPW group",
     "description": "Developing SECA API"
 }
 
 ### DELETE delete group
-DELETE http://localhost:8080/groups/6
+DELETE http://localhost:8080/groups/2
+Authorization: Bearer {{token}}
 
-### CREATE NEW USER
+### POST NEW USER
 POST http://localhost:8080/users
+Content-Type: application/json
+{
+    "username": "Tozé"
+}

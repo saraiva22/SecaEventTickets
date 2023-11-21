@@ -1,4 +1,5 @@
 import errors from "../errors.mjs";
+import errorToHttp from './errors-to-http-responses.mjs'
 
 export default function (secaServices) {
     if(!secaServices) {
@@ -6,13 +7,30 @@ export default function (secaServices) {
     }
 
     return {
-        getAllGroups: getAllGroups,
-        createGroup: createGroup,
-        deleteGroup: deleteGroup
+        getAllGroups: processRequest(getAllGroups),
+        createGroup: processRequest(createGroup),
+        deleteGroup: processRequest(deleteGroup)
     }
 
-    function getAllGroups(req, rsp) {
-        const groups = secaServices.getAllGroups()
+    function processRequest(reqProcessor) {
+        return async function(req, rsp) {
+            const token =  getToken(req)
+            if(!token) {
+                rsp.status(401).json("Not authorized")  
+            }
+            req.token = token
+            try {
+                return await reqProcessor(req, rsp)
+            } catch (e) {
+                const rspError = errorToHttp(e)
+                rsp.status(rspError.status).json(rspError.body)
+            }
+        }
+    }
+
+    async function getAllGroups(req, rsp) {
+        const token = req.token
+        const groups = await secaServices.getAllGroups(token)
         rsp.status(200).json(
             {
                 status: "Success - showing all groups",
@@ -21,8 +39,12 @@ export default function (secaServices) {
         )
     }
 
-    function createGroup(req, rsp) {
-        const group = secaServices.createGroup(req.body.name, req.body.description)
+    async function createGroup(req, rsp) {
+        const name = req.body.name
+        const description = req.body.description
+        const token = req.token
+        const group = await secaServices.createGroup(name, description, token)
+        console.log(1)
         rsp.status(201).json(
             {
                 status: "Success - Added new group sucessfully",
@@ -31,22 +53,31 @@ export default function (secaServices) {
         )
     }
     
-    function deleteGroup(req, rsp) {
+    async function deleteGroup(req, rsp) {
         const idGroup = req.params.groupId
-        const dlt = secaServices.deleteGroup(idGroup)
-        if(!dlt.length) {
+        const token = req.token
+        const dlt = await secaServices.deleteGroup(idGroup, token)
+        if(dlt) {
+            rsp.status(200).json(
+                {
+                    status: `Success - Deleted group ${idGroup} successfully`,
+                    groups: dlt
+                }
+            )
+        } else {
             rsp.status(404).json(
                 {
                     status: `Failure - Failed to delete group ${idGroup}`
                 }
             )
-            return
         }
-        rsp.status(200).json(
-            {
-                status: `Success - Deleted group ${idGroup} successfully`,
-                groups: dlt
-            }
-        )
+    }
+
+    // Auxiliary functions
+    function getToken(req) {
+        const token = req.get("Authorization")
+        if(token) {
+            return token.split(" ")[1]
+        }
     }
 }

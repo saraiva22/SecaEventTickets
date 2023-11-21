@@ -1,4 +1,5 @@
 import crypto from "crypto"
+import errors from "../../errors.mjs";
 
 const USERS = [
     {
@@ -23,10 +24,8 @@ export function createUser(username) {
             token: crypto.randomUUID()
         }
         USERS.push(user)
-        console.log(USERS)
         return true
     } 
-    console.log(USERS)
     return false
 }
 
@@ -36,5 +35,6 @@ export function getUserId(userToken) {
     })
     if(user) {
         return user.id
-    }
+    } 
+    throw errors.USER_NOT_FOUND()
 }
