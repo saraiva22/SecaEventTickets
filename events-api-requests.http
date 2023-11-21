@@ -5,7 +5,7 @@
 GET http://localhost:8080/events/popular
 
 ### GET Search events by name.
-GET http://localhost:8080/events/?keyword="Football"
+GET http://localhost:8080/events/?keyword=Football
 
 ### GET All groups
 GET http://localhost:8080/groups
@@ -30,3 +30,7 @@ Content-Type: application/json
 {
     "username": "Tozé"
 }
+
+### POST NEW EVENTS IN GROUP
+POST http://localhost:8080/groups/2/events/?id=G5v0Z9Yc3zOy3
+Authorization: Bearer {{token}}

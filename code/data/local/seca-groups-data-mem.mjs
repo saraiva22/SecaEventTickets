@@ -1,26 +1,27 @@
+import e from "cors";
 import errors from "../../errors.mjs";
 
-const NUM_GROUPS = 5
+const NUM_GROUPS = 5;
 
-let GROUPS = new Array(NUM_GROUPS)
-                .fill(0).map((v, idx) => { 
-                    return { 
-                        id: idx, 
-                        name: `Group ${idx}`, 
-                        description: `Group ${idx} description`,
-                        userId: idx % 2
-                    }
-                })
+let GROUPS = new Array(NUM_GROUPS).fill(0).map((v, idx) => {
+  return {
+    id: idx,
+    name: `Group ${idx}`,
+    description: `Group ${idx} description`,
+    userId: idx % 2,
+    events: [],
+  };
+});
 
 let nextId = GROUPS.length + 1;
 
 export async function getAllGroups(userId) {
-  return Promise.resolve(GROUPS.filter(t => t.userId == userId))
+  return Promise.resolve(GROUPS.filter((t) => t.userId == userId));
 }
 
 export async function getGroup(groupId) {
-  const groupIdx = getGroupIdx(groupId)
-  return GROUPS[groupIdx]
+  const groupIdx = getGroupIdx(groupId);
+  return GROUPS[groupIdx];
 }
 
 export async function createGroup(newGroup) {
@@ -30,24 +31,37 @@ export async function createGroup(newGroup) {
     description: newGroup.groupDescription,
     userId: newGroup.userId,
     events: [],
-  }
-  GROUPS.push(group)
-  console.log(3)
+  };
+  GROUPS.push(group);
   return group;
 }
 
 export async function deleteGroup(groupId) {
-  const groupIndex = getGroupIdx(groupId)
-  const group = GROUPS[groupIndex]
-  GROUPS.splice(groupIndex, 1)
-  return group
+  try {
+    const groupIndex = getGroupIdx(groupId);
+    const group = GROUPS[groupIndex];
+    GROUPS.splice(groupIndex, 1);
+    return group;
+  } catch (err) {
+    console.log(err)
+  }
 }
+
+export async function addEventToGroup(groupId, event){
+  try{
+    const group = await getGroup(groupId)
+   group.events.push(event)
+   return event
+  }catch(err){
+    console.log(err)
+  }
+}  
 
 // Auxilary functions
 function getGroupIdx(groupId) {
-  const groupIdx = GROUPS.findIndex(i => i.id == groupId);
+  const groupIdx = GROUPS.findIndex((i) => i.id == groupId);
   if (groupIdx != -1) {
-    return groupIdx
+    return groupIdx;
   }
   throw errors.GROUP_NOT_FOUND(groupIdx);
 }

@@ -13,6 +13,12 @@ export async function getSearchedEvents(keyword) {
   );
 }
 
+export async function getEventsById(id){
+  return ProcessRequestFromApi(
+    `https://app.ticketmaster.com/discovery/v2/events/?id=${id}&apikey=${keyFrancisco}`
+  );
+}
+
 async function ProcessRequestFromApi(url) {
   return fetch(url)
     .then((resp) => resp.json())
@@ -25,6 +31,7 @@ function ObjectEvents(apiReq) {
   apiReq["_embedded"]["events"].map((value) => {
     const classifications = value.classifications[0];
     objevents.push({
+      id: value.id,
       name: value.name,
       date: value.dates.start.localDate,
       time: value.dates.start.localTime,

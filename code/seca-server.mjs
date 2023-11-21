@@ -17,7 +17,7 @@ import groupsApi from "./web-api/seca-groups-web-api.mjs";
 const secaEventsServices = eventsService(secaTmData)
 const eventsWebApi = eventsApi(secaEventsServices)
 
-const secaGroupsServices = groupsService(secaGroupsData, secaUsersData)   
+const secaGroupsServices = groupsService(secaEventsServices,secaGroupsData, secaUsersData)   
 const groupsWebApi = groupsApi(secaGroupsServices)     
 
 const secaUsersServices = usersService(secaUsersData)
@@ -42,13 +42,13 @@ app.get('/groups', groupsWebApi.getAllGroups)
 
 app.post("/groups", groupsWebApi.createGroup);
 
-app.get('/groups/:groupId', groupsWebApi.getGroupsDetails)
+//app.get('/groups/:groupId', groupsWebApi.getGroupsDetails)
 
 //app.put('/groups/:groupId', groupsApi.updateGroup)
 
 app.delete('/groups/:groupId', groupsWebApi.deleteGroup)
 
-//app.post('/groups/:groupId/events', groupsApi.addEventToGroup)
+app.post('/groups/:groupId/events', groupsWebApi.addEventToGroup)
 
 //app.delete('/groups/:groupId/events/:eventsId', groupsApi.deleteEventFromGroup)
 
