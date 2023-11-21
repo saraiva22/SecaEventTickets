@@ -5,7 +5,7 @@
 GET http://localhost:8080/events/popular
 
 ### GET Search events by name.
-GET http://localhost:8080/events?keyword=Football
+GET http://localhost:8080/events/?keyword="Football"
 
 ### GET All groups
 GET http://localhost:8080/groups

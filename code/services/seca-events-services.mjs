@@ -15,8 +15,9 @@ export default function (secaTmData) {
   }
 
   async function getSearchedEvents(keyword) {
-    isValidString(keyword);
-    return await secaTmData.getSearchedEventske(keyword);
+    console.log(keyword)
+    isValidString(keyword); /// AQUI VAI DAR EXCEÇãO temos de tratar
+    return await secaTmData.getSearchedEvents(keyword);
   }
 }
 

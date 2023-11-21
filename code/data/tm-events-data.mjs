@@ -7,7 +7,7 @@ export async function getPopularEvents() {
   );
 }
 
-export async function getSearchedEvents(keyword) {
+export async function getSearchedEvents(keyword) {  
   return ProcessRequestFromApi(
     `https://app.ticketmaster.com/discovery/v2/events/?keyword=${keyword}&apikey=${keyFrancisco}`
   );
