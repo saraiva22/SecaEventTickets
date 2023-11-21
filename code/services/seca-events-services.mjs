@@ -8,28 +8,23 @@ export default function (secaTmData) {
   return {
     getPopularEvents: getPopularEvents,
     getSearchedEvents: getSearchedEvents,
-    getEventsById: getEventsById
+    getEventById: getEventById
   };
 
   async function getPopularEvents() {
     return await secaTmData.getPopularEvents();
   }
 
-  async function getEventsById(id) {
-    return await secaTmData.getEventsById(id);
+  async function getEventById(id) {
+    return await secaTmData.getEventById(id);
   }
   async function getSearchedEvents(keyword) {
     isValidString(keyword); /// AQUI VAI DAR EXCEÇãO temos de tratar
     return await secaTmData.getSearchedEvents(keyword);
   }
-
-  as
 }
 
-
-
 // Auxiliary functions
-
 function isValidString(value) {
   return value.constructor == String && value != "";
 }

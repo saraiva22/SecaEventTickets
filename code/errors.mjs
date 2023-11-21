@@ -3,7 +3,8 @@ export const ERROR_CODES = {
     USER_NOT_FOUND: 2,
     GROUP_NOT_FOUND: 3,
     NOT_AUTHORIZED: 4,
-    EVENTS_EXISTING: 5
+    EVENTS_EXISTING: 5,
+    EVENT_NOT_FOUND: 6
 }
 
 function Error(code, description) {
@@ -26,5 +27,8 @@ export default {
   },
   EVENTS_EXISTING: (idEvents) => {
     return Error(5, `Eventns is existing ${idEvents}`)
+  },
+  EVENT_NOT_FOUND: (eventId) => {
+    return Error(6, `Event ${eventId} not found`)
   }
 };

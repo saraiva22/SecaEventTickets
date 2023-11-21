@@ -1,4 +1,3 @@
-import e from "cors";
 import errors from "../../errors.mjs";
 
 const NUM_GROUPS = 5;
@@ -27,12 +26,12 @@ export async function getGroup(groupId) {
 export async function createGroup(newGroup) {
   const group = {
     id: nextId++,
-    name: newGroup.groupName,
-    description: newGroup.groupDescription,
+    name: newGroup.name,
+    description: newGroup.description,
     userId: newGroup.userId,
     events: [],
-  };
-  GROUPS.push(group);
+  }
+  GROUPS.push(group)
   return group;
 }
 
@@ -48,14 +47,26 @@ export async function deleteGroup(groupId) {
 }
 
 export async function addEventToGroup(groupId, event){
-  try{
+  try {
     const group = await getGroup(groupId)
-   group.events.push(event)
-   return event
-  }catch(err){
+    group.events.push(event)
+    return event
+  } catch(err) {
     console.log(err)
   }
 }  
+
+export async function deleteEventFromGroup(groupId, eventId) {
+  try {
+    const groupIndex = getGroupIdx(groupId);
+    const eventIdx = getEventIdx(groupIndex, eventId)
+    const event = GROUPS[groupIndex].events[eventIdx]
+    GROUPS[groupIndex].events.splice(eventIdx, 1)
+    return event
+  } catch(err) {
+    console.log(err)
+  }
+}
 
 // Auxilary functions
 function getGroupIdx(groupId) {
@@ -64,4 +75,12 @@ function getGroupIdx(groupId) {
     return groupIdx;
   }
   throw errors.GROUP_NOT_FOUND(groupIdx);
+}
+
+function getEventIdx(groupIdx, eventId) {
+  const eventIdx = GROUPS[groupIdx].events.findIndex(e => e.id == eventId)
+  if (eventIdx != -1) {
+    return eventIdx;
+  }
+  throw errors.EVENT_NOT_FOUND(groupIdx);
 }

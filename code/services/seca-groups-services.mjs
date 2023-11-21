@@ -1,6 +1,6 @@
 import errors from "../errors.mjs";
 
-export default function (secaEventsServices ,secaGroupsData, secaUsersData) {
+export default function (secaEventsServices, secaGroupsData, secaUsersData) {
   if (!secaGroupsData) {
     throw errors.INVALID_PARAMETER("GROUPS DATA");
   }
@@ -17,6 +17,7 @@ export default function (secaEventsServices ,secaGroupsData, secaUsersData) {
     deleteGroup: deleteGroup,
     // getGroupsDetails: getGroupsDetails
     addEventToGroup: addEventToGroup,
+    deleteEventFromGroup: deleteEventFromGroup
   };
 
   async function getAllGroups(userToken) {
@@ -32,7 +33,6 @@ export default function (secaEventsServices ,secaGroupsData, secaUsersData) {
 
   async function createGroup(groupName, groupDescription, userToken) {
     const userId = await secaUsersData.getUserId(userToken);
-    console.log(2);
     const group = {
       name: groupName,
       description: groupDescription,
@@ -47,17 +47,21 @@ export default function (secaEventsServices ,secaGroupsData, secaUsersData) {
     return await secaGroupsData.deleteGroup(groupId);
   }
 
-
-
   async function addEventToGroup(groupId, idEvents, userToken) {
     const userId = await secaUsersData.getUserId(userToken);
     const group = await getGroup(groupId, userId);
-    const event   = await secaEventsServices.getEventsById(idEvents);
+    const event = await secaEventsServices.getEventById(idEvents);
     if (group.events.findIndex((i) => i.id == idEvents) != -1)
       throw errors.EVENTS_EXISTING("idEvents");
-
-    return await secaGroupsData.addEventToGroup(groupId, event[0]);
+    return await secaGroupsData.addEventToGroup(groupId, event);
   }
+
+  async function deleteEventFromGroup(groupId, eventId, userToken) {
+    const userId = await secaUsersData.getUserId(userToken)
+    const check = await checkEvent(groupId, userId, eventId)
+    return await secaGroupsData.deleteEventFromGroup(groupId, eventId)
+  }
+
   // Auxilry Functions
   async function getGroup(groupId, userId) {
     if (isNaN(Number(groupId))) {
@@ -66,5 +70,13 @@ export default function (secaEventsServices ,secaGroupsData, secaUsersData) {
     const group = await secaGroupsData.getGroup(groupId);
     if (group.userId == userId) return group;
     throw errors.NOT_AUTHORIZED(`User ${userId}`, `Group with id ${groupId}`);
+  }
+
+  async function checkEvent(groupId, userId, eventId) {
+    const group = await getGroup(groupId, userId);
+    const event = await group.events.findIndex((i) => i.id == eventId)
+    if (event == -1)
+      throw errors.EVENTS_EXISTING("idEvents");
+    return event
   }
 }

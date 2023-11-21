@@ -13,8 +13,8 @@ Authorization: Bearer {{token}}
 
 ### POST New group
 POST http://localhost:8080/groups
-Authorization: Bearer {{token}}
 Content-Type: application/json
+Authorization: Bearer {{token}}
 {
     "name": "IPW group",
     "description": "Developing SECA API"
@@ -33,4 +33,8 @@ Content-Type: application/json
 
 ### POST NEW EVENTS IN GROUP
 POST http://localhost:8080/groups/2/events/?id=G5v0Z9Yc3zOy3
+Authorization: Bearer {{token}}
+
+### DELETE EVENT FROM GROUP
+DELETE http://localhost:8080/groups/2/events/G5v0Z9Yc3zOy3
 Authorization: Bearer {{token}}

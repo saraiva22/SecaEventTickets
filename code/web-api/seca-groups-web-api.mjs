@@ -12,6 +12,7 @@ export default function (secaServices) {
     deleteGroup: processRequest(deleteGroup),
     // getGroupsDetails: processRequest(getGroupsDetails),
     addEventToGroup: processRequest(addEventToGroup),
+    deleteEventFromGroup: processRequest(deleteEventFromGroup)
   };
 
   function processRequest(reqProcessor) {
@@ -55,18 +56,15 @@ export default function (secaServices) {
     }
   }
 
-
-
   async function addEventToGroup(req, rsp) {
     const idGroup = req.params.groupId;
     const idEvents = req.query.id
     const token = req.token;
     const group = await secaServices.addEventToGroup(idGroup,idEvents,token);
-    await rsp.status(201).json({
-      status: "Success - Added new gr445555oup sucessfully",
+    rsp.status(201).json({
+      status: `Success - Added new event in group ${idGroup} sucessfully`,
       groups: group,
     });
-    
   }
 
   async function createGroup(req, rsp) {
@@ -96,6 +94,23 @@ export default function (secaServices) {
       });
     }
   }
+
+  async function deleteEventFromGroup(req, rsp) {
+    const idGroup = req.params.groupId
+    const idEvent = req.params.eventsId
+    const token = req.token
+    const dlt = await secaServices.deleteEventFromGroup(idGroup, idEvent, token)
+    if (dlt) {
+        rsp.status(200).json({
+          status: `Success - Deleted event ${idEvent} from group ${idGroup} successfully`,
+          groups: dlt,
+        });
+    } else {
+        rsp.status(404).json({
+          status: `Failure - Failed to delete event ${idEvent} from group ${idGroup}`,
+        });
+    }
+}
 
   // Auxiliary functions
   function getToken(req) {

@@ -50,7 +50,7 @@ app.delete('/groups/:groupId', groupsWebApi.deleteGroup)
 
 app.post('/groups/:groupId/events', groupsWebApi.addEventToGroup)
 
-//app.delete('/groups/:groupId/events/:eventsId', groupsApi.deleteEventFromGroup)
+app.delete('/groups/:groupId/events/:eventsId', groupsWebApi.deleteEventFromGroup)
 
 app.listen(PORT, () =>
   console.log(`Server listening in http://localhost:${PORT}`)
