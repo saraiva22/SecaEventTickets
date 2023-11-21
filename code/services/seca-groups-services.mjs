@@ -11,13 +11,20 @@ export default function (secaGroupsData, secaUsersData) {
     return {
         getAllGroups: getAllGroups,
         createGroup: createGroup,
-        deleteGroup: deleteGroup
+        deleteGroup: deleteGroup,
+        getGroupsDetails: getGroupsDetails
     }
 
     async function getAllGroups(userToken) {
         const userId = await secaUsersData.getUserId(userToken)
         return await secaGroupsData.getAllGroups(userId)
     }
+
+    async function getGroupsDetails(groupId, userToken){
+        const userId = await secaUsersData.getUserId(userToken)
+        //const group = await groupInfo(groupId, userId) 
+    }
+
 
     async function createGroup(groupName, groupDescription, userToken) {
         const userId = await secaUsersData.getUserId(userToken)
@@ -46,5 +53,6 @@ export default function (secaGroupsData, secaUsersData) {
             return group
         throw errors.NOT_AUTHORIZED(`User ${userId}`, `Group with id ${groupId}`)
     }
+
 }
 

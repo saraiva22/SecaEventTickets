@@ -9,7 +9,8 @@ export default function (secaServices) {
     return {
         getAllGroups: processRequest(getAllGroups),
         createGroup: processRequest(createGroup),
-        deleteGroup: processRequest(deleteGroup)
+        deleteGroup: processRequest(deleteGroup),
+        getGroupsDetails: processRequest(getGroupsDetails)
     }
 
     function processRequest(reqProcessor) {
@@ -38,6 +39,27 @@ export default function (secaServices) {
             }
         )
     }
+
+    async function getGroupsDetails(req,rsp){
+        const idGroup = req.params.groupId
+        const token = req.token
+        const groupDetails = await secaServices.getGroupsDetails(idGroup,token)
+        if(groupDetails) {
+            rsp.status(200).json(
+                {
+                    status: `Success - showing details groups`,
+                    groups: groupDetails
+                }
+            )
+        } else {
+            rsp.status(404).json(
+                {
+                    status: `Failure - Failed to showing details group ${idGroup}`
+                }
+            )
+        }
+    }
+
 
     async function createGroup(req, rsp) {
         const name = req.body.name
@@ -72,6 +94,9 @@ export default function (secaServices) {
             )
         }
     }
+
+
+    
 
     // Auxiliary functions
     function getToken(req) {

@@ -6,7 +6,7 @@ import * as secaTmData from './data/tm-events-data.mjs'
 import * as secaGroupsData from "./data/local/seca-groups-data-mem.mjs"
 import * as secaUsersData from './data/local/seca-users-data-mem.mjs'
 // SERVICE IMPORTS
-import eventsService from './web-api/seca-events-web-api.mjs'
+import eventsService from './services/seca-events-services.mjs'
 import usersService from './services/seca-users-services.mjs'
 import groupsService from "./services/seca-groups-services.mjs"
 // WEB API IMPORTS
@@ -32,9 +32,9 @@ let app = express();
 app.use(cors());
 app.use(express.json());
 
-//app.get("/events", eventsApi.getSearchedEvents);
-
 app.get("/events/popular", eventsWebApi.getPopularEvents);
+
+app.get("/events", eventsWebApi.getSearchedEvents);
 
 app.post('/users', usersWebApi.createUser)
 
@@ -42,7 +42,7 @@ app.get('/groups', groupsWebApi.getAllGroups)
 
 app.post("/groups", groupsWebApi.createGroup);
 
-//app.get('/groups/:groupId', groupsApi.getGroup)
+app.get('/groups/:groupId', groupsWebApi.getGroupsDetails)
 
 //app.put('/groups/:groupId', groupsApi.updateGroup)
 
