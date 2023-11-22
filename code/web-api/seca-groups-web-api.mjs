@@ -10,9 +10,10 @@ export default function (secaServices) {
     getAllGroups: processRequest(getAllGroups),
     createGroup: processRequest(createGroup),
     deleteGroup: processRequest(deleteGroup),
-    // getGroupsDetails: processRequest(getGroupsDetails),
+    getGroupsDetails: processRequest(getGroupsDetails),
     addEventToGroup: processRequest(addEventToGroup),
-    deleteEventFromGroup: processRequest(deleteEventFromGroup)
+    deleteEventFromGroup: processRequest(deleteEventFromGroup),
+    updateGroup: processRequest(updateGroup)
   };
 
   function processRequest(reqProcessor) {
@@ -47,7 +48,7 @@ export default function (secaServices) {
     if (groupDetails) {
       rsp.status(200).json({
         status: `Success - showing details groups`,
-        groups: groupDetails,
+        group: groupDetails,
       });
     } else {
       rsp.status(404).json({
@@ -77,6 +78,26 @@ export default function (secaServices) {
       status: "Success - Added new group sucessfully",
       newGroup: group,
     });
+  }
+
+  async function updateGroup(req,rsp){
+    const idGroup = req.params.groupId;
+    const name  = req.body.name;
+    const description = req.body.description;
+    const token = req.token;
+    const update = await secaServices.updateGroup(idGroup,name,description, token)
+    if (update) {
+        rsp.status(200).json({
+          status: `Success - Update group ${idGroup} successfully`,
+          group: update,
+        });
+    } else {
+        rsp.status(404).json({
+          status: `Failure - Failed to update from group ${idGroup}`,
+        });
+    }
+    
+
   }
 
   async function deleteGroup(req, rsp) {

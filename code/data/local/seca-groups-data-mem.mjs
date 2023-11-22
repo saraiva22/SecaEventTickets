@@ -1,3 +1,4 @@
+import { group } from "console";
 import errors from "../../errors.mjs";
 
 const NUM_GROUPS = 5;
@@ -30,8 +31,8 @@ export async function createGroup(newGroup) {
     description: newGroup.description,
     userId: newGroup.userId,
     events: [],
-  }
-  GROUPS.push(group)
+  };
+  GROUPS.push(group);
   return group;
 }
 
@@ -42,29 +43,41 @@ export async function deleteGroup(groupId) {
     GROUPS.splice(groupIndex, 1);
     return group;
   } catch (err) {
-    console.log(err)
+    console.log(err);
   }
 }
 
-export async function addEventToGroup(groupId, event){
+export async function updateGroup(groupId, name, description) {
   try {
-    const group = await getGroup(groupId)
-    group.events.push(event)
-    return event
-  } catch(err) {
-    console.log(err)
+    const groupIndex = getGroupIdx(groupId);
+    const group = GROUPS[groupIndex];
+    group.name = name;
+    group.description = description;
+    return group;
+  } catch (err) {
+    console.log(err);
   }
-}  
+}
+
+export async function addEventToGroup(groupId, event) {
+  try {
+    const group = await getGroup(groupId);
+    group.events.push(event);
+    return event;
+  } catch (err) {
+    console.log(err);
+  }
+}
 
 export async function deleteEventFromGroup(groupId, eventId) {
   try {
     const groupIndex = getGroupIdx(groupId);
-    const eventIdx = getEventIdx(groupIndex, eventId)
-    const event = GROUPS[groupIndex].events[eventIdx]
-    GROUPS[groupIndex].events.splice(eventIdx, 1)
-    return event
-  } catch(err) {
-    console.log(err)
+    const eventIdx = getEventIdx(groupIndex, eventId);
+    const event = GROUPS[groupIndex].events[eventIdx];
+    GROUPS[groupIndex].events.splice(eventIdx, 1);
+    return event;
+  } catch (err) {
+    console.log(err);
   }
 }
 
@@ -78,7 +91,7 @@ function getGroupIdx(groupId) {
 }
 
 function getEventIdx(groupIdx, eventId) {
-  const eventIdx = GROUPS[groupIdx].events.findIndex(e => e.id == eventId)
+  const eventIdx = GROUPS[groupIdx].events.findIndex((e) => e.id == eventId);
   if (eventIdx != -1) {
     return eventIdx;
   }

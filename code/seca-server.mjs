@@ -42,9 +42,9 @@ app.get('/groups', groupsWebApi.getAllGroups)
 
 app.post("/groups", groupsWebApi.createGroup);
 
-//app.get('/groups/:groupId', groupsWebApi.getGroupsDetails)
+app.get('/groups/:groupId', groupsWebApi.getGroupsDetails)
 
-//app.put('/groups/:groupId', groupsApi.updateGroup)
+app.put('/groups/:groupId', groupsWebApi.updateGroup)
 
 app.delete('/groups/:groupId', groupsWebApi.deleteGroup)
 
