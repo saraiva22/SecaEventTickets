@@ -25,6 +25,9 @@ export async function getGroup(groupId) {
 }
 
 export async function createGroup(newGroup) {
+  console.log(newGroup.name);
+  if (existsGroupName(newGroup)) throw errors.EXIST_GROUP_NAME(newGroup.name);
+  console.log("DASDSADA")
   const group = {
     id: nextId++,
     name: newGroup.name,
@@ -88,6 +91,11 @@ function getGroupIdx(groupId) {
     return groupIdx;
   }
   throw errors.GROUP_NOT_FOUND(groupIdx);
+}
+
+function existsGroupName(groupName) {
+  const gName = GROUPS.findIndex((n) => n.name == groupName.name);
+  return gName != -1;
 }
 
 function getEventIdx(groupIdx, eventId) {

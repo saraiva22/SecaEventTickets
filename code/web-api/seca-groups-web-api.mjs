@@ -13,7 +13,7 @@ export default function (secaServices) {
     getGroupsDetails: processRequest(getGroupsDetails),
     addEventToGroup: processRequest(addEventToGroup),
     deleteEventFromGroup: processRequest(deleteEventFromGroup),
-    updateGroup: processRequest(updateGroup)
+    updateGroup: processRequest(updateGroup),
   };
 
   function processRequest(reqProcessor) {
@@ -59,12 +59,12 @@ export default function (secaServices) {
 
   async function addEventToGroup(req, rsp) {
     const idGroup = req.params.groupId;
-    const idEvents = req.query.id
+    const idEvents = req.query.id;
     const token = req.token;
-    const group = await secaServices.addEventToGroup(idGroup,idEvents,token);
+    const group = await secaServices.addEventToGroup(idGroup, idEvents, token);
     rsp.status(201).json({
-      status: `Success - Added new event in group ${idGroup} sucessfully`,
-      groups: group,
+      status: `Success - Added new event (${group.name}) in group ${idGroup} sucessfully`,
+      event: group,
     });
   }
 
@@ -73,31 +73,40 @@ export default function (secaServices) {
     const description = req.body.description;
     const token = req.token;
     const group = await secaServices.createGroup(name, description, token);
-   
-    rsp.status(201).json({
-      status: "Success - Added new group sucessfully",
-      newGroup: group,
-    });
+    console.log(group);
+    if (group != undefined) {
+      rsp.status(201).json({
+        status: "Success - Added new group sucessfully",
+        newGroup: group,
+      });
+    } else {
+      rsp.status(400).json({
+        status: `Failed - Error creating group ${group.name}, a group with that name already exists `,
+      });
+    }
   }
 
-  async function updateGroup(req,rsp){
+  async function updateGroup(req, rsp) {
     const idGroup = req.params.groupId;
-    const name  = req.body.name;
+    const name = req.body.name;
     const description = req.body.description;
     const token = req.token;
-    const update = await secaServices.updateGroup(idGroup,name,description, token)
+    const update = await secaServices.updateGroup(
+      idGroup,
+      name,
+      description,
+      token
+    );
     if (update) {
-        rsp.status(200).json({
-          status: `Success - Update group ${idGroup} successfully`,
-          group: update,
-        });
+      rsp.status(200).json({
+        status: `Success - Update group ${idGroup} successfully`,
+        group: update,
+      });
     } else {
-        rsp.status(404).json({
-          status: `Failure - Failed to update from group ${idGroup}`,
-        });
+      rsp.status(404).json({
+        status: `Failure - Failed to update from group ${idGroup}`,
+      });
     }
-    
-
   }
 
   async function deleteGroup(req, rsp) {
@@ -117,21 +126,25 @@ export default function (secaServices) {
   }
 
   async function deleteEventFromGroup(req, rsp) {
-    const idGroup = req.params.groupId
-    const idEvent = req.params.eventsId
-    const token = req.token
-    const dlt = await secaServices.deleteEventFromGroup(idGroup, idEvent, token)
+    const idGroup = req.params.groupId;
+    const idEvent = req.params.eventsId;
+    const token = req.token;
+    const dlt = await secaServices.deleteEventFromGroup(
+      idGroup,
+      idEvent,
+      token
+    );
     if (dlt) {
-        rsp.status(200).json({
-          status: `Success - Deleted event ${idEvent} from group ${idGroup} successfully`,
-          groups: dlt,
-        });
+      rsp.status(200).json({
+        status: `Success - Deleted event ${idEvent} from group ${idGroup} successfully`,
+        groups: dlt,
+      });
     } else {
-        rsp.status(404).json({
-          status: `Failure - Failed to delete event ${idEvent} from group ${idGroup}`,
-        });
+      rsp.status(404).json({
+        status: `Failure - Failed to delete event ${idEvent} from group ${idGroup}`,
+      });
     }
-}
+  }
 
   // Auxiliary functions
   function getToken(req) {
