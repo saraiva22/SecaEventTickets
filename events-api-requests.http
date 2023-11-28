@@ -1,10 +1,6 @@
 #@token = 14d72b99-48f6-48d3-94d3-5a4dcfd96c81
 @token = 14d72b99-48f6-48d3-94d3-5a4dcfd96c80
 
-
-// New User
-@token1 = 14d72b99-48f6-48d3-94d3-5a4dcfd96c80
- 
 ### GET popular events
 GET http://localhost:8080/events/popular
 
@@ -43,7 +39,7 @@ Authorization: Bearer {{token}}
 ### POST NEW USER
 POST http://localhost:8080/users
 Content-Type: application/json
-Authorization: Bearer {{token1}}
+Authorization: Bearer {{token}}
 
 {
     "username": "Tozé"

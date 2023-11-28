@@ -3,7 +3,7 @@ import errorToHttp from "./errors-to-http-responses.mjs";
 
 export default function (secaServices) {
   if (!secaServices) {
-    throw errors.INVALID_PARAMETER("SECA DATA");
+    throw errors.INVALID_PARAMETER("SECA SERVICES");
   }
 
   return {

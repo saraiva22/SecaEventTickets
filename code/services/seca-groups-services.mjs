@@ -38,11 +38,7 @@ export default function (secaEventsServices, secaGroupsData, secaUsersData) {
       description: groupDescription,
       userId: userId,
     };
-    try {
-      return await secaGroupsData.createGroup(group);
-    } catch (err) {
-      console.log("ERRO");
-    }
+    return await secaGroupsData.createGroup(group);
   }
 
   async function deleteGroup(groupId, userToken) {
@@ -53,7 +49,7 @@ export default function (secaEventsServices, secaGroupsData, secaUsersData) {
 
   async function addEventToGroup(groupId, idEvents, userToken) {
     const userId = await secaUsersData.getUserId(userToken);
-    const group = await getGroup(groupId, userId);
+    //const group = await getGroup(groupId, userId);
     const event = await secaEventsServices.getEventById(idEvents);
     if (group.events.findIndex((i) => i.id == idEvents) != -1)
       throw errors.EVENTS_EXISTING("idEvents");
@@ -62,7 +58,7 @@ export default function (secaEventsServices, secaGroupsData, secaUsersData) {
 
   async function updateGroup(groupId, name, description, userToken) {
     const userId = await secaUsersData.getUserId(userToken);
-    const group = await getGroup(groupId, userId); // só para validar
+    //const group = await getGroup(groupId, userId); // só para validar
     return await secaGroupsData.updateGroup(groupId, name, description);
   }
 
@@ -78,14 +74,16 @@ export default function (secaEventsServices, secaGroupsData, secaUsersData) {
       throw errors.INVALID_ARGUMENT("groupId");
     }
     const group = await secaGroupsData.getGroup(groupId);
-    if (group.userId == userId) return group;
-    throw errors.NOT_AUTHORIZED(`User ${userId}`, `Group with id ${groupId}`);
+    if (group.userId == userId) {
+      return group;
+    }
+    throw errors.NOT_AUTHORIZED();
   }
 
   async function checkEvent(groupId, userId, eventId) {
     const group = await getGroup(groupId, userId);
     const event = await group.events.findIndex((i) => i.id == eventId);
-    if (event == -1) throw errors.EVENTS_EXISTING("idEvents");
+    if (event == -1) throw errors.EVENT_NOT_FOUND(eventId);
     return event;
   }
 }

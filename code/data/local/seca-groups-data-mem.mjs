@@ -1,4 +1,3 @@
-import { group } from "console";
 import errors from "../../errors.mjs";
 
 const NUM_GROUPS = 5;
@@ -19,15 +18,13 @@ export async function getAllGroups(userId) {
   return Promise.resolve(GROUPS.filter((t) => t.userId == userId));
 }
 
+// verificar token do utilizador
 export async function getGroup(groupId) {
   const groupIdx = getGroupIdx(groupId);
   return GROUPS[groupIdx];
 }
 
 export async function createGroup(newGroup) {
-  console.log(newGroup.name);
-  if (existsGroupName(newGroup)) throw errors.EXIST_GROUP_NAME(newGroup.name);
-  console.log("DASDSADA")
   const group = {
     id: nextId++,
     name: newGroup.name,
@@ -40,48 +37,32 @@ export async function createGroup(newGroup) {
 }
 
 export async function deleteGroup(groupId) {
-  try {
-    const groupIndex = getGroupIdx(groupId);
-    const group = GROUPS[groupIndex];
-    GROUPS.splice(groupIndex, 1);
-    return group;
-  } catch (err) {
-    console.log(err);
-  }
+  const groupIndex = getGroupIdx(groupId);
+  const group = GROUPS[groupIndex];
+  GROUPS.splice(groupIndex, 1);
+  return group;
 }
 
 export async function updateGroup(groupId, name, description) {
-  try {
-    const groupIndex = getGroupIdx(groupId);
-    const group = GROUPS[groupIndex];
-    group.name = name;
-    group.description = description;
-    return group;
-  } catch (err) {
-    console.log(err);
-  }
+  const groupIndex = getGroupIdx(groupId);
+  const group = GROUPS[groupIndex];
+  group.name = name;
+  group.description = description;
+  return group;
 }
 
 export async function addEventToGroup(groupId, event) {
-  try {
-    const group = await getGroup(groupId);
-    group.events.push(event);
-    return event;
-  } catch (err) {
-    console.log(err);
-  }
+  const group = await getGroup(groupId);
+  group.events.push(event);
+  return event;
 }
 
 export async function deleteEventFromGroup(groupId, eventId) {
-  try {
-    const groupIndex = getGroupIdx(groupId);
-    const eventIdx = getEventIdx(groupIndex, eventId);
-    const event = GROUPS[groupIndex].events[eventIdx];
-    GROUPS[groupIndex].events.splice(eventIdx, 1);
-    return event;
-  } catch (err) {
-    console.log(err);
-  }
+  const groupIndex = getGroupIdx(groupId);
+  const eventIdx = getEventIdx(groupIndex, eventId);
+  const event = GROUPS[groupIndex].events[eventIdx];
+  GROUPS[groupIndex].events.splice(eventIdx, 1);
+  return event;
 }
 
 // Auxilary functions
@@ -90,12 +71,7 @@ function getGroupIdx(groupId) {
   if (groupIdx != -1) {
     return groupIdx;
   }
-  throw errors.GROUP_NOT_FOUND(groupIdx);
-}
-
-function existsGroupName(groupName) {
-  const gName = GROUPS.findIndex((n) => n.name == groupName.name);
-  return gName != -1;
+  throw errors.GROUP_NOT_FOUND(groupId);
 }
 
 function getEventIdx(groupIdx, eventId) {
