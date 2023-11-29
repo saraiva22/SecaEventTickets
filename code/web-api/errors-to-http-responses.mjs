@@ -18,7 +18,7 @@ export default function (error) {
       return new HttpResponse(404, error);
     case ERROR_CODES.NOT_AUTHORIZED:
       return new HttpResponse(401, error);
-    case ERROR_CODES.EVENTS_EXISTING:
+    case ERROR_CODES.EVENT_EXISTS:
       return new HttpResponse(400, error);
     case ERROR_CODES.EVENT_NOT_FOUND:
       return new HttpResponse(404, error);

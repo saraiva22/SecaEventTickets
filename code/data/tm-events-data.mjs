@@ -16,14 +16,15 @@ export async function getSearchedEvents(keyword,s,p) {
 export async function getEventById(id){
   return ProcessRequestFromApi(
     `https://app.ticketmaster.com/discovery/v2/events/?id=${id}&apikey=${keyFrancisco}`
-  ).then(event => event[0]);
+  ).then(event => event[0])
+   .catch((err) => {undefined});
 }
 
 async function ProcessRequestFromApi(url) {
   return fetch(url)
-    .then((resp) => resp.json())
+    .then((resp) => resp.json() )
     .then((rsp) => ObjectEvents(rsp))
-    .catch((err) => processError(err));
+    .catch((err) => { undefined });
 }
 
 function ObjectEvents(apiReq) {
@@ -45,7 +46,3 @@ function ObjectEvents(apiReq) {
   return objevents;
 }
 
-// tem de ser mexido???
-function processError(err) {
-  console.log(`Error occurred ${err}`);
-}

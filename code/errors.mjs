@@ -26,8 +26,8 @@ export default {
   NOT_AUTHORIZED: () => {
     return new Error(4, "Not authorized");
   },
-  EVENT_EXISTS: (idEvents) => {
-    return new Error(5, `Event with id ${idEvents} already exists`);
+  EVENT_EXISTS: (idEvent) => {
+    return new Error(5, `Event with id ${idEvent} already exists`);
   },
   EVENT_NOT_FOUND: (eventId) => {
     return new Error(6, `Event with id ${eventId} not found`);

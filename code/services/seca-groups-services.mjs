@@ -47,18 +47,18 @@ export default function (secaEventsServices, secaGroupsData, secaUsersData) {
     return await secaGroupsData.deleteGroup(groupId);
   }
 
-  async function addEventToGroup(groupId, idEvents, userToken) {
+  async function addEventToGroup(groupId, idEvent, userToken) {
     const userId = await secaUsersData.getUserId(userToken);
-    //const group = await getGroup(groupId, userId);
-    const event = await secaEventsServices.getEventById(idEvents);
-    if (group.events.findIndex((i) => i.id == idEvents) != -1)
-      throw errors.EVENTS_EXISTING("idEvents");
+    const group = await getGroup(groupId, userId);
+    const event = await secaEventsServices.getEventById(idEvent);
+    if (group.events.findIndex((i) => i.id == idEvent) != -1)
+      throw errors.EVENT_EXISTS(idEvent);
     return await secaGroupsData.addEventToGroup(groupId, event);
   }
 
   async function updateGroup(groupId, name, description, userToken) {
     const userId = await secaUsersData.getUserId(userToken);
-    //const group = await getGroup(groupId, userId); // só para validar
+    const group = await getGroup(groupId, userId);
     return await secaGroupsData.updateGroup(groupId, name, description);
   }
 

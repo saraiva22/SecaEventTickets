@@ -3,7 +3,7 @@ import errorToHttp from "./errors-to-http-responses.mjs";
 
 export default function (secaServices) {
   if (!secaServices) {
-    throw errors.INVALID_PARAMETER("SECA SERIVCES");
+    throw errors.INVALID_PARAMETER("SECA SERVICES");
   }
 
   return {
@@ -46,23 +46,17 @@ export default function (secaServices) {
     const idGroup = req.params.groupId;
     const token = req.token;
     const groupDetails = await secaServices.getGroupsDetails(idGroup, token);
-    if (groupDetails) {
-      rsp.status(200).json({
-        status: `Success - showing details groups`,
-        group: groupDetails,
-      });
-    } else {
-      rsp.status(404).json({
-        status: `Failure - Failed to showing details group ${idGroup}`,
-      });
-    }
+    rsp.status(200).json({
+      status: `Success - showing details groups`,
+      group: groupDetails,
+    });
   }
 
   async function addEventToGroup(req, rsp) {
     const idGroup = req.params.groupId;
-    const idEvents = req.query.id;
+    const idEvent = req.query.id;
     const token = req.token;
-    const group = await secaServices.addEventToGroup(idGroup, idEvents, token);
+    const group = await secaServices.addEventToGroup(idGroup, idEvent, token);
     rsp.status(201).json({
       status: `Success - Added new event (${group.name}) in group ${idGroup} sucessfully`,
       event: group,
@@ -91,16 +85,10 @@ export default function (secaServices) {
       description,
       token
     );
-    if (update) {
-      rsp.status(200).json({
-        status: `Success - Update group ${idGroup} successfully`,
-        group: update,
-      });
-    } else {
-      rsp.status(404).json({
-        status: `Failure - Failed to update from group ${idGroup}`,
-      });
-    }
+    rsp.status(200).json({
+      status: `Success - Update group ${idGroup} successfully`,
+      group: update,
+    });
   }
 
   async function deleteGroup(req, rsp) {
@@ -130,9 +118,18 @@ export default function (secaServices) {
 
   // Auxiliary functions
   function getToken(req) {
-    const token = req.get("Authorization");
-    if (token) {
-      return token.split(" ")[1];
+    const BEARER_STR = "Bearer ";
+    const tokenHeader = req.get("Authorization");
+    if (
+      !(
+        tokenHeader &&
+        tokenHeader.startsWith(BEARER_STR) &&
+        tokenHeader.length > BEARER_STR.length
+      )
+    ) {
+      return null;
     }
+    req.token = tokenHeader.split(" ")[1];
+    return req.token;
   }
 }

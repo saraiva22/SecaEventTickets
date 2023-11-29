@@ -8,19 +8,26 @@ export default function (secaTmData) {
   return {
     getPopularEvents: getPopularEvents,
     getSearchedEvents: getSearchedEvents,
-    getEventById: getEventById
+    getEventById: getEventById,
   };
 
-  async function getPopularEvents(s,p) {
-    return await secaTmData.getPopularEvents(s,p);
+  async function getPopularEvents(s, p) {
+    const getPopular = await secaTmData.getPopularEvents(s, p);
+    if (getPopular) return getPopular;
+    throw errors.INVALID_PARAMETER(`Invalid size = ${s} or page = ${p} `);
   }
 
   async function getEventById(id) {
-    return await secaTmData.getEventById(id);
+    const getEvent = await secaTmData.getEventById(id);
+    if (getEvent) return getEvent;
+    throw errors.EVENT_NOT_FOUND(id);
   }
-  async function getSearchedEvents(keyword,s,p) {
-    isValidString(keyword); /// AQUI VAI DAR EXCEÇãO temos de tratar
-    return await secaTmData.getSearchedEvents(keyword,s,p);
+  async function getSearchedEvents(keyword, s, p) {
+    if (!isValidString(keyword))
+      throw errors.INVALID_PARAMETER(",must be a string");
+    const searchedEvents = await secaTmData.getSearchedEvents(keyword, s, p);
+    if (searchedEvents) return searchedEvents;
+    throw errors.EVENT_NOT_FOUND(`events in ${keyword}`);
   }
 }
 

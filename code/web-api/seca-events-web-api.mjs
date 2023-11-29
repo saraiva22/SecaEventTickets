@@ -1,4 +1,3 @@
-import { userInfo } from "os";
 import errors from "../errors.mjs";
 import errorToHttp from "./errors-to-http-responses.mjs";
 
@@ -11,41 +10,39 @@ export default function (secaServices) {
   }
 
   return {
-    getPopularEvents: getPopularEvents,
-    getSearchedEvents: getSearchedEvents,
+    getPopularEvents: processRequest(getPopularEvents),
+    getSearchedEvents: processRequest(getSearchedEvents),
   };
 
+  function processRequest(reqProcessor) {
+    return async function (req, rsp) {
+      try {
+        return await reqProcessor(req, rsp);
+      } catch (e) {
+        const rspError = errorToHttp(e);
+        rsp.status(rspError.status).json(rspError.body);
+      }
+    };
+  }
+
   async function getPopularEvents(req, rsp) {
-    const s = req.query.s  != undefined ? req.query.s : SIZE;
+    const s = req.query.s != undefined ? req.query.s : SIZE;
     const p = req.query.p != undefined ? req.query.p : PAGE;
-    try {
-      const popular = await secaServices.getPopularEvents(s,p);
-      rsp.status(200).json({
-        status: "Success - showing the most popular events",
-        popularEvents: popular,
-      });
-    } catch (err) {
-      rsp.status(400).json({
-        status: "Failure - failed to get the most popular events",
-      });
-    }
+    const popular = await secaServices.getPopularEvents(s, p);
+    rsp.status(200).json({
+      status: "Success - showing the most popular events",
+      popularEvents: popular,
+    });
   }
 
   async function getSearchedEvents(req, rsp) {
     const keyword = req.query.keyword;
-    const s = req.query.s  != undefined ? req.query.s : SIZE;
+    const s = req.query.s != undefined ? req.query.s : SIZE;
     const p = req.query.p != undefined ? req.query.p : PAGE;
-    try {
-      const events = await secaServices.getSearchedEvents(keyword,s,p);
-      rsp.status(200).json({
-        status: "Sucess - searching for events by name: " + keyword,
-        searchedEvents: events,
-      });
-    } catch (err) {
-      console.log(err);
-      rsp.status(400).json({
-        status: "Failure - failed to get showing the most popular events",
-      });
-    }
+    const events = await secaServices.getSearchedEvents(keyword, s, p);
+    rsp.status(200).json({
+      status: "Sucess - searching for events by name: " + keyword,
+      searchedEvents: events,
+    });
   }
 }
