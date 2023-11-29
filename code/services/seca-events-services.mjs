@@ -11,16 +11,16 @@ export default function (secaTmData) {
     getEventById: getEventById
   };
 
-  async function getPopularEvents() {
-    return await secaTmData.getPopularEvents();
+  async function getPopularEvents(s,p) {
+    return await secaTmData.getPopularEvents(s,p);
   }
 
   async function getEventById(id) {
     return await secaTmData.getEventById(id);
   }
-  async function getSearchedEvents(keyword) {
+  async function getSearchedEvents(keyword,s,p) {
     isValidString(keyword); /// AQUI VAI DAR EXCEÇãO temos de tratar
-    return await secaTmData.getSearchedEvents(keyword);
+    return await secaTmData.getSearchedEvents(keyword,s,p);
   }
 }
 

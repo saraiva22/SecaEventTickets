@@ -1,15 +1,15 @@
 //const keyCarolina = "HV0SEcncD1AbMPARE2lOJZqdsVg3pXiX";
 const keyFrancisco =  "7SgPqRlqGPcGEgFz5TYT01W1iUZlDFNl";
 
-export async function getPopularEvents() {
+export async function getPopularEvents(s,p) {
   return ProcessRequestFromApi(
-    `https://app.ticketmaster.com/discovery/v2/events/?sort=relevance,desc&apikey=${keyFrancisco}`
+    `https://app.ticketmaster.com/discovery/v2/events/?sort=relevance,desc&size=${s}&page=${p}&apikey=${keyFrancisco}`
   );
 }
 
-export async function getSearchedEvents(keyword) {  
+export async function getSearchedEvents(keyword,s,p) {  
   return ProcessRequestFromApi(
-    `https://app.ticketmaster.com/discovery/v2/events/?keyword=${keyword}&apikey=${keyFrancisco}`
+    `https://app.ticketmaster.com/discovery/v2/events/?keyword=${keyword}&size=${s}&page=${p}&apikey=${keyFrancisco}`
   );
 }
 
@@ -29,7 +29,7 @@ async function ProcessRequestFromApi(url) {
 function ObjectEvents(apiReq) {
   let objevents = [];
   apiReq["_embedded"]["events"].map((value) => {
-    const classifications = value.classifications[0];
+    const classifications = value.classifications != undefined ? value.classifications[0] : undefined ;
     objevents.push({
       id: value.id,
       name: value.name,

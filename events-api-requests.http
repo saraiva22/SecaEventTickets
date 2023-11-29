@@ -2,10 +2,10 @@
 @token = 14d72b99-48f6-48d3-94d3-5a4dcfd96c80
 
 ### GET popular events
-GET http://localhost:8080/events/popular
+GET http://localhost:8080/events/popular/?s=45&p=1
 
 ### GET Search events by name.
-GET http://localhost:8080/events/?keyword=Football
+GET http://localhost:8080/events/?keyword=Football&s=6
 
 ### GET All groups
 GET http://localhost:8080/groups
