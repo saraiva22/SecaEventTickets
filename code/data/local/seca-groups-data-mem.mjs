@@ -18,7 +18,6 @@ export async function getAllGroups(userId) {
   return Promise.resolve(GROUPS.filter((t) => t.userId == userId));
 }
 
-// verificar token do utilizador
 export async function getGroup(groupId) {
   const groupIdx = getGroupIdx(groupId);
   return GROUPS[groupIdx];
