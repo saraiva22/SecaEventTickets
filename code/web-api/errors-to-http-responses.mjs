@@ -22,6 +22,8 @@ export default function (error) {
       return new HttpResponse(400, error);
     case ERROR_CODES.EVENT_NOT_FOUND:
       return new HttpResponse(404, error);
+    case ERROR_CODES.USER_EXISTS:
+      return new HttpResponse(400, error);
     default:
       return new HttpResponse(500, "Internal server error");
   }

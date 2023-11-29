@@ -1,4 +1,5 @@
 import errors from "../errors.mjs";
+import errorToHttp from "./errors-to-http-responses.mjs";
 
 export default function (secaServices) {
   if (!secaServices) {
@@ -6,19 +7,25 @@ export default function (secaServices) {
   }
 
   return {
-    createUser: createUser,
+    createUser: processRequest(createUser),
   };
+
+  function processRequest(reqProcessor) {
+    return async function (req, rsp) {
+      try {
+        return await reqProcessor(req, rsp);
+      } catch (e) {
+        const rspError = errorToHttp(e);
+        rsp.status(rspError.status).json(rspError.body);
+      }
+    };
+  }
 
   function createUser(req, rsp) {
     const newUser = secaServices.createUser(req.body.username);
-    if (newUser) {
-      rsp.status(201).json({
-        status: "Success - Added new user sucessfully",
-      });
-    } else {
-      rsp.status(404).json({
-        status: `Failure - Failed to create new user`,
-      });
-    }
+    rsp.status(201).json({
+      status: "Success - Added new user sucessfully",
+      newUser: newUser,
+    });
   }
 }

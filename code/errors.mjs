@@ -5,6 +5,7 @@ export const ERROR_CODES = {
   NOT_AUTHORIZED: 4,
   EVENT_EXISTS: 5,
   EVENT_NOT_FOUND: 6,
+  USER_EXISTS: 7,
 };
 
 function Error(code, description) {
@@ -30,5 +31,8 @@ export default {
   },
   EVENT_NOT_FOUND: (eventId) => {
     return new Error(6, `Event with id ${eventId} not found`);
+  },
+  USER_EXISTS: (username) => {
+    return new Error(7, `User with username ${username} already exists`);
   },
 };

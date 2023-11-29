@@ -21,6 +21,7 @@ export default function (secaServices) {
       const token = getToken(req);
       if (!token) {
         rsp.status(401).json({ error: `Invalid authentication token` });
+        return;
       }
       req.token = token;
       try {

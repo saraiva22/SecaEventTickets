@@ -39,7 +39,6 @@ Authorization: Bearer {{token}}
 ### POST NEW USER
 POST http://localhost:8080/users
 Content-Type: application/json
-Authorization: Bearer {{token}}
 
 {
     "username": "Tozé"
