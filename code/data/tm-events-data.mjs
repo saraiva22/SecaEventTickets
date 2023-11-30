@@ -27,7 +27,7 @@ async function ProcessRequestFromApi(url) {
     .catch((err) => { undefined });
 }
 
-function ObjectEvents(apiReq) {
+export function ObjectEvents(apiReq) {
   let objevents = [];
   apiReq["_embedded"]["events"].map((value) => {
     const classifications = value.classifications != undefined ? value.classifications[0] : undefined ;

@@ -11,6 +11,17 @@ let GROUPS = new Array(NUM_GROUPS).fill(0).map((v, idx) => {
     events: [],
   };
 });
+// GROUPS.filter((g) => g.id == 4 && g.userId == 0).map((g) => g.events.push(
+//   {
+//     "id": "Z7r9jZ1AdJ9uK",
+//     "name": "New Orleans Pelicans vs. Phoenix Suns",
+//     "date": "2024-01-19",
+//     "time": "19:00:00",
+//     "segment": "Sports",
+//     "genre": "Basketball",
+//     "url": "https://www.ticketmaster.com/event/Z7r9jZ1AdJ9uK"
+// }
+// ));
 
 let nextId = GROUPS.length + 1;
 
