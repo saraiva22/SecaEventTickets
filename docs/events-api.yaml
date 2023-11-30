@@ -12,8 +12,6 @@ servers:
   - description: Localhost server for testing API
     url: http://localhost:8080/
 
-security:
-  - bearerAuth: []
 tags:
   - name: Events
   - name: Users
@@ -23,8 +21,8 @@ paths:
     get:
       tags:
         - Events
-      summary: Search events by name.
-      description: Events by name.
+      summary: Search Events
+      description: Search events associated with a keyword
       operationId: getSearchedEvents
       parameters:
         - name: keyword
@@ -33,17 +31,17 @@ paths:
           schema:
             type: string
           required: true
-        - name: s
+        - name: size
           in: query
-          description: number of events per page (page size)
+          description: Number of events per page (page size)
           schema:
             minimum: 1
             default: 30
             type: integer
           required: false
-        - name: p
+        - name: page
           in: query
-          description: page number
+          description: Page Number
           schema:
             minimum: 0
             default: 1
@@ -51,7 +49,7 @@ paths:
           required: false
       responses:
         200:
-          description: all events received
+          description: Related events received
           content:
             application/json:
               schema:
@@ -59,18 +57,19 @@ paths:
                 items:
                 $ref: "#/components/schemas/Events"
         400:
+          description: Missing parameter in query
           $ref: "#/components/responses/400BadRequest"
   /events/popular:
     get:
       tags:
         - Events
-      summary: gets most popular events
-      description: Lists most popular events
+      summary: Get Most Popular Events
+      description: Lists most popular events, according to page number and size
       operationId: getPopularEvents
       parameters:
         - name: s
           in: query
-          description: number of events per page (page size)
+          description: Number of events per page (page size)
           schema:
             minimum: 1
             default: 30
@@ -78,7 +77,7 @@ paths:
           required: false
         - name: p
           in: query
-          description: page number
+          description: Page Number
           schema:
             minimum: 0
             default: 1
@@ -86,7 +85,7 @@ paths:
           required: false
       responses:
         200:
-          description: most popular events received
+          description: Most popular events received
           content:
             application/json:
               schema:
@@ -94,12 +93,13 @@ paths:
                 items:
                   $ref: "#/components/schemas/Events"
         400:
+          description: Invalid parameter
           $ref: "#/components/responses/400BadRequest"
   /users:
     post:
       tags:
         - Users
-      summary: adds a user
+      summary: Add User
       description: Adds a user to the system
       operationId: createUser
       security: []
@@ -112,36 +112,26 @@ paths:
         required: true
       responses:
         201:
-          description: user created
+          description: New user was created
           content:
             application/json:
               schema:
-                required:
-                  - token
-                type: object
-                properties:
-                  token:
-                    type: string
-                    format: uuid
+                $ref: "#/components/schemas/User"
         400:
-          description: Invalid input, object invalid
-          content: {}
+          description: User already exists
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/responses/400UserExists"
   /groups:
     get:
       tags:
         - Groups
-      summary: Gets all groups
+      summary: Gets All Groups
       description: Lists all existing groups
       operationId: getGroups
       security:
-        - bearerAuth: []
-      parameters:
-        - name: Authorization
-          in: header
-          required: true
-          schema:
-            type: string
-            format: uuid
+        - Token: []
       responses:
         200:
           description: Get all groups of user
@@ -150,29 +140,22 @@ paths:
               schema:
                 $ref: "#/components/schemas/Groups"
         404:
-          description: Invalid user 
+          description: Invalid user
           $ref: "#/components/responses/404UserNotFound"
     post:
       tags:
         - Groups
-      summary: Add new group
+      summary: Add New Group
       description: Adds a group to the system
       operationId: createGroup
       security:
-        - bearerAuth: []
-      parameters:
-        - name: Authorization
-          in: header
-          required: true
-          schema:
-            type: string
-            format: uuid
+        - Token: []
       requestBody:
         description: Group to add with name and description
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/NewGroup"
+              $ref: "#/components/schemas/Group"
         required: true
       responses:
         201:
@@ -182,82 +165,128 @@ paths:
               schema:
                 $ref: "#/components/schemas/NewGroup"
         404:
-          description: Invalid user 
+          description: Invalid user
           $ref: "#/components/responses/404UserNotFound"
   /groups/{groupId}:
     get:
       tags:
         - Groups
-      summary: Get a group given its id
+      summary: Get Group
+      description: Get a group by its id
       operationId: getGroupsDetails
       security:
-        - bearerAuth: []
+        - Token: []
       parameters:
-        - name: Authorization
-          in: header
-          schema:
-            type: string
-            format: uuid
         - name: groupId
           in: path
-          description: ID of group that to be fetched
+          description: ID of group to be fetched
           required: true
           schema:
             type: integer
             minimum: 0
       responses:
         200:
-          description: successful operation
+          description: Group exists and belongs to user
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/GroupDetails"
-        400:
-          $ref: "#/components/responses/400BadRequest"
-        #404:
-         # $ref: "#/components/responses/404NotFound"
+        404:
+          description: Invalid User/Invalid Group
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: "#/components/responses/404UserNotFound"
+                  - $ref: "#/components/responses/404GroupNotFound"
+              examples:
+                404UserNotFound:
+                  summary: "User Not Found"
+                  value:
+                    code: 2
+                    error: "User Not Found"
+                404GroupNotFound:
+                  summary: "Group Not Found"
+                  value:
+                    code: 3
+                    error: "Group with id 4 not found"
+        401:
+          description: Group does not belong to user
+          $ref: "#/components/responses/401Unauthorized"
     put:
       tags:
         - Groups
-      summary: updates a group
-      description: Updates a Group in the system
+      summary: Update Group
+      description: Updates name and description of a group
       operationId: updateGroup
       security:
-        - bearerAuth: []
+        - Token: []
       parameters:
-        - name: Authorization
-          in: header
-          required: true
-          schema:
-            type: string
-            format: uuid
         - name: groupId
           in: path
-          description: ID of the group to edit
+          description: ID of group to be updated
           required: true
           schema:
             type: integer
+            minimum: 0
       requestBody:
         description: Group to update
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/NewGroup"
+              $ref: "#/components/schemas/Group"
         required: true
       responses:
         201:
           description: group updated
-          content: {}
-        #404:
-         # $ref: "#/components/responses/404NotFound"
+          content: 
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GroupDetails"
+              example: 
+                status: "SUCESS"
+                group:
+                    groupId: 1
+                    nameGroup: "SECA GROUP"
+                    description: "Developing SECA API"
+                    events: 
+                      - id: Z7r9jZ1AdOvF0
+                        name: Miami Hurricanes Football vs. Ball State Cardinals Football
+                        date: 2024-09-14
+                        segment: Sports
+                        genre: Football
+                        url: https://www.ticketmaster.com/event/Z7r9jZ1AdOvF0
+        401:
+          description: Group does not belong to user
+          $ref: "#/components/responses/401Unauthorized"
+        404:
+          description: Invalid User/Invalid Group
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: "#/components/responses/404UserNotFound"
+                  - $ref: "#/components/responses/404GroupNotFound"
+                  - $ref: "#/components/responses/404EventNotFound"
+              examples:
+                404UserNotFound:
+                  summary: "User Not Found"
+                  value:
+                    code: 2
+                    error: "User Not Found"
+                404GroupNotFound:
+                  summary: "Group Not Found"
+                  value:
+                    code: 3
+                    error: "Group with id 4 not found"
     delete:
       tags:
         - Groups
-      summary: Delete a group by ID
-      description: Delete a group by ID
+      summary: Delete Group
+      description: Delete a group given its ID
       operationId: deleteGroup
       security:
-        - bearerAuth: []
+        - Token: []
       parameters:
         - name: groupId
           in: path
@@ -268,25 +297,61 @@ paths:
       responses:
         200:
           description: "Group successfully deleted"
-          content: {}
-        400:
-          $ref: "#/components/responses/400BadRequest"
-        #404:
-         # $ref: "#/components/responses/404NotFound"
+          content: 
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GroupDetails"
+              example: 
+                status: "SUCESS"
+                group:
+                    groupId: 1
+                    nameGroup: "SECA GROUP"
+                    description: "Developing SECA API"
+                    events: 
+                      - id: Z7r9jZ1AdOvF0
+                        name: Miami Hurricanes Football vs. Ball State Cardinals Football
+                        date: 2024-09-14
+                        segment: Sports
+                        genre: Football
+                        url: https://www.ticketmaster.com/event/Z7r9jZ1AdOvF0
+        401:
+          description: Group does not belong to user
+          $ref: "#/components/responses/401Unauthorized"
+        404:
+          description: Invalid User/Invalid Group
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: "#/components/responses/404UserNotFound"
+                  - $ref: "#/components/responses/404GroupNotFound"
+              examples:
+                404UserNotFound:
+                  summary: "User Not Found"
+                  value:
+                    code: 2
+                    error: "User Not Found"
+                404GroupNotFound:
+                  summary: "Group Not Found"
+                  value:
+                    code: 3
+                    error: "Group with id 4 not found"
   /groups/{groupId}/events:
     post:
       tags:
         - Groups
-      summary: Add an event to a group
+      summary: Add Event To Group
+      description: Adds event to group by id
       operationId: addGroupEvents
       security:
-        - bearerAuth: []
+        - Token: []
       parameters:
-        - name: Authorization
-          in: header
+        - name: eventId
+          in: query
+          required: true
           schema:
             type: string
-            format: uuid
+            minimum: 0
         - name: groupId
           in: path
           description: ID of group that to be fetched
@@ -294,88 +359,196 @@ paths:
           schema:
             type: integer
             minimum: 0
-      requestBody:
-        description: Group to add
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/NewGroupEvent"
-        required: true
       responses:
-        200:
-          description: successful operation
+        201:
+          description: Event added successfully
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/Groups"
+              example:
+                status: "SUCESS"
+                groups:
+                  - id: 2
+                    name: "Grupo 2"
+                    description: "Group 2 description"
+                    userId: 0
+                    events:
+                      - id: vvG1fZ9nSQC9Zk
+                        name: Disney On Ice presents Into the Magic
+                        date: 2024-01-21
+                        time: 15:00:00
+                        segment: Miscellaneous
+                        genre: Ice Shows
+                        url: https://www.ticketmaster.com/disney-on-ice-presents-into-the-indianapolis-indiana-01-21-2024/event/05005EACDA397006
+                      - id: G5vHZ9m35D8BG
+                        name: Depeche Mode
+                        date: 2024-01-29
+                        time: 19:30:00
+                        segment: Music
+                        genre: Rock
+                        url: https://www.ticketmaster.co.uk/depeche-mode-manchester-29-01-2024/event/1F005EE48BED0E8C
+                  - id: 8
+                    name: "Grupo 8"
+                    description: "Group 8 description"
+                    userId: 0
+                    events: 
+                      - id: vvG1bZ9c96xJq-
+                        name: Christmas With Elvis
+                        date: 2023-12-1
+                        time: 19:30:00
+                        segment: Music
+                        genre: Other
+                        url: https://www.ticketmaster.com/christmas-with-elvis-burnsville-minnesota-12-13-2023/event/06005ED5C78A6761
         400:
-          $ref: "#/components/responses/400BadRequest"
-        #404:
-         # $ref: "#/components/responses/404NotFound"
+          description: Event already exists in group
+          $ref: "#/components/responses/400EventExists"
+        401:
+          description: Group does not belong to user
+          $ref: "#/components/responses/401Unauthorized"
+        404:
+          description: Invalid User/Invalid Group/Invalid Event
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: "#/components/responses/404UserNotFound"
+                  - $ref: "#/components/responses/404GroupNotFound"
+                  - $ref: "#/components/responses/404EventNotFound"
+              examples:
+                404UserNotFound:
+                  summary: "User Not Found"
+                  value:
+                    code: 2
+                    error: "User Not Found"
+                404GroupNotFound:
+                  summary: "Group Not Found"
+                  value:
+                    code: 3
+                    error: "Group with id 4 not found"
+                404EventNotFound:
+                  summary: "Event Not Found"
+                  value:
+                    code: 6
+                    error: "Event with id Z7r9jZ1AdJ9 not found"
   /groups/{groupId}/events/{eventsId}:
     delete:
       tags:
         - Groups
-      summary: Get an event from all the events in a given group with its ID
+      summary: Remove Event From Group
+      description: Remove event by its Id from a group by its Id as well
       operationId: getGroupEvent
       security:
-        - bearerAuth: []
+        - Token: []
       parameters:
         - name: groupId
           in: path
           description: ID of group that to be fetched
           required: true
           schema:
-            type: string
-            format: uuid
+            type: integer
+            minimum: 0
         - name: eventId
           in: path
           description: ID of event that to be fetched
           required: true
           schema:
-            type: integer
-            minimum: 0
+            type: string
       responses:
         200:
           description: "Group successfully deleted"
-          content: {}
-        400:
-          $ref: "#/components/responses/400BadRequest"
-        #404:
-          #$ref: "#/components/responses/404NotFound"
+          content: 
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Group"
+              example:
+                status: "SUCESS"
+                groups:
+                  id: Z7r9jZ1AdJ9uK
+                  name: New Orleans Pelicans vs. Phoenix Suns
+                  date: 2024-01-19
+                  time: 19:00:00
+                  segment: Sports
+                  genre: Basketball
+                  url: https://www.ticketmaster.com/event/Z7r9jZ1AdJ9uK
+        401:
+          description: Group does not belong to user
+          $ref: "#/components/responses/401Unauthorized"
+        404:
+          description: Invalid User/Invalid Group/Invalid Event
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: "#/components/responses/404UserNotFound"
+                  - $ref: "#/components/responses/404GroupNotFound"
+                  - $ref: "#/components/responses/404EventNotFound"
+              examples:
+                404UserNotFound:
+                  summary: "User Not Found"
+                  value:
+                    code: 2
+                    error: "User Not Found"
+                404GroupNotFound:
+                  summary: "Group Not Found"
+                  value:
+                    code: 3
+                    error: "Group with id 4 not found"
+                404EventNotFound:
+                  summary: "Event Not Found"
+                  value:
+                    code: 6
+                    error: "Event with id Z7r9jZ1AdJ9 not found"
 components:
   securitySchemes:
-    bearerAuth: # arbitrary name for the security scheme
+    Token:
       type: http
       scheme: bearer
+      bearerFormat: string
   schemas:
     Events:
       allOf:
         - $ref: "#/components/schemas/Events"
-        - type: object
-          required:
-            - name
-          properties:
-            id:
-              type: integer
-              example: 1
-            name:
-              type: string
-              example: "Feira do leitão"
+        - type: array
+          example:
+            - id: G5v0Z9Yc3JYMI
+              name: Phoenix Suns vs. Sacramento Kings
+              date: 2024-02-13
+              time: 20:00:00
+              segment: Sports
+              genre: Basketball
+              url: https://www.ticketmaster.com/phoenix-suns-vs-sacramento-kings-phoenix-arizona-02-13-2024/event/19005F0B529B0DE8
+            - id: G5dIZ9YmSXKWz
+              name: San Antonio Spurs vs. Phoenix Suns
+              date: 2024-03-25
+              time: 19:00:00
+              segment: Sports
+              genre: Basketball
+              url: https://www.ticketmaster.com/san-antonio-spurs-vs-phoenix-suns-san-antonio-texas-03-25-2024/event/3A005F0BB3F93F78
     NewUser:
       allOf:
         - $ref: "#/components/schemas/NewUser"
         - type: object
           required:
-            - id
             - username
           properties:
-            id:
-              type: integer
-              example: 1
             username:
               type: string
-              example: Francisco
+              example: Alberto
+    User:
+      allOf:
+        - $ref: "#/components/schemas/User"
+        - type: object
+          properties:
+            status:
+              type: string
+              example: "SUCESS"
+            newUser:
+              type: object
+              example:
+                - id: 2
+                  name: "Alberto"
+                  token: "d86dc4c0-c3c5-46ec-a489-2ce22608e254"
     Groups:
       allOf:
         - $ref: "#/components/schemas/Groups"
@@ -386,14 +559,14 @@ components:
             status:
               type: string
               example: "SUCESS"
-            groups: 
+            groups:
               type: array
-              example: 
+              example:
                 - id: 2
                   name: "Grupo 2"
                   description: "Group 2 description"
                   userId: 0
-                  events: 
+                  events:
                     - id: vvG1fZ9nSQC9Zk
                       name: Disney On Ice presents Into the Magic
                       date: 2024-01-21
@@ -419,53 +592,24 @@ components:
         - type: object
           required:
             - groupId
-            - nameGroup
-            - description
-            - events
-            - nameEvent
-            - date
-            - segment 
-            - genre
           properties:
-            groupId:
-              type: integer
-              example: 1
-            nameGroup: 
+            status:
               type: string
-              example: "Football events"
-            description:
-              type: string
-              example: "This group is only for football events"
-            events: 
-              type: array
-            nameEvent:
-              type: integer
-            date: 
-              type: string
-            time: 
-              type: string
-            segment:
-              type: string
-  
-            #    example: [
-            #          {
-            #           nameEvent: "Benfica x Sporting",
-            #           date: 12/11/2023,
-            #            segment: "ainda não sei",
-            #            genre: Futebol,
-            #         },
-            #          {
-            #            nameEvent: "Oceanário de Lisboa",
-            #            date: 04/01/2023,
-            #            segment: "ainda não sei",
-            #            genre: Família,
-            #          },
-            #        ]
-
+              example: "SUCESS"
+            group:
+              type: object
+              example:
+                groupId: 1
+                nameGroup: "Football events"
+                description: "This group is only for football events"
+                events: 
+                  - id: Z7r9jZ1AdOvF0
+                    name: Miami Hurricanes Football vs. Ball State Cardinals Football
+                    date: 2024-09-14
+                    segment: Sports
+                    genre: Football
+                    url: https://www.ticketmaster.com/event/Z7r9jZ1AdOvF0
     NewGroup:
-      required:
-        - name
-        - description
       type: object
       properties:
         status:
@@ -473,22 +617,24 @@ components:
           example: SUCCESS
         newGroup:
           type: object
-          example: 
+          example:
             id: 6
             name: "SECA GROUP"
             description: "Developing SECA API"
             userId: 0
             events: []
     Group:
-      allOf:
-        - $ref: "#/components/schemas/NewGroup"
-        - type: object
-          required:
-            - groupId
-          properties:
-            id:
-              type: integer
-              example: 1
+      required:
+        - name
+        - description
+      type: object
+      properties:
+        name:
+          type: string
+          example: "SECA GROUP"
+        description:
+          type: string
+          example: "Developing SECA API"
     NewGroupEvent:
       allOf:
         - $ref: "#/components/schemas/NewGroupEvent"
@@ -512,8 +658,60 @@ components:
           type: string
           example: "Invalid body content"
   responses:
+    400BadRequest:
+      description: "Missing parameter"
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              code: 
+                type: integer
+                example: 1
+              error:
+                type: string
+                example: "Invalid parameter"
+    400EventExists:
+      description: "Event already exists in group"
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                example: 5
+              error:
+                type: string
+                example: "Event with id vvG1fZ9nSQC9Zk already exists`"
+    400UserExists:
+      description: "User already exists"
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              code: 
+                type: integer
+                example: 7
+              error:
+                type: string
+                example: "User with username Carolina already exists"
+    401Unauthorized:
+      description: "Lack of valid token"
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              code: 
+                type: integer
+                example: 4
+              error:
+                type: string
+                example: "Not Authorized"
     404UserNotFound:
-      description: "Resource not found"
+      description: "User not found"
       content:
         application/json:
           schema:
@@ -525,11 +723,29 @@ components:
               error:
                 type: string
                 example: "User Not Found"
-    400BadRequest:
-      description: "Invalid Request because of a missing Parameter or invalid body content"
+    404GroupNotFound:
+      description: "Group not found"
       content:
         application/json:
           schema:
-            oneOf:
-              - $ref: "#/components/schemas/MissingParameter"
-              - $ref: "#/components/schemas/InvalidBody"
+            type: object
+            properties:
+              code:
+                type: integer
+                example: 3
+              error:
+                type: string
+                example: "Group with id 4 not found"
+    404EventNotFound:
+      description: "Event not found"
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                example: 6
+              error:
+                type: string
+                example: "Event with id Z7r9jZ1AdJ9 not found"
