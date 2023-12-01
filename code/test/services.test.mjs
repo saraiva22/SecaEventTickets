@@ -33,10 +33,10 @@ describe("SECA services", function () {
   describe("SECA Tests Events", function () {
     it("should return an object that is not undefined", async function () {
       //Arrange
+      // Act
       const obj = await secaServices.getPopularEvents();
       const obj1 = await secaServices.getEventById();
       const obj2 = await secaServices.getSearchedEvents();
-      // Act
       // Assert
       assert(obj !== undefined);
       assert(obj1 !== undefined);
@@ -45,10 +45,10 @@ describe("SECA services", function () {
 
     it("should return an array with more than 0 items", async function () {
       //Arrange
+      // Act
       const obj = await secaServices.getPopularEvents();
       const obj1 = await secaServices.getEventById();
       const obj2 = await secaServices.getSearchedEvents();
-      // Act
       // Assert
       assert(obj.length > 0);
       assert(obj1.length > 0);
@@ -57,10 +57,10 @@ describe("SECA services", function () {
 
     it("should have the first element with id", async function () {
       //Arrange
+      // Act
       const obj = await secaServices.getPopularEvents();
       const obj1 = await secaServices.getEventById();
       const obj2 = await secaServices.getSearchedEvents();
-      // Act
       // Assert
       assert.deepEqual(obj[0].id, "G5v0Z9Yc3BZyy");
       assert.deepEqual(obj1[0].id, "vvG1zZ9YJwb39L");
@@ -69,10 +69,10 @@ describe("SECA services", function () {
 
     it("should have the first element with name", async function () {
       //Arrange
+      // Act
       const obj = await secaServices.getPopularEvents();
       const obj1 = await secaServices.getEventById();
       const obj2 = await secaServices.getSearchedEvents();
-      // Act
       // Assert
       assert.deepEqual(obj[0].name, "Phoenix Suns vs. Memphis Grizzlies");
       assert.deepEqual(obj1[0].name, "Atlanta Hawks vs. Phoenix Suns");
@@ -82,10 +82,10 @@ describe("SECA services", function () {
 
     it("should have the first element with date", async function () {
       //Arrange
+      // Act
       const obj = await secaServices.getPopularEvents();
       const obj1 = await secaServices.getEventById();
       const obj2 = await secaServices.getSearchedEvents();
-      // Act
       // Assert
       assert.deepEqual(obj[0].date, "2023-12-02");
       assert.deepEqual(obj1[0].date, "2024-02-02");
@@ -94,10 +94,10 @@ describe("SECA services", function () {
 
     it("should have the first element with time", async function () {
       //Arrange
+      // Act
       const obj = await secaServices.getPopularEvents();
       const obj1 = await secaServices.getEventById();
       const obj2 = await secaServices.getSearchedEvents();
-      // Act
       // Assert
       assert.deepEqual(obj[0].time, "19:00:00");
       assert.deepEqual(obj1[0].time, "19:30:00");
@@ -106,10 +106,10 @@ describe("SECA services", function () {
 
     it("should have the first element with segment", async function () {
       //Arrange
+      // Act
       const obj = await secaServices.getPopularEvents();
       const obj1 = await secaServices.getEventById();
       const obj2 = await secaServices.getSearchedEvents();
-      // Act
       // Assert
       assert.deepEqual(obj[0].segment, "Sports");
       assert.deepEqual(obj1[0].segment, "Sports");
@@ -118,10 +118,10 @@ describe("SECA services", function () {
 
     it("should have the first element with genre", async function () {
       //Arrange
+      // Act
       const obj = await secaServices.getPopularEvents();
       const obj1 = await secaServices.getEventById();
       const obj2 = await secaServices.getSearchedEvents();
-      // Act
       // Assert
       assert.deepEqual(obj[0].genre, "Basketball");
       assert.deepEqual(obj1[0].genre, "Basketball");
@@ -130,10 +130,10 @@ describe("SECA services", function () {
 
     it("should have the first element with url", async function () {
       //Arrange
+      // Act
       const obj = await secaServices.getPopularEvents();
       const obj1 = await secaServices.getEventById();
       const obj2 = await secaServices.getSearchedEvents();
-      // Act
       // Assert
       assert.deepEqual(
         obj[0].url,
@@ -148,6 +148,41 @@ describe("SECA services", function () {
         "https://www.ticketmaster.com/oregon-ducks-mens-basketball-vs-ucla-eugene-oregon-12-30-2023/event/0F005F5A8A8B0ED2"
       );
     });
+
+    it("should return undefined since that index does not exist", async function () {
+      //Arrange
+      // Act
+       const group =  await secaServices.getPopularEvents();
+      // Assert
+      assert.deepEqual(group[1000], undefined);
+    });
+
+    it("should only return a few properties since there aren't all of them in that index", async function () {
+      //Arrange
+      const expectedGroup = {
+        id: "Za5ju3rKuqZDvGu-5kUetZHhQ1aKWdDo29",
+        name : "Football  CardsPass",
+        date: "2023-12-01",
+        time: "20:00:00",
+        segment: undefined,
+        genre: undefined,
+        url: undefined
+
+      };
+      // Act
+      const group =  await secaServices.getSearchedEvents();
+      // Assert
+      assert.deepEqual(group[20].id, expectedGroup.id);
+      assert.deepEqual(group[20].name, expectedGroup.name);
+      assert.deepEqual(group[20].date, expectedGroup.date);
+      assert.deepEqual(group[20].time, expectedGroup.time);
+      assert.deepEqual(group[20].segment, expectedGroup.segment);
+      assert.deepEqual(group[20].genre, expectedGroup.genre);
+      assert.deepEqual(group[20].url, expectedGroup.url);
+
+
+    });
+
   });
 
   describe("SECA Tests Groups", function () {
