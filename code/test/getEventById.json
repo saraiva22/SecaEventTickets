@@ -2,102 +2,115 @@
   "_embedded": {
     "events": [
       {
-        "name": "New Orleans Pelicans vs. Phoenix Suns",
+        "name": "Atlanta Hawks vs. Phoenix Suns",
         "type": "event",
-        "id": "Z7r9jZ1AdJ9uK",
+        "id": "vvG1zZ9YJwb39L",
         "test": false,
-        "url": "https://www.ticketmaster.com/event/Z7r9jZ1AdJ9uK",
+        "url": "https://www.ticketmaster.com/atlanta-hawks-vs-phoenix-suns-atlanta-georgia-02-02-2024/event/0E005F09B26125DF",
         "locale": "en-us",
         "images": [
           {
-            "ratio": "16_9",
-            "url": "https://s1.ticketm.net/dam/a/b1c/4be191e2-6357-433c-a421-aa1ffb2e8b1c_1340051_EVENT_DETAIL_PAGE_16_9.jpg",
-            "width": 205,
-            "height": 115,
-            "fallback": false
-          },
-          {
-            "ratio": "16_9",
-            "url": "https://s1.ticketm.net/dam/a/b1c/4be191e2-6357-433c-a421-aa1ffb2e8b1c_1340051_RETINA_PORTRAIT_16_9.jpg",
-            "width": 640,
-            "height": 360,
-            "fallback": false
-          },
-          {
             "ratio": "3_2",
-            "url": "https://s1.ticketm.net/dam/a/b1c/4be191e2-6357-433c-a421-aa1ffb2e8b1c_1340051_TABLET_LANDSCAPE_3_2.jpg",
+            "url": "https://s1.ticketm.net/dam/a/ae2/5beb62d8-2c29-4c5c-aa7d-c7513e229ae2_1340121_TABLET_LANDSCAPE_3_2.jpg",
             "width": 1024,
             "height": 683,
             "fallback": false
           },
           {
-            "ratio": "3_2",
-            "url": "https://s1.ticketm.net/dam/a/b1c/4be191e2-6357-433c-a421-aa1ffb2e8b1c_1340051_ARTIST_PAGE_3_2.jpg",
-            "width": 305,
-            "height": 203,
-            "fallback": false
-          },
-          {
             "ratio": "16_9",
-            "url": "https://s1.ticketm.net/dam/a/b1c/4be191e2-6357-433c-a421-aa1ffb2e8b1c_1340051_TABLET_LANDSCAPE_LARGE_16_9.jpg",
-            "width": 2048,
-            "height": 1152,
-            "fallback": false
-          },
-          {
-            "ratio": "16_9",
-            "url": "https://s1.ticketm.net/dam/a/b1c/4be191e2-6357-433c-a421-aa1ffb2e8b1c_1340051_RECOMENDATION_16_9.jpg",
-            "width": 100,
-            "height": 56,
-            "fallback": false
-          },
-          {
-            "ratio": "16_9",
-            "url": "https://s1.ticketm.net/dam/a/b1c/4be191e2-6357-433c-a421-aa1ffb2e8b1c_1340051_TABLET_LANDSCAPE_16_9.jpg",
+            "url": "https://s1.ticketm.net/dam/a/ae2/5beb62d8-2c29-4c5c-aa7d-c7513e229ae2_1340121_TABLET_LANDSCAPE_16_9.jpg",
             "width": 1024,
             "height": 576,
             "fallback": false
           },
           {
             "ratio": "16_9",
-            "url": "https://s1.ticketm.net/dam/a/b1c/4be191e2-6357-433c-a421-aa1ffb2e8b1c_1340051_RETINA_LANDSCAPE_16_9.jpg",
+            "url": "https://s1.ticketm.net/dam/a/ae2/5beb62d8-2c29-4c5c-aa7d-c7513e229ae2_1340121_RETINA_LANDSCAPE_16_9.jpg",
             "width": 1136,
             "height": 639,
             "fallback": false
           },
           {
+            "ratio": "16_9",
+            "url": "https://s1.ticketm.net/dam/a/ae2/5beb62d8-2c29-4c5c-aa7d-c7513e229ae2_1340121_RETINA_PORTRAIT_16_9.jpg",
+            "width": 640,
+            "height": 360,
+            "fallback": false
+          },
+          {
+            "ratio": "3_2",
+            "url": "https://s1.ticketm.net/dam/a/ae2/5beb62d8-2c29-4c5c-aa7d-c7513e229ae2_1340121_ARTIST_PAGE_3_2.jpg",
+            "width": 305,
+            "height": 203,
+            "fallback": false
+          },
+          {
+            "ratio": "16_9",
+            "url": "https://s1.ticketm.net/dam/a/ae2/5beb62d8-2c29-4c5c-aa7d-c7513e229ae2_1340121_TABLET_LANDSCAPE_LARGE_16_9.jpg",
+            "width": 2048,
+            "height": 1152,
+            "fallback": false
+          },
+          {
             "ratio": "4_3",
-            "url": "https://s1.ticketm.net/dam/a/b1c/4be191e2-6357-433c-a421-aa1ffb2e8b1c_1340051_CUSTOM.jpg",
+            "url": "https://s1.ticketm.net/dam/a/ae2/5beb62d8-2c29-4c5c-aa7d-c7513e229ae2_1340121_CUSTOM.jpg",
             "width": 305,
             "height": 225,
             "fallback": false
           },
           {
+            "ratio": "16_9",
+            "url": "https://s1.ticketm.net/dam/a/ae2/5beb62d8-2c29-4c5c-aa7d-c7513e229ae2_1340121_EVENT_DETAIL_PAGE_16_9.jpg",
+            "width": 205,
+            "height": 115,
+            "fallback": false
+          },
+          {
             "ratio": "3_2",
-            "url": "https://s1.ticketm.net/dam/a/b1c/4be191e2-6357-433c-a421-aa1ffb2e8b1c_1340051_RETINA_PORTRAIT_3_2.jpg",
+            "url": "https://s1.ticketm.net/dam/a/ae2/5beb62d8-2c29-4c5c-aa7d-c7513e229ae2_1340121_RETINA_PORTRAIT_3_2.jpg",
             "width": 640,
             "height": 427,
+            "fallback": false
+          },
+          {
+            "ratio": "16_9",
+            "url": "https://s1.ticketm.net/dam/a/ae2/5beb62d8-2c29-4c5c-aa7d-c7513e229ae2_1340121_RECOMENDATION_16_9.jpg",
+            "width": 100,
+            "height": 56,
             "fallback": false
           }
         ],
         "sales": {
           "public": {
-            "startDateTime": "1900-01-01T18:00:00Z",
+            "startDateTime": "2023-08-28T14:00:00Z",
             "startTBD": false,
             "startTBA": false,
-            "endDateTime": "2024-01-20T01:00:00Z"
-          }
+            "endDateTime": "2024-02-03T01:30:00Z"
+          },
+          "presales": [
+            {
+              "startDateTime": "2023-08-24T15:00:00Z",
+              "endDateTime": "2023-08-28T03:59:00Z",
+              "name": "Chase Presale"
+            },
+            {
+              "startDateTime": "2023-08-24T16:00:00Z",
+              "endDateTime": "2023-08-28T03:59:00Z",
+              "name": "Hawks Presale"
+            }
+          ]
         },
         "dates": {
           "start": {
-            "localDate": "2024-01-19",
-            "localTime": "19:00:00",
-            "dateTime": "2024-01-20T01:00:00Z",
+            "localDate": "2024-02-02",
+            "localTime": "19:30:00",
+            "dateTime": "2024-02-03T00:30:00Z",
             "dateTBD": false,
             "dateTBA": false,
             "timeTBA": false,
             "noSpecificTime": false
           },
+          "timezone": "America/New_York",
           "status": {
             "code": "onsale"
           },
@@ -118,30 +131,96 @@
               "id": "KZazBEonSMnZfZ7vFJA",
               "name": "NBA"
             },
+            "type": {
+              "id": "KZAyXgnZfZ7v7l1",
+              "name": "Group"
+            },
+            "subType": {
+              "id": "KZFzBErXgnZfZ7vA7d",
+              "name": "Team"
+            },
             "family": false
           }
         ],
-        "outlets": [
+        "promoter": {
+          "id": "695",
+          "name": "NBA REGULAR SEASON",
+          "description": "NBA REGULAR SEASON / NTL / USA"
+        },
+        "promoters": [
           {
-            "url": "https://www.ticketmaster.com/new-orleans-pelicans-vs-phoenix-suns-new-orleans-louisiana-01-19-2024/event/Zu0FM1R0e5tf1B4",
-            "type": "tmMarketPlace"
+            "id": "695",
+            "name": "NBA REGULAR SEASON",
+            "description": "NBA REGULAR SEASON / NTL / USA"
+          }
+        ],
+        "priceRanges": [
+          {
+            "type": "standard",
+            "currency": "USD",
+            "min": 59.0,
+            "max": 981.0
+          }
+        ],
+        "products": [
+          {
+            "name": "State Farm Arena Parking Hawks vs. Phoenix Suns",
+            "id": "vvG1zZ9YEvq3H7",
+            "url": "https://www.ticketmaster.com/state-farm-arena-parking-hawks-vs-atlanta-georgia-02-02-2024/event/0E005F09C1752F04",
+            "type": "Parking",
+            "classifications": [
+              {
+                "primary": true,
+                "segment": {
+                  "id": "KZFzniwnSyZfZ7v7n1",
+                  "name": "Miscellaneous"
+                },
+                "genre": {
+                  "id": "KnvZfZ7v7ll",
+                  "name": "Undefined"
+                },
+                "subGenre": {
+                  "id": "KZazBEonSMnZfZ7vAv1",
+                  "name": "Undefined"
+                },
+                "type": {
+                  "id": "KZAyXgnZfZ7vAva",
+                  "name": "Parking"
+                },
+                "subType": {
+                  "id": "KZFzBErXgnZfZ7vAFe",
+                  "name": "Regular"
+                },
+                "family": false
+              }
+            ]
           }
         ],
         "seatmap": {
-          "staticUrl": "https://content.resale.ticketmaster.com/graphics/TMResale/1/VenueMaps/1191-153-3-0-SmoothieKingCenterNOPelicans79303.png"
+          "staticUrl": "https://maps.ticketmaster.com/maps/geometry/3/event/0E005F09B26125DF/staticImage?type=png&systemId=HOST"
+        },
+        "accessibility": {},
+        "ticketLimit": {
+          "info": "There is an overall 6 ticket limit for this event."
+        },
+        "ageRestrictions": {
+          "legalAgeEnforced": false
         },
         "ticketing": {
+          "safeTix": {
+            "enabled": true
+          },
           "allInclusivePricing": {
             "enabled": false
           }
         },
         "_links": {
           "self": {
-            "href": "/discovery/v2/events/Z7r9jZ1AdJ9uK?locale=en-us"
+            "href": "/discovery/v2/events/vvG1zZ9YJwb39L?locale=en-us"
           },
           "attractions": [
             {
-              "href": "/discovery/v2/attractions/K8vZ9171oaV?locale=en-us"
+              "href": "/discovery/v2/attractions/K8vZ91718XV?locale=en-us"
             },
             {
               "href": "/discovery/v2/attractions/K8vZ9171oZf?locale=en-us"
@@ -149,160 +228,213 @@
           ],
           "venues": [
             {
-              "href": "/discovery/v2/venues/ZFr9jZee1e?locale=en-us"
+              "href": "/discovery/v2/venues/KovZpa2Xke?locale=en-us"
             }
           ]
         },
         "_embedded": {
           "venues": [
             {
-              "name": "Smoothie King Center",
+              "name": "State Farm Arena",
               "type": "venue",
-              "id": "ZFr9jZee1e",
+              "id": "KovZpa2Xke",
               "test": false,
+              "url": "https://www.ticketmaster.com/state-farm-arena-tickets-atlanta/venue/114689",
               "locale": "en-us",
-              "postalCode": "70113",
-              "timezone": "America/Chicago",
+              "aliases": ["phillips areana", "philips arena", "phillips arena"],
+              "images": [
+                {
+                  "ratio": "16_9",
+                  "url": "https://s1.ticketm.net/dbimages/22348v.jpg",
+                  "width": 450,
+                  "height": 255,
+                  "fallback": false
+                }
+              ],
+              "postalCode": "30303",
+              "timezone": "America/New_York",
               "city": {
-                "name": "New Orleans"
+                "name": "Atlanta"
               },
               "state": {
-                "name": "Louisiana",
-                "stateCode": "LA"
+                "name": "Georgia",
+                "stateCode": "GA"
               },
               "country": {
                 "name": "United States Of America",
                 "countryCode": "US"
               },
               "address": {
-                "line1": "1501 Dave Dixon Drive"
+                "line1": "One State Farm Drive"
               },
               "location": {
-                "longitude": "-90.082802",
-                "latitude": "29.9429"
+                "longitude": "-84.394569",
+                "latitude": "33.757796"
               },
-              "dmas": [
+              "markets": [
                 {
-                  "id": 344
+                  "name": "Atlanta",
+                  "id": "10"
+                },
+                {
+                  "name": "All of US",
+                  "id": "51"
                 }
               ],
+              "dmas": [
+                {
+                  "id": 200
+                },
+                {
+                  "id": 220
+                },
+                {
+                  "id": 221
+                },
+                {
+                  "id": 258
+                },
+                {
+                  "id": 327
+                },
+                {
+                  "id": 384
+                }
+              ],
+              "social": {
+                "twitter": {
+                  "handle": "@statefarmarena"
+                }
+              },
+              "boxOfficeInfo": {
+                "phoneNumberDetail": "404-878-3000 - State Farm Arena Box Office 1-866-715-1500 - Atlanta Hawks",
+                "openHoursDetail": "The Box Office is open on event days and for the first day of all on-sales. (Hours will vary based upon the events and time of on-sales).",
+                "acceptedPaymentDetail": "Accepts: cash, Visa, Mastercard, Discover, American Express",
+                "willCallDetail": "Located at main box office on Centennial Olympic Park Drive. Available for pickup beginning 1 1/2 hours prior to event. Closing time will vary by event. PLEASE BRING A PICTURE ID, THE ACTUAL CREDIT CARD USED TO PURCHASE THE TICKETS, AND YOUR ORDER NUMBER."
+              },
+              "parkingDetail": "Parking is available in various lots around State Farm Arena including Centennial Garage and the CNN Deck located on Centennial Olympic Park Drive across from the arena. Both lots may be entered from Centennial Olympic Park Drive or Spring Street. Accessible parking is available in both lots. Price varies by event. The Philips Lot, located beneath the CNN Parking lot area, directly across from State Farm Arena, is adjacent to “The Gulch” and can be entered from the downward ramp on Centennial Olympic Park Drive.",
+              "accessibleSeatingDetail": "Accessible seating is available in throughout the arena in various price categories. Seating for the sight/hearing impaired available in the lower level. All accessible seating is subject to availability. All levels of the Arena are accessible by elevator and escalator.",
+              "generalInfo": {
+                "generalRule": "No smoking inside arena. No glass bottles, aluminum cans, coolers, thermoses, outside food, or alcoholic beverages No banners or laser pointers. No Backpacks.",
+                "childRule": "For most events, everyone two and older must have a ticket. For Sesame Street Live, children one and older must have a ticket. Please see the ticket information for each event."
+              },
               "upcomingEvents": {
-                "tmr": 30,
-                "ticketmaster": 23,
-                "_total": 53,
+                "ticketmaster": 72,
+                "_total": 72,
                 "_filtered": 0
               },
               "_links": {
                 "self": {
-                  "href": "/discovery/v2/venues/ZFr9jZee1e?locale=en-us"
+                  "href": "/discovery/v2/venues/KovZpa2Xke?locale=en-us"
                 }
               }
             }
           ],
           "attractions": [
             {
-              "name": "New Orleans Pelicans",
+              "name": "Atlanta Hawks",
               "type": "attraction",
-              "id": "K8vZ9171oaV",
+              "id": "K8vZ91718XV",
               "test": false,
-              "url": "https://www.ticketmaster.com/new-orleans-pelicans-tickets/artist/805910",
+              "url": "https://www.ticketmaster.com/atlanta-hawks-tickets/artist/805898",
               "locale": "en-us",
               "externalLinks": {
                 "twitter": [
                   {
-                    "url": "http://www.twitter.com/pelicansnba"
-                  }
-                ],
-                "wiki": [
-                  {
-                    "url": "https://en.wikipedia.org/wiki/New_Orleans_Pelicans"
+                    "url": "https://twitter.com/atlhawks"
                   }
                 ],
                 "facebook": [
                   {
-                    "url": "http://www.facebook.com/pelicansnba"
+                    "url": "https://www.facebook.com/hawks"
+                  }
+                ],
+                "wiki": [
+                  {
+                    "url": "https://en.wikipedia.org/wiki/Atlanta_Hawks"
                   }
                 ],
                 "instagram": [
                   {
-                    "url": "http://www.instagram.com/pelicansnba"
+                    "url": "https://www.instagram.com/atlhawks"
                   }
                 ],
                 "homepage": [
                   {
-                    "url": "https://www.nba.com/pelicans/"
+                    "url": "https://www.nba.com/hawks/"
                   }
                 ]
               },
+              "aliases": ["alenta hawks", "atlanta hawks"],
               "images": [
                 {
-                  "ratio": "16_9",
-                  "url": "https://s1.ticketm.net/dam/a/b1c/4be191e2-6357-433c-a421-aa1ffb2e8b1c_1340051_EVENT_DETAIL_PAGE_16_9.jpg",
-                  "width": 205,
-                  "height": 115,
-                  "fallback": false
-                },
-                {
-                  "ratio": "16_9",
-                  "url": "https://s1.ticketm.net/dam/a/b1c/4be191e2-6357-433c-a421-aa1ffb2e8b1c_1340051_TABLET_LANDSCAPE_LARGE_16_9.jpg",
-                  "width": 2048,
-                  "height": 1152,
-                  "fallback": false
-                },
-                {
-                  "ratio": "16_9",
-                  "url": "https://s1.ticketm.net/dam/a/b1c/4be191e2-6357-433c-a421-aa1ffb2e8b1c_1340051_RETINA_PORTRAIT_16_9.jpg",
-                  "width": 640,
-                  "height": 360,
-                  "fallback": false
-                },
-                {
-                  "ratio": "16_9",
-                  "url": "https://s1.ticketm.net/dam/a/b1c/4be191e2-6357-433c-a421-aa1ffb2e8b1c_1340051_RECOMENDATION_16_9.jpg",
-                  "width": 100,
-                  "height": 56,
-                  "fallback": false
-                },
-                {
                   "ratio": "3_2",
-                  "url": "https://s1.ticketm.net/dam/a/b1c/4be191e2-6357-433c-a421-aa1ffb2e8b1c_1340051_TABLET_LANDSCAPE_3_2.jpg",
+                  "url": "https://s1.ticketm.net/dam/a/ae2/5beb62d8-2c29-4c5c-aa7d-c7513e229ae2_1340121_TABLET_LANDSCAPE_3_2.jpg",
                   "width": 1024,
                   "height": 683,
                   "fallback": false
                 },
                 {
                   "ratio": "16_9",
-                  "url": "https://s1.ticketm.net/dam/a/b1c/4be191e2-6357-433c-a421-aa1ffb2e8b1c_1340051_TABLET_LANDSCAPE_16_9.jpg",
+                  "url": "https://s1.ticketm.net/dam/a/ae2/5beb62d8-2c29-4c5c-aa7d-c7513e229ae2_1340121_TABLET_LANDSCAPE_16_9.jpg",
                   "width": 1024,
                   "height": 576,
                   "fallback": false
                 },
                 {
+                  "ratio": "16_9",
+                  "url": "https://s1.ticketm.net/dam/a/ae2/5beb62d8-2c29-4c5c-aa7d-c7513e229ae2_1340121_RETINA_LANDSCAPE_16_9.jpg",
+                  "width": 1136,
+                  "height": 639,
+                  "fallback": false
+                },
+                {
                   "ratio": "3_2",
-                  "url": "https://s1.ticketm.net/dam/a/b1c/4be191e2-6357-433c-a421-aa1ffb2e8b1c_1340051_ARTIST_PAGE_3_2.jpg",
+                  "url": "https://s1.ticketm.net/dam/a/ae2/5beb62d8-2c29-4c5c-aa7d-c7513e229ae2_1340121_RETINA_PORTRAIT_3_2.jpg",
+                  "width": 640,
+                  "height": 427,
+                  "fallback": false
+                },
+                {
+                  "ratio": "16_9",
+                  "url": "https://s1.ticketm.net/dam/a/ae2/5beb62d8-2c29-4c5c-aa7d-c7513e229ae2_1340121_RETINA_PORTRAIT_16_9.jpg",
+                  "width": 640,
+                  "height": 360,
+                  "fallback": false
+                },
+                {
+                  "ratio": "3_2",
+                  "url": "https://s1.ticketm.net/dam/a/ae2/5beb62d8-2c29-4c5c-aa7d-c7513e229ae2_1340121_ARTIST_PAGE_3_2.jpg",
                   "width": 305,
                   "height": 203,
                   "fallback": false
                 },
                 {
                   "ratio": "16_9",
-                  "url": "https://s1.ticketm.net/dam/a/b1c/4be191e2-6357-433c-a421-aa1ffb2e8b1c_1340051_RETINA_LANDSCAPE_16_9.jpg",
-                  "width": 1136,
-                  "height": 639,
+                  "url": "https://s1.ticketm.net/dam/a/ae2/5beb62d8-2c29-4c5c-aa7d-c7513e229ae2_1340121_RECOMENDATION_16_9.jpg",
+                  "width": 100,
+                  "height": 56,
+                  "fallback": false
+                },
+                {
+                  "ratio": "16_9",
+                  "url": "https://s1.ticketm.net/dam/a/ae2/5beb62d8-2c29-4c5c-aa7d-c7513e229ae2_1340121_TABLET_LANDSCAPE_LARGE_16_9.jpg",
+                  "width": 2048,
+                  "height": 1152,
                   "fallback": false
                 },
                 {
                   "ratio": "4_3",
-                  "url": "https://s1.ticketm.net/dam/a/b1c/4be191e2-6357-433c-a421-aa1ffb2e8b1c_1340051_CUSTOM.jpg",
+                  "url": "https://s1.ticketm.net/dam/a/ae2/5beb62d8-2c29-4c5c-aa7d-c7513e229ae2_1340121_CUSTOM.jpg",
                   "width": 305,
                   "height": 225,
                   "fallback": false
                 },
                 {
-                  "ratio": "3_2",
-                  "url": "https://s1.ticketm.net/dam/a/b1c/4be191e2-6357-433c-a421-aa1ffb2e8b1c_1340051_RETINA_PORTRAIT_3_2.jpg",
-                  "width": 640,
-                  "height": 427,
+                  "ratio": "16_9",
+                  "url": "https://s1.ticketm.net/dam/a/ae2/5beb62d8-2c29-4c5c-aa7d-c7513e229ae2_1340121_EVENT_DETAIL_PAGE_16_9.jpg",
+                  "width": 205,
+                  "height": 115,
                   "fallback": false
                 }
               ],
@@ -333,14 +465,14 @@
                 }
               ],
               "upcomingEvents": {
-                "tmr": 34,
-                "ticketmaster": 31,
-                "_total": 65,
+                "tmr": 5,
+                "ticketmaster": 61,
+                "_total": 66,
                 "_filtered": 0
               },
               "_links": {
                 "self": {
-                  "href": "/discovery/v2/attractions/K8vZ9171oaV?locale=en-us"
+                  "href": "/discovery/v2/attractions/K8vZ91718XV?locale=en-us"
                 }
               }
             },
@@ -492,8 +624,8 @@
               ],
               "upcomingEvents": {
                 "tmr": 8,
-                "ticketmaster": 58,
-                "_total": 66,
+                "ticketmaster": 57,
+                "_total": 65,
                 "_filtered": 0
               },
               "_links": {
@@ -509,7 +641,7 @@
   },
   "_links": {
     "self": {
-      "href": "/discovery/v2/events/?id=Z7r9jZ1AdJ9uK"
+      "href": "/discovery/v2/events/?id=vvG1zZ9YJwb39L"
     }
   },
   "page": {
