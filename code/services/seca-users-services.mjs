@@ -1,20 +1,20 @@
 import errors from "../errors.mjs";
 
 export default function (secaData) {
-    if(!secaData) {
-        throw errors.INVALID_PARAMETER("SECA DATA")
-    }
+  if (!secaData) {
+    throw errors.INVALID_PARAMETER("SECA DATA");
+  }
 
-    return {
-        createUser: createUser,
-        getUserId: getUserId
-    }
+  return {
+    createUser: createUser,
+    getUserId: getUserId,
+  };
 
-    function createUser(username) {
-        return secaData.createUser(username)
-    }
+  function createUser(username) {
+    return secaData.createUser(username);
+  }
 
-    function getUserId(token) {
-        return secaData.getUserId(token)
-    }
+  function getUserId(token) {
+    return secaData.getUserId(token);
+  }
 }

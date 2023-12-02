@@ -97,7 +97,7 @@ export default function (secaServices) {
     const dlt = await secaServices.deleteGroup(idGroup, token);
     rsp.status(200).json({
       status: `Success - Deleted group ${idGroup} successfully`,
-      groups: dlt,
+      group: dlt,
     });
   }
 
@@ -112,7 +112,7 @@ export default function (secaServices) {
     );
     rsp.status(200).json({
       status: `Success - Deleted event ${idEvent} from group ${idGroup} successfully`,
-      groups: dlt,
+      event: dlt,
     });
   }
 

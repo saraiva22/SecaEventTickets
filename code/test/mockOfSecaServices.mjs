@@ -62,8 +62,8 @@ export default function (secaTmMock, secaGroupsData, secaUsersData) {
     }
   }
 
-   // Auxilry Functions
-   async function getGroup(groupId, userId) {
+  // Auxilry Functions
+  async function getGroup(groupId, userId) {
     if (isNaN(Number(groupId))) {
       throw errors.INVALID_ARGUMENT("groupId");
     }
@@ -73,6 +73,4 @@ export default function (secaTmMock, secaGroupsData, secaUsersData) {
     }
     throw errors.NOT_AUTHORIZED();
   }
-
-
 }
