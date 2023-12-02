@@ -28,155 +28,157 @@ const secaUsersService = usersService(secaUsersData);
 
 describe("SECA services", function () {
   describe("SECA Tests Events", function () {
-    it("should return an object that is not undefined", async function () {
-      //Arrange
-      // Act
-      const obj = await secaServices.getPopularEvents();
-      const obj1 = await secaServices.getEventById();
-      const obj2 = await secaServices.getSearchedEvents();
-      // Assert
-      assert(obj !== undefined);
-      assert(obj1 !== undefined);
-      assert(obj2 !== undefined);
-    });
+    describe("SECA Tests Events - Get Popular Events and Get Searched Event", function () {
+      it("should return an object that is not undefined", async function () {
+        //Arrange
+        // Act
+        const obj = await secaServices.getPopularEvents();
+        const obj1 = await secaServices.getEventById();
+        const obj2 = await secaServices.getSearchedEvents();
+        // Assert
+        assert(obj !== undefined);
+        assert(obj1 !== undefined);
+        assert(obj2 !== undefined);
+      });
 
-    it("should return an array with more than 0 items", async function () {
-      //Arrange
-      // Act
-      const obj = await secaServices.getPopularEvents();
-      const obj1 = await secaServices.getEventById();
-      const obj2 = await secaServices.getSearchedEvents();
-      // Assert
-      assert(obj.length > 0);
-      assert(obj1.length > 0);
-      assert(obj2.length > 0);
-    });
+      it("should return an array with more than 0 items", async function () {
+        //Arrange
+        // Act
+        const obj = await secaServices.getPopularEvents();
+        const obj1 = await secaServices.getEventById();
+        const obj2 = await secaServices.getSearchedEvents();
+        // Assert
+        assert(obj.length > 0);
+        assert(obj1.length > 0);
+        assert(obj2.length > 0);
+      });
 
-    it("should have the first element with id", async function () {
-      //Arrange
-      // Act
-      const obj = await secaServices.getPopularEvents();
-      const obj1 = await secaServices.getEventById();
-      const obj2 = await secaServices.getSearchedEvents();
-      // Assert
-      assert.deepEqual(obj[0].id, "G5v0Z9Yc3BZyy");
-      assert.deepEqual(obj1[0].id, "vvG1zZ9YJwb39L");
-      assert.deepEqual(obj2[0].id, "vvG1HZ9gn1xYD3");
-    });
+      it("should have the first element with id", async function () {
+        //Arrange
+        // Act
+        const obj = await secaServices.getPopularEvents();
+        const obj1 = await secaServices.getEventById();
+        const obj2 = await secaServices.getSearchedEvents();
+        // Assert
+        assert.deepEqual(obj[0].id, "G5v0Z9Yc3BZyy");
+        assert.deepEqual(obj1[0].id, "vvG1zZ9YJwb39L");
+        assert.deepEqual(obj2[0].id, "vvG1HZ9gn1xYD3");
+      });
 
-    it("should have the first element with name", async function () {
-      //Arrange
-      // Act
-      const obj = await secaServices.getPopularEvents();
-      const obj1 = await secaServices.getEventById();
-      const obj2 = await secaServices.getSearchedEvents();
-      // Assert
-      assert.deepEqual(obj[0].name, "Phoenix Suns vs. Memphis Grizzlies");
-      assert.deepEqual(obj1[0].name, "Atlanta Hawks vs. Phoenix Suns");
-      assert.deepEqual(
-        obj2[0].name,
-        "Oregon Ducks Men's Basketball vs. UCLA Bruins Men's Basketball"
-      );
-    });
+      it("should have the first element with name", async function () {
+        //Arrange
+        // Act
+        const obj = await secaServices.getPopularEvents();
+        const obj1 = await secaServices.getEventById();
+        const obj2 = await secaServices.getSearchedEvents();
+        // Assert
+        assert.deepEqual(obj[0].name, "Phoenix Suns vs. Memphis Grizzlies");
+        assert.deepEqual(obj1[0].name, "Atlanta Hawks vs. Phoenix Suns");
+        assert.deepEqual(
+          obj2[0].name,
+          "Oregon Ducks Men's Basketball vs. UCLA Bruins Men's Basketball"
+        );
+      });
 
-    it("should have the first element with date", async function () {
-      //Arrange
-      // Act
-      const obj = await secaServices.getPopularEvents();
-      const obj1 = await secaServices.getEventById();
-      const obj2 = await secaServices.getSearchedEvents();
-      // Assert
-      assert.deepEqual(obj[0].date, "2023-12-02");
-      assert.deepEqual(obj1[0].date, "2024-02-02");
-      assert.deepEqual(obj2[0].date, "2023-12-30");
-    });
+      it("should have the first element with date", async function () {
+        //Arrange
+        // Act
+        const obj = await secaServices.getPopularEvents();
+        const obj1 = await secaServices.getEventById();
+        const obj2 = await secaServices.getSearchedEvents();
+        // Assert
+        assert.deepEqual(obj[0].date, "2023-12-02");
+        assert.deepEqual(obj1[0].date, "2024-02-02");
+        assert.deepEqual(obj2[0].date, "2023-12-30");
+      });
 
-    it("should have the first element with time", async function () {
-      //Arrange
-      // Act
-      const obj = await secaServices.getPopularEvents();
-      const obj1 = await secaServices.getEventById();
-      const obj2 = await secaServices.getSearchedEvents();
-      // Assert
-      assert.deepEqual(obj[0].time, "19:00:00");
-      assert.deepEqual(obj1[0].time, "19:30:00");
-      assert.deepEqual(obj2[0].time, "13:00:00");
-    });
+      it("should have the first element with time", async function () {
+        //Arrange
+        // Act
+        const obj = await secaServices.getPopularEvents();
+        const obj1 = await secaServices.getEventById();
+        const obj2 = await secaServices.getSearchedEvents();
+        // Assert
+        assert.deepEqual(obj[0].time, "19:00:00");
+        assert.deepEqual(obj1[0].time, "19:30:00");
+        assert.deepEqual(obj2[0].time, "13:00:00");
+      });
 
-    it("should have the first element with segment", async function () {
-      //Arrange
-      // Act
-      const obj = await secaServices.getPopularEvents();
-      const obj1 = await secaServices.getEventById();
-      const obj2 = await secaServices.getSearchedEvents();
-      // Assert
-      assert.deepEqual(obj[0].segment, "Sports");
-      assert.deepEqual(obj1[0].segment, "Sports");
-      assert.deepEqual(obj2[0].segment, "Sports");
-    });
+      it("should have the first element with segment", async function () {
+        //Arrange
+        // Act
+        const obj = await secaServices.getPopularEvents();
+        const obj1 = await secaServices.getEventById();
+        const obj2 = await secaServices.getSearchedEvents();
+        // Assert
+        assert.deepEqual(obj[0].segment, "Sports");
+        assert.deepEqual(obj1[0].segment, "Sports");
+        assert.deepEqual(obj2[0].segment, "Sports");
+      });
 
-    it("should have the first element with genre", async function () {
-      //Arrange
-      // Act
-      const obj = await secaServices.getPopularEvents();
-      const obj1 = await secaServices.getEventById();
-      const obj2 = await secaServices.getSearchedEvents();
-      // Assert
-      assert.deepEqual(obj[0].genre, "Basketball");
-      assert.deepEqual(obj1[0].genre, "Basketball");
-      assert.deepEqual(obj2[0].genre, "Basketball");
-    });
+      it("should have the first element with genre", async function () {
+        //Arrange
+        // Act
+        const obj = await secaServices.getPopularEvents();
+        const obj1 = await secaServices.getEventById();
+        const obj2 = await secaServices.getSearchedEvents();
+        // Assert
+        assert.deepEqual(obj[0].genre, "Basketball");
+        assert.deepEqual(obj1[0].genre, "Basketball");
+        assert.deepEqual(obj2[0].genre, "Basketball");
+      });
 
-    it("should have the first element with url", async function () {
-      //Arrange
-      // Act
-      const obj = await secaServices.getPopularEvents();
-      const obj1 = await secaServices.getEventById();
-      const obj2 = await secaServices.getSearchedEvents();
-      // Assert
-      assert.deepEqual(
-        obj[0].url,
-        "https://www.ticketmaster.com/phoenix-suns-vs-memphis-grizzlies-phoenix-arizona-12-02-2023/event/19005F0B52E80E79"
-      );
-      assert.deepEqual(
-        obj1[0].url,
-        "https://www.ticketmaster.com/atlanta-hawks-vs-phoenix-suns-atlanta-georgia-02-02-2024/event/0E005F09B26125DF"
-      );
-      assert.deepEqual(
-        obj2[0].url,
-        "https://www.ticketmaster.com/oregon-ducks-mens-basketball-vs-ucla-eugene-oregon-12-30-2023/event/0F005F5A8A8B0ED2"
-      );
-    });
+      it("should have the first element with url", async function () {
+        //Arrange
+        // Act
+        const obj = await secaServices.getPopularEvents();
+        const obj1 = await secaServices.getEventById();
+        const obj2 = await secaServices.getSearchedEvents();
+        // Assert
+        assert.deepEqual(
+          obj[0].url,
+          "https://www.ticketmaster.com/phoenix-suns-vs-memphis-grizzlies-phoenix-arizona-12-02-2023/event/19005F0B52E80E79"
+        );
+        assert.deepEqual(
+          obj1[0].url,
+          "https://www.ticketmaster.com/atlanta-hawks-vs-phoenix-suns-atlanta-georgia-02-02-2024/event/0E005F09B26125DF"
+        );
+        assert.deepEqual(
+          obj2[0].url,
+          "https://www.ticketmaster.com/oregon-ducks-mens-basketball-vs-ucla-eugene-oregon-12-30-2023/event/0F005F5A8A8B0ED2"
+        );
+      });
 
-    it("should return undefined since that index does not exist", async function () {
-      //Arrange
-      // Act
-      const group = await secaServices.getPopularEvents();
-      // Assert
-      assert.deepEqual(group[1000], undefined);
-    });
+      it("should return undefined since that index does not exist", async function () {
+        //Arrange
+        // Act
+        const group = await secaServices.getPopularEvents();
+        // Assert
+        assert.deepEqual(group[1000], undefined);
+      });
 
-    it("should only return a few properties since there aren't all of them in that index", async function () {
-      //Arrange
-      const expectedGroup = {
-        id: "Za5ju3rKuqZDvGu-5kUetZHhQ1aKWdDo29",
-        name: "Football  CardsPass",
-        date: "2023-12-01",
-        time: "20:00:00",
-        segment: undefined,
-        genre: undefined,
-        url: undefined,
-      };
-      // Act
-      const group = await secaServices.getSearchedEvents();
-      // Assert
-      assert.deepEqual(group[20].id, expectedGroup.id);
-      assert.deepEqual(group[20].name, expectedGroup.name);
-      assert.deepEqual(group[20].date, expectedGroup.date);
-      assert.deepEqual(group[20].time, expectedGroup.time);
-      assert.deepEqual(group[20].segment, expectedGroup.segment);
-      assert.deepEqual(group[20].genre, expectedGroup.genre);
-      assert.deepEqual(group[20].url, expectedGroup.url);
+      it("should only return a few properties since there aren't all of them in that index", async function () {
+        //Arrange
+        const expectedGroup = {
+          id: "Za5ju3rKuqZDvGu-5kUetZHhQ1aKWdDo29",
+          name: "Football  CardsPass",
+          date: "2023-12-01",
+          time: "20:00:00",
+          segment: undefined,
+          genre: undefined,
+          url: undefined,
+        };
+        // Act
+        const group = await secaServices.getSearchedEvents();
+        // Assert
+        assert.deepEqual(group[20].id, expectedGroup.id);
+        assert.deepEqual(group[20].name, expectedGroup.name);
+        assert.deepEqual(group[20].date, expectedGroup.date);
+        assert.deepEqual(group[20].time, expectedGroup.time);
+        assert.deepEqual(group[20].segment, expectedGroup.segment);
+        assert.deepEqual(group[20].genre, expectedGroup.genre);
+        assert.deepEqual(group[20].url, expectedGroup.url);
+      });
     });
   });
 
@@ -630,8 +632,8 @@ describe("SECA services", function () {
       describe("SECA Groups Tests - Remove Event From a Group", async function () {
         it("should return an object corresponding to the deleted event", async function () {
           // Arrange
-          const groupId = 4
-          const eventId = "Z7r9jZ1AdJ9uK"
+          const groupId = 4;
+          const eventId = "Z7r9jZ1AdJ9uK";
           const expectedEvent = {
             id: "Z7r9jZ1AdJ9uK",
             name: "New Orleans Pelicans vs. Phoenix Suns",
@@ -653,8 +655,8 @@ describe("SECA services", function () {
 
         it("should throw user not found exception", async function () {
           // Arrange
-          const groupId = 4
-          const eventId = "Z7r9jZ1AdJ9uK"
+          const groupId = 4;
+          const eventId = "Z7r9jZ1AdJ9uK";
           const fakeToken = "14d72b99-48f6-48d3-94d3-5a4dcfd96c";
           const expectedError = {
             code: 2,
@@ -677,8 +679,8 @@ describe("SECA services", function () {
 
         it("should throw group not found exception", async function () {
           // Arrange
-          const groupId = 12
-          const eventId = "Z7r9jZ1AdJ9uK"
+          const groupId = 12;
+          const eventId = "Z7r9jZ1AdJ9uK";
           const expectedError = {
             code: 3,
             description: "Group 12 not found",
@@ -700,8 +702,8 @@ describe("SECA services", function () {
 
         it("should throw event not found exception", async function () {
           // Arrange
-          const groupId = 2
-          const eventId = "ty12ASo"
+          const groupId = 2;
+          const eventId = "ty12ASo";
           const expectedError = {
             code: 6,
             description: "Event with id ty12ASo not found",
@@ -723,8 +725,8 @@ describe("SECA services", function () {
 
         it("should throw unauthorized exception", async function () {
           // Arrange
-          const groupId = 2
-          const eventId = "Z7r9jZ1AdJ9uK"
+          const groupId = 2;
+          const eventId = "Z7r9jZ1AdJ9uK";
           const expectedError = {
             code: 4,
             description: "Not authorized",
@@ -745,92 +747,92 @@ describe("SECA services", function () {
         });
       });
     });
+  });
 
-    describe("SECA Users Tests", function () {
-      describe("SECA Users Tests - Add User and Get Ids", async function () {
-        const TOKEN0 = "14d72b99-48f6-48d3-94d3-5a4dcfd96c80";
-        const TOKEN1 = "14d72b99-48f6-48d3-94d3-5a4dcfd96c81";
+  describe("SECA Users Tests", function () {
+    describe("SECA Users Tests - Add User and Get Ids", async function () {
+      const TOKEN0 = "14d72b99-48f6-48d3-94d3-5a4dcfd96c80";
+      const TOKEN1 = "14d72b99-48f6-48d3-94d3-5a4dcfd96c81";
+      const obj = await secaUsersService.createUser("Alberto");
+      const obj1 = await secaUsersService.createUser("Cenourinhas");
 
-        it("should return an object that is not undefined", async function () {
-          //Arrange
-          const obj = await secaUsersService.getUserId(TOKEN0);
-          const obj1 = await secaUsersService.getUserId(TOKEN1);
-          // Act
+      it("should return an object that is not undefined", async function () {
+        //Arrange
+        const obj = await secaUsersService.getUserId(TOKEN0);
+        const obj1 = await secaUsersService.getUserId(TOKEN1);
+        // Act
+        // Assert
+        assert(obj !== undefined);
+        assert(obj1 !== undefined);
+      });
+
+      it("should return the ids associated to the different tokens", async function () {
+        //Arrange
+        const obj = await secaUsersService.getUserId(TOKEN0);
+        const obj1 = await secaUsersService.getUserId(TOKEN1);
+        // Act
+        // Assert
+        assert(obj == 0);
+        assert(obj1 == 1);
+      });
+
+      it("should return user's ids of new users", async function () {
+        //Arrange
+        // Act
+        // Assert
+        assert(obj.id == 2);
+        assert(obj1.id == 3);
+      });
+
+      it("should return user's usernames of new users", async function () {
+        //Arrange
+        // Act
+        // Assert
+        assert(obj.name == "Alberto");
+        assert(obj1.name == "Cenourinhas");
+      });
+
+      it("should return user's token of new users", async function () {
+        //Arrange
+        // Act
+        // Assert
+        assert(obj.token !== undefined);
+        assert(obj1.token !== undefined);
+      });
+
+      it("should throw user exists exception", async function () {
+        // Arrange
+        const expectedError = {
+          code: 7,
+          description: "User with username Carolina already exists",
+        };
+        // Act
+        try {
+          await secaUsersService.createUser("Carolina");
+        } catch (error) {
           // Assert
-          assert(obj !== undefined);
-          assert(obj1 !== undefined);
-        });
+          assert.deepEqual(error, expectedError);
+          assert(error.code === expectedError.code);
+          assert(error.description === expectedError.description);
+        }
+      });
 
-        it("should return the ids associated to the different tokens", async function () {
-          //Arrange
-          const obj = await secaUsersService.getUserId(TOKEN0);
-          const obj1 = await secaUsersService.getUserId(TOKEN1);
-          // Act
+      it("should throw user not found exception", async function () {
+        // Arrange
+        const fakeToken = "14d72b99-48f6-48d3-94d3-5a4dcfd96";
+        const expectedError = {
+          code: 2,
+          description: "User Not Found",
+        };
+        // Act
+        try {
+          await secaUsersService.getUserId(fakeToken);
+        } catch (error) {
           // Assert
-          assert(obj == 0);
-          assert(obj1 == 1);
-        });
-
-        const obj = await secaUsersService.createUser("Alberto");
-        const obj1 = await secaUsersService.createUser("Cenourinhas");
-        it("should return user's ids of new users", async function () {
-          //Arrange
-          // Act
-          // Assert
-          assert(obj.id == 2);
-          assert(obj1.id == 3);
-        });
-
-        it("should return user's usernames of new users", async function () {
-          //Arrange
-          // Act
-          // Assert
-          assert(obj.name == "Alberto");
-          assert(obj1.name == "Cenourinhas");
-        });
-
-        it("should return user's token of new users", async function () {
-          //Arrange
-          // Act
-          // Assert
-          assert(obj.token !== undefined);
-          assert(obj1.token !== undefined);
-        });
-
-        it("should throw user exists exception", async function () {
-          // Arrange
-          const expectedError = {
-            code: 7,
-            description: "User with username Carolina already exists",
-          };
-          // Act
-          try {
-            await secaUsersService.createUser("Carolina");
-          } catch (error) {
-            // Assert
-            assert.deepEqual(error, expectedError);
-            assert(error.code === expectedError.code);
-            assert(error.description === expectedError.description);
-          }
-        });
-
-        it("should throw user not found exception", async function () {
-          // Arrange
-          const fakeToken = "14d72b99-48f6-48d3-94d3-5a4dcfd96"
-          const expectedError = {
-            code: 2,
-            description: "User Not Found",
-          };
-          // Act
-          try {
-            await secaUsersService.getUserId(fakeToken);
-          } catch (error) {
-            // Assert
-            assert.deepEqual(error, expectedError);
-            assert(error.code === expectedError.code);
-            assert(error.description === expectedError.description);
-          }
-        });
+          assert.deepEqual(error, expectedError);
+          assert(error.code === expectedError.code);
+          assert(error.description === expectedError.description);
+        }
       });
     });
   });
