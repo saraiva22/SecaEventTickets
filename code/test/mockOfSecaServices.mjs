@@ -1,4 +1,4 @@
-import errors from "../errors.mjs";
+import errors from "../../common/errors.mjs";
 import { readFile } from "node:fs/promises";
 
 export default function (secaTmMock, secaGroupsData, secaUsersData) {

@@ -1,4 +1,4 @@
-import errors from "../../errors.mjs";
+import errors from "../../../common/errors.mjs";
 
 const NUM_GROUPS = 5;
 

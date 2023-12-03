@@ -1,5 +1,5 @@
-import errors from "../errors.mjs";
-import errorToHttp from "./errors-to-http-responses.mjs";
+import errors from "../../../common/errors.mjs";
+import errorToHttp from "../errors-to-http-responses.mjs";
 
 const SIZE = 30;
 const PAGE = 1;

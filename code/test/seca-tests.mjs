@@ -10,7 +10,6 @@ import usersService from "../services/seca-users-services.mjs";
 import groupsService from "../services/seca-groups-services.mjs";
 
 import { describe, it } from "node:test";
-import e from "express";
 
 // Test : npx mocha ./code/test/services-test.mjs
 
