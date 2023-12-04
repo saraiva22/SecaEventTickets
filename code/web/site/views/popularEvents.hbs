@@ -1,0 +1,20 @@
+<html>
+  <head>
+    <title>SECA Popular Events</title>
+  </head>
+  <body>
+    <h1>Popular Events</h1>
+    {{#each events}}
+      <section>
+        <p style="border: 1px solid black;">
+          Name: {{name}} <br> 
+          Date: {{date}} <br> 
+          Time: {{time}} <br> 
+          Segment: {{segment}} <br>
+          Genre: {{genre}} <br>
+          URL: {{url}} <br>
+        </p>
+      </section>
+    {{/each}}
+  </body>
+</html>
