@@ -1,4 +1,4 @@
-import errors from "../../../common/errors.mjs";
+import errors from "../../common/errors.mjs";
 import errorToHttp from "../errors-to-http-responses.mjs";
 
 const SIZE = 30;
