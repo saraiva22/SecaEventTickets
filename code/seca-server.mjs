@@ -22,6 +22,7 @@ import groupsApiInit from "./web/api/seca-groups-web-api.mjs";
 // WEB SITE IMPORTS
 import * as staticWebSite from "./web/site/seca-static-web-site.mjs";
 import eventsSiteInit from "./web/site/seca-events-web-site.mjs";
+import groupsSiteInit from "./web/site/seca-groups-web-site.mjs";
 
 // Events - Service and Web Api
 const secaEventsServices = eventsServiceInit(secaTmData);
@@ -35,6 +36,7 @@ const secaGroupsServices = groupsServiceInit(
   secaUsersData
 );
 const groupsWebApi = groupsApiInit(secaGroupsServices);
+const groupsWebSite = groupsSiteInit(secaGroupsServices);
 
 // Users - Service and Web Api
 const secaUsersServices = usersServiceInit(secaUsersData);
@@ -53,17 +55,23 @@ app.use(express.urlencoded());
 app.use("/site", express.static("./web/site/public"));
 
 // Handlebars view engine setup
-const currentFileDir = url.fileURLToPath(new URL('.', import.meta.url));
-const viewsDir = path.join(currentFileDir, 'web', 'site', 'views')
-app.set('view engine', 'hbs')
-app.set('views', viewsDir);
+const currentFileDir = url.fileURLToPath(new URL(".", import.meta.url));
+const viewsDir = path.join(currentFileDir, "web", "site", "views");
+app.set("view engine", "hbs");
+app.set("views", viewsDir);
+
+hbs.registerPartials(path.join(viewsDir, "partials"));
 
 // Web site routes
 app.get("/site/home", staticWebSite.getHome);
 
 // Web Api routes
+app.get('/site/events/popular', eventsWebSite.getPopularEvents);
+app.get('/site/groups', groupsWebSite.getAllGroups);
+app.post('/site/groups', groupsWebSite.createGroup);
+
 // Get Popular Events
-app.get("/events/popular", eventsWebSite.getPopularEvents);
+app.get("/events/popular", eventsWebApi.getPopularEvents);
 
 // Get Search Events according to keyword
 app.get("/events", eventsWebApi.getSearchedEvents);

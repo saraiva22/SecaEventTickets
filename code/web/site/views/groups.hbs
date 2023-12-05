@@ -1,0 +1,19 @@
+<h1>All Groups</h1>
+<h2>Create a new Group</h2>
+<form method="POST" action="/site/groups">
+    <p>Name: <input type="text" name="name" value=""></p>
+    <p>Description: <input type="text" name="description" value=""></p>
+    <input type="submit" value="Create Group">
+</form>
+
+<hr>
+
+<section>
+    {{#each groups}}
+        <section style="border: 1px solid black;">
+            {{> groupPartial this}} 
+        </section> 
+        <br>              
+    {{/each}}
+</section>
+  

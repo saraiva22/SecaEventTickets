@@ -5,16 +5,10 @@
   <body>
     <h1>Popular Events</h1>
     {{#each events}}
-      <section>
-        <p style="border: 1px solid black;">
-          Name: {{name}} <br> 
-          Date: {{date}} <br> 
-          Time: {{time}} <br> 
-          Segment: {{segment}} <br>
-          Genre: {{genre}} <br>
-          URL: <a href=`{{url}}`>{{url}}</a>
-        </p>
+      <section style="border: 1px solid black;">
+        {{> eventPartial this}}     
       </section>
+      <br>
     {{/each}}
   </body>
 </html>
