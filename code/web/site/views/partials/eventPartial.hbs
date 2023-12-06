@@ -3,6 +3,18 @@
     Name: {{name}} <br> 
     Date: {{date}} <br> 
     Time: {{time}} <br> 
+    {{#if image}}
+        <img src="{{image}}" /> <br>
+    {{/if}}
+    {{#if dateSalesStart}}
+        Date Sales Start: {{dateSalesStart}} <br>
+    {{/if}}
+    {{#if dateSalesEnd}}
+        Date Sales End: {{dateSalesEnd}} <br>
+    {{/if}}
+    {{#if dateEventEnd}}
+        Date Event End: {{dateEventEnd}} <br>
+    {{/if}}
     Segment: {{segment}} <br>
     Genre: {{genre}} <br>
     URL: <a href={{url}}>{{url}}</a>

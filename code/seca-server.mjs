@@ -61,16 +61,24 @@ app.set("view engine", "hbs");
 app.set("views", viewsDir);
 
 hbs.registerPartials(path.join(viewsDir, "partials"));
+hbs.handlebars.registerHelper("eventDetails", function (param, options) {
+  if (param) {
+    return options.fn(this);
+  }
+});
 
 // Web site routes
 app.get("/site/home", staticWebSite.getHome);
 
 // Web Api routes
-app.get('/site/events/popular', eventsWebSite.getPopularEvents);
-app.get('/site/events',eventsWebSite.getSearchedEvents);
-app.get('/site/events/:eventId', eventsWebSite.getEventDetails);
-app.get('/site/groups', groupsWebSite.getAllGroups);
-app.post('/site/groups', groupsWebSite.createGroup);
+app.get("/site/events/popular", eventsWebSite.getPopularEvents);
+app.get("/site/events", eventsWebSite.getSearchedEvents);
+app.get("/site/events/:eventId", eventsWebSite.getEventDetails);
+app.get("/site/groups", groupsWebSite.getAllGroups);
+app.post("/site/groups", groupsWebSite.createGroup);
+app.get("/site/groups/:groupId", groupsWebSite.getGroupsDetails);
+app.get("/site/groups/:groupId/delete", groupsWebSite.deleteGroup);
+app.post("/site/groups/:groupId/delete", groupsWebSite.deleteGroup);
 
 // Get Popular Events
 app.get("/events/popular", eventsWebApi.getPopularEvents);
@@ -79,7 +87,7 @@ app.get("/events/popular", eventsWebApi.getPopularEvents);
 app.get("/events", eventsWebApi.getSearchedEvents);
 
 // Get Event Details
-app.get("/events/:eventId",eventsWebApi.getEventDetails)
+app.get("/events/:eventId", eventsWebApi.getEventDetails);
 
 // Create User
 app.post("/users", usersWebApi.createUser);

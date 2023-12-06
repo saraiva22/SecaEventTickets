@@ -84,6 +84,7 @@ function getDetails(apiReq, obj, bol) {
   newEvent.segment = classifications?.segment?.name;
   newEvent.genre = classifications?.genre?.name;
   newEvent.subGenre = classifications.subGenre.name;
-  newEvent.url = apiReq.url;
+  if(apiReq.url != undefined) newEvent.url = apiReq.url 
+  else newEvent.url = obj.url
   return newEvent;
 }

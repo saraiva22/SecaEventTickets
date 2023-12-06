@@ -44,7 +44,6 @@ export default function (secaServices) {
   async function getEventDetails(req, rsp) {
     const eventId = req.params.eventId;
     const event = await secaServices.getEventDetails(eventId);
-    console.log(event)
     rsp.render("eventDetails", event);
   }
 }

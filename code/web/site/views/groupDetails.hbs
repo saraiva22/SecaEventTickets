@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>SECA Group Details</title>
+    </head>
+    <body>
+        <h1>Group Details</h1>
+        <section style="border: 1px solid black;">
+            {{> groupPartial this}}  
+            <p>Events:
+                {{#if events}}
+                {{#each events}}
+                    <div style="border: 1px solid black;">
+                        {{> eventPartial this}}
+                    </div>
+                <br>
+                {{/each}}
+                {{else}}
+                    No Events
+                {{/if}}
+            </p> 
+        </section>
+        <form method="POST" action="/site/groups/{{id}}/delete">
+            <input type="submit" value="Delete Group">
+        </form>
+    </body>
+</html> 

@@ -7,18 +7,7 @@
         <h1>Event Details</h1>
         <section style="border: 1px solid black;">
             <section>
-            <li>
-                 Id: {{id}} <br>
-                 Name: {{name}} <br> 
-                 <img src="{{image}}" /> <br> 
-                 Date Sales Start: {{dateSalesStart}} <br>
-                 Date Sales End: {{dateSalesEnd}} <br>
-                 Date Event End: {{dateEventEnd}} <br>
-                 Segment: {{segment}} <br>
-                 Genre: {{genre}} <br>
-                 Sub Genre: {{subGenre}} <br>
-                 URL: <a href={{url}}>{{url}}</a>
-            </li>     
+                {{> eventPartial this}}   
             </section>
         </section>
     </body>

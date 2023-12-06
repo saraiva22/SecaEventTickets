@@ -43,10 +43,7 @@ export default function (secaServices) {
     const idGroup = req.params.groupId;
     const token = req.token;
     const groupDetails = await secaServices.getGroupsDetails(idGroup, token);
-    rsp.status(200).json({
-      status: `Success - showing details groups`,
-      group: groupDetails,
-    });
+    rsp.render("groupDetails", groupDetails);
   }
 
   async function addEventToGroup(req, rsp) {
@@ -65,7 +62,7 @@ export default function (secaServices) {
     const description = req.body.description;
     const token = req.token;
     const group = await secaServices.createGroup(name, description, token);
-    rsp.redirect('/site/groups');
+    rsp.redirect("/site/groups");
   }
 
   async function updateGroup(req, rsp) {
@@ -89,10 +86,7 @@ export default function (secaServices) {
     const idGroup = req.params.groupId;
     const token = req.token;
     const dlt = await secaServices.deleteGroup(idGroup, token);
-    rsp.status(200).json({
-      status: `Success - Deleted group ${idGroup} successfully`,
-      group: dlt,
-    });
+    rsp.redirect("/site/groups");
   }
 
   async function deleteEventFromGroup(req, rsp) {

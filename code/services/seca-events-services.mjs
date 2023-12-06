@@ -23,6 +23,7 @@ export default function (secaTmData) {
     if (getEvent) return getEvent;
     throw errors.EVENT_NOT_FOUND(id);
   }
+
   async function getSearchedEvents(keyword, s, p) {
     if (!isValidString(keyword))
       throw errors.INVALID_PARAMETER(",must be a string");
@@ -30,6 +31,7 @@ export default function (secaTmData) {
     if (searchedEvents) return searchedEvents;
     throw errors.EVENT_NOT_FOUND(`events in ${keyword}`);
   }
+  
   async function getEventDetails(eventId) {
     const event = await secaTmData.getEventDetails(eventId);
     if (event) return event;
