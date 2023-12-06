@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>SECA Search Events by name</title>
+    </head>
+    <body>
+        <h1>Search Events</h1>
+        {{#each events}}
+            <section style= "border: 1px solid black;">
+                <li>{{> eventPartial this }}</li>
+            </section>
+           <br>  
+        {{/each}}
+    </body>
+</html>

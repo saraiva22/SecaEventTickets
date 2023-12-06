@@ -68,6 +68,11 @@ app.get("/site/home", staticWebSite.getHome);
 // Web Api routes
 app.get('/site/events/popular', eventsWebSite.getPopularEvents);
 app.get('/site/groups', groupsWebSite.getAllGroups);
+app.get('/site/events',eventsWebSite.getSearchedEvents);
+app.get('/site/events/:eventId',eventsWebSite.getEventDetails);
+
+
+
 app.post('/site/groups', groupsWebSite.createGroup);
 
 // Get Popular Events
@@ -75,6 +80,9 @@ app.get("/events/popular", eventsWebApi.getPopularEvents);
 
 // Get Search Events according to keyword
 app.get("/events", eventsWebApi.getSearchedEvents);
+
+// Get Event Details
+app.get("/events/:eventId",eventsWebApi.getEventDetails)
 
 // Create User
 app.post("/users", usersWebApi.createUser);

@@ -12,6 +12,7 @@ export default function (secaServices) {
   return {
     getPopularEvents: processRequest(getPopularEvents),
     getSearchedEvents: processRequest(getSearchedEvents),
+    getEventDetails: processRequest(getEventDetails)
   };
 
   function processRequest(reqProcessor) {
@@ -44,5 +45,14 @@ export default function (secaServices) {
       status: "Sucess - searching for events by name: " + keyword,
       searchedEvents: events,
     });
+  }
+
+  async function getEventDetails(req,rsp){
+    const eventId = req.params.eventId;
+    const event = await secaServices.getEventDetails(eventId);
+    rsp.status(200).json({
+      status: "Sucess - details in event: " + eventId,
+      event: event,
+    })
   }
 }

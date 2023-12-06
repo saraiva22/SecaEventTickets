@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>SECA Event Details</title>
+    </head>
+    <body>
+        <h1>Event Details</h1>
+        <section style="border: 1px solid black;">
+            <section>
+            <li>
+                 Id: {{event.id}} <br>
+                 Name: {{event.name}} <br> 
+                 <img src="{{event.image}}" /> <br> 
+                 Date Sales Start: {{event.dateSalesStart}} <br>
+                 Date Sales End: {{event.dateSalesEnd}} <br>
+                 Date Event Start: {{event.dateEventStart}} <br>
+                 Time Event Start: {{event.timeEventStart}} <br>
+                 Date Event End: {{event.dateEventEnd}} <br>
+                 Segment: {{event.segment}} <br>
+                 Genre: {{event.genre}} <br>
+                 Sub Genre: {{event.subGenre}} <br>
+                 URL: <a href={{event.url}}>{{event.url}}</a>
+            </li>     
+            </section>
+        </section>
+    </body>
+</html> 
