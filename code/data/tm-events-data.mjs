@@ -32,7 +32,11 @@ export async function getEventDetails(eventId) {
   return ProcessRequestFromApi(
     `https://app.ticketmaster.com/discovery/v2/events/${eventId}?apikey=${keyCarolina}`,
     true
-  );
+  )
+    .then((event) => event[0])
+    .catch(() => {
+      undefined;
+    });
 }
 
 async function ProcessRequestFromApi(url, details) {
@@ -47,8 +51,8 @@ async function ProcessRequestFromApi(url, details) {
 export function ObjectEvents(apiReq, details) {
   let objevents = [];
   if (details) {
-    return getDetails(apiReq, apiReq, details);
-    //reventToPush);
+    const eventToPush = getDetails(apiReq, apiReq, details);
+    objevents.push(eventToPush);
   } else {
     apiReq["_embedded"]["events"].map((value) => {
       const eventToPush = getDetails(apiReq, value, details);
@@ -78,8 +82,8 @@ function getDetails(apiReq, obj, bol) {
     newEvent.dateEventEnd = apiReq.dates.start.dateTime;
   }
   newEvent.segment = classifications?.segment?.name;
-  (newEvent.genre = classifications?.genre?.name),
-    (newEvent.subGenre = classifications.subGenre.name),
-    (newEvent.url = apiReq.url);
+  newEvent.genre = classifications?.genre?.name;
+  newEvent.subGenre = classifications.subGenre.name;
+  newEvent.url = apiReq.url;
   return newEvent;
 }
