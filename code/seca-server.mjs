@@ -67,12 +67,9 @@ app.get("/site/home", staticWebSite.getHome);
 
 // Web Api routes
 app.get('/site/events/popular', eventsWebSite.getPopularEvents);
-app.get('/site/groups', groupsWebSite.getAllGroups);
 app.get('/site/events',eventsWebSite.getSearchedEvents);
-app.get('/site/events/:eventId',eventsWebSite.getEventDetails);
-
-
-
+app.get('/site/events/:eventId', eventsWebSite.getEventDetails);
+app.get('/site/groups', groupsWebSite.getAllGroups);
 app.post('/site/groups', groupsWebSite.createGroup);
 
 // Get Popular Events

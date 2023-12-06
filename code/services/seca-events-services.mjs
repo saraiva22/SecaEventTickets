@@ -9,7 +9,7 @@ export default function (secaTmData) {
     getPopularEvents: getPopularEvents,
     getSearchedEvents: getSearchedEvents,
     getEventById: getEventById,
-    getEventDetails :getEventDetails
+    getEventDetails: getEventDetails,
   };
 
   async function getPopularEvents(s, p) {
@@ -30,14 +30,11 @@ export default function (secaTmData) {
     if (searchedEvents) return searchedEvents;
     throw errors.EVENT_NOT_FOUND(`events in ${keyword}`);
   }
-
-
-  async function getEventDetails(eventId){
-    const event = await secaTmData.getEventDetails(eventId)
-    if(event) return event
-    throw errors.EVENT_NOT_FOUND(eventId)
+  async function getEventDetails(eventId) {
+    const event = await secaTmData.getEventDetails(eventId);
+    if (event) return event;
+    throw errors.EVENT_NOT_FOUND(eventId);
   }
-
 }
 
 // Auxiliary functions

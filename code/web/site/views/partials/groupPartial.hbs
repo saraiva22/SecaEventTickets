@@ -1,11 +1,12 @@
 <section>
     <p>Name: {{name}}</p>
     <p>Description: {{description}}</p>
-    <p>Events: {{#each events}}
-                    <div style="border: 1px solid black;">
-                        {{> eventPartial this}}
-                    </div>
-                <br>
-                {{/each}}
+    <p>Events: 
+        {{#each events}}
+            <div style="border: 1px solid black;">
+                {{> eventPartial this}}
+            </div>
+        <br>
+        {{/each}}
     </p>
 </section>

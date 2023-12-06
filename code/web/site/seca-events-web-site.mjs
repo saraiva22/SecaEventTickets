@@ -12,7 +12,7 @@ export default function (secaServices) {
   return {
     getPopularEvents: processRequest(getPopularEvents),
     getSearchedEvents: processRequest(getSearchedEvents),
-    getEventDetails: processRequest(getEventDetails)
+    getEventDetails: processRequest(getEventDetails),
   };
 
   function processRequest(reqProcessor) {
@@ -30,7 +30,7 @@ export default function (secaServices) {
     const s = req.query.s != undefined ? req.query.s : SIZE;
     const p = req.query.p != undefined ? req.query.p : PAGE;
     const popular = await secaServices.getPopularEvents(s, p);
-    rsp.render('popularEvents', { events: popular });
+    rsp.render("popularEvents", { events: popular });
   }
 
   async function getSearchedEvents(req, rsp) {
@@ -38,14 +38,13 @@ export default function (secaServices) {
     const s = req.query.s != undefined ? req.query.s : SIZE;
     const p = req.query.p != undefined ? req.query.p : PAGE;
     const events = await secaServices.getSearchedEvents(keyword, s, p);
-    rsp.render('searchedEvents',{events: events});
+    rsp.render("searchedEvents", { events: events });
   }
 
-  async function getEventDetails(req,rsp){
+  async function getEventDetails(req, rsp) {
     const eventId = req.params.eventId;
     const event = await secaServices.getEventDetails(eventId);
-    rsp.render('eventDetails',{event:event})
+    console.log(event)
+    rsp.render("eventDetails", event);
   }
-
-
 }

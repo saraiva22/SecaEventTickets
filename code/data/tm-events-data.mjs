@@ -1,23 +1,26 @@
-//const keyCarolina = "HV0SEcncD1AbMPARE2lOJZqdsVg3pXiX";
-const keyFrancisco = "7SgPqRlqGPcGEgFz5TYT01W1iUZlDFNl";
+const keyCarolina = "HV0SEcncD1AbMPARE2lOJZqdsVg3pXiX";
+//const keyFrancisco = "7SgPqRlqGPcGEgFz5TYT01W1iUZlDFNl";
 const ratioImage = "16_9";
 const widthImage = "205";
 
 export async function getPopularEvents(s, p) {
   return ProcessRequestFromApi(
-    `https://app.ticketmaster.com/discovery/v2/events/?sort=relevance,desc&size=${s}&page=${p}&apikey=${keyFrancisco}`
+    `https://app.ticketmaster.com/discovery/v2/events/?sort=relevance,desc&size=${s}&page=${p}&apikey=${keyCarolina}`,
+    false
   );
 }
 
 export async function getSearchedEvents(keyword, s, p) {
   return ProcessRequestFromApi(
-    `https://app.ticketmaster.com/discovery/v2/events/?keyword=${keyword}&size=${s}&page=${p}&apikey=${keyFrancisco}`
+    `https://app.ticketmaster.com/discovery/v2/events/?keyword=${keyword}&size=${s}&page=${p}&apikey=${keyCarolina}`,
+    false
   );
 }
 
 export async function getEventById(id) {
   return ProcessRequestFromApi(
-    `https://app.ticketmaster.com/discovery/v2/events/?id=${id}&apikey=${keyFrancisco}`
+    `https://app.ticketmaster.com/discovery/v2/events/?id=${id}&apikey=${keyCarolina}`,
+    false
   )
     .then((event) => event[0])
     .catch(() => {
@@ -26,73 +29,57 @@ export async function getEventById(id) {
 }
 
 export async function getEventDetails(eventId) {
-  return ProcessRequestFromApiByEvent(
-    `https://app.ticketmaster.com/discovery/v2/events/${eventId}?apikey=${keyFrancisco}`
+  return ProcessRequestFromApi(
+    `https://app.ticketmaster.com/discovery/v2/events/${eventId}?apikey=${keyCarolina}`,
+    true
   );
 }
 
-async function ProcessRequestFromApi(url) {
+async function ProcessRequestFromApi(url, details) {
   return fetch(url)
     .then((resp) => resp.json())
-    .then((rsp) => ObjectEvents(rsp))
+    .then((rsp) => ObjectEvents(rsp, details))
     .catch(() => {
       undefined;
     });
 }
 
-async function ProcessRequestFromApiByEvent(url) {
-  return fetch(url)
-    .then((resp) => resp.json())
-    .then((rsp) => EventDetails(rsp))
-    .catch(() => {
-      undefined;
-    });
-}
-
-export function ObjectEvents(apiReq) {
+export function ObjectEvents(apiReq, details) {
   let objevents = [];
-  apiReq["_embedded"]["events"].map((value) => {
-    const classifications =
-      value.classifications != undefined ? value.classifications[0] : undefined;
-    objevents.push({
-      id: value.id,
-      name: value.name,
-      date: value.dates.start.localDate,
-      time: value.dates.start.localTime,
-      segment:
-        classifications != undefined ? classifications.segment.name : undefined,
-      genre:
-        classifications != undefined ? classifications.genre.name : undefined,
-      url: value.url,
+  if (details) {
+    return getDetails(apiReq, apiReq, details);
+    //reventToPush);
+  } else {
+    apiReq["_embedded"]["events"].map((value) => {
+      const eventToPush = getDetails(apiReq, value, details);
+      objevents.push(eventToPush);
     });
-  });
+  }
   return objevents;
 }
 
-export function EventDetails(apiReq) {
-  const classifications =
-    apiReq.classifications != undefined ? apiReq.classifications[0] : undefined;
-  const image = apiReq.images.filter(
-    (value) => value.ratio == ratioImage && value.width == widthImage
-  );
-  const imageOriginal = image.size != 0 ? image[0] : undefined;
-  return {
-    id: apiReq.id,
-    name: apiReq.name,
-    id: apiReq.id,
-    name: apiReq.name,
-    image: imageOriginal.url,
-    dateSalesStart: apiReq.sales.public.startDateTime,
-    dateSalesEnd: apiReq.sales.public.endDateTime,
-    dateEventStart: apiReq.dates.start.localDate,
-    timeEventStart: apiReq.dates.start.localTime,
-    dateEventEnd: apiReq.dates.start.dateTime,
-    segment:
-      classifications != undefined ? classifications.segment.name : undefined,
-    genre:
-      classifications != undefined ? classifications.genre.name : undefined,
-    subGenre:
-      classifications != undefined ? classifications.subGenre.name : undefined,
-    url: apiReq.url,
+// Auxilary Functions
+function getDetails(apiReq, obj, bol) {
+  const classifications = obj?.classifications[0];
+  const newEvent = {
+    id: obj.id,
+    name: obj.name,
+    date: obj.dates.start.localDate,
+    time: obj.dates.start.localTime,
   };
+  if (bol) {
+    const image = apiReq?.images?.filter(
+      (v) => v.ratio == ratioImage && v.width == widthImage
+    );
+    const imageOriginal = image.size != 0 ? image[0] : undefined;
+    newEvent.image = imageOriginal.url;
+    newEvent.dateSalesStart = apiReq.sales.public.startDateTime;
+    newEvent.dateSalesEnd = apiReq.sales.public.endDateTime;
+    newEvent.dateEventEnd = apiReq.dates.start.dateTime;
+  }
+  newEvent.segment = classifications?.segment?.name;
+  (newEvent.genre = classifications?.genre?.name),
+    (newEvent.subGenre = classifications.subGenre.name),
+    (newEvent.url = apiReq.url);
+  return newEvent;
 }
