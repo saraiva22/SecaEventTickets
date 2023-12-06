@@ -77,7 +77,6 @@ app.get("/site/events/:eventId", eventsWebSite.getEventDetails);
 app.get("/site/groups", groupsWebSite.getAllGroups);
 app.post("/site/groups", groupsWebSite.createGroup);
 app.get("/site/groups/:groupId", groupsWebSite.getGroupsDetails);
-app.get("/site/groups/:groupId/delete", groupsWebSite.deleteGroup);
 app.post("/site/groups/:groupId/delete", groupsWebSite.deleteGroup);
 
 // Get Popular Events
