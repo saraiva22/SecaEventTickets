@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>SECA Group Details</title>
+    </head>
+    <body>
+        <h1>Update Your Group</h1>
+        <section style="border: 1px solid black;">
+            <form method = "POST" action="/site/groups/{{id}}/update">
+            <p>Name: <input type = "text" name="name" value = "{{name}}"> </p>
+            <p>Description: <input type="text" name ="description" value="{{description}}"></p>
+            <input type = "submit" value = "Update Group">
+        </form>
+        </section>
+    </body>
+</html> 

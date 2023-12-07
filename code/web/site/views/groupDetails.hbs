@@ -20,17 +20,28 @@
                 {{/if}}
             </p> 
         </section>
-        <form method="POST" action="/site/groups/{{id}}/delete">
-            <input type="submit" value="Delete Group">
-        </form>
-        <form method = "POST" action="/site/groups/{{id}}/update">
-            <p>name: <input type = "text" name="name" value = "{{name}}"> </p>
-            <p>Description: <input type="text" name ="description" value="{{description}}"></p>
-            <input type = "submit" value = "Update Group">
-        </form>
+        <div style="display:inline-block;">
+            <form method = "GET" action="/site/groups/{{id}}/update">
+                <input type = "submit" value = "Update Group">
+            </form>
+            <form method="POST" action="/site/groups/{{id}}/delete">
+                <input type="submit" value="Delete Group">
+            </form>
+        </div>
         <form method = "POST" action="/site/groups/{{id}}/events">
             <p>id: <input type = "text" name ="id" value =""> </p>
             <input type ="submit" value = "Add event to group"> 
+        </form>
+        <script>
+            function deleteEventFromGroup(id) {
+                var eventId = document.getElementsByName('event')[0].value;
+                var form = document.getElementById("deleteEventForm");
+                form.action = "/site/groups/" + id + "/events/" + eventId;
+            }
+        </script>
+        <form id="deleteEventForm" method="POST" onsubmit="deleteEventFromGroup({{id}})">
+            <p>id: <input type="text" name="event" value=""></p>
+            <input type="submit" value="Delete event from group">
         </form>
     </body>
 </html> 

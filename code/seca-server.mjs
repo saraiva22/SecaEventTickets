@@ -78,9 +78,13 @@ app.get("/site/groups", groupsWebSite.getAllGroups);
 app.post("/site/groups", groupsWebSite.createGroup);
 app.get("/site/groups/:groupId", groupsWebSite.getGroupsDetails);
 app.post("/site/groups/:groupId/delete", groupsWebSite.deleteGroup);
-app.post("/site/groups/:groupId/update", groupsWebSite.updateGroup)
-app.post("/site/groups/:groupId/events",groupsWebSite.addEventToGroup);
-
+app.get("/site/groups/:groupId/update", groupsWebSite.updateGroupPage);
+app.post("/site/groups/:groupId/update", groupsWebSite.updateGroup);
+app.post("/site/groups/:groupId/events", groupsWebSite.addEventToGroup);
+app.post(
+  "/site/groups/:groupId/events/:eventsId",
+  groupsWebSite.deleteEventFromGroup
+);
 
 // Get Popular Events
 app.get("/events/popular", eventsWebApi.getPopularEvents);
