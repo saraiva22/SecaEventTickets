@@ -23,5 +23,14 @@
         <form method="POST" action="/site/groups/{{id}}/delete">
             <input type="submit" value="Delete Group">
         </form>
+        <form method = "POST" action="/site/groups/{{id}}/update">
+            <p>name: <input type = "text" name="name" value = "{{name}}"> </p>
+            <p>Description: <input type="text" name ="description" value="{{description}}"></p>
+            <input type = "submit" value = "Update Group">
+        </form>
+        <form method = "POST" action="/site/groups/{{id}}/events">
+            <p>id: <input type = "text" name ="id" value =""> </p>
+            <input type ="submit" value = "Add event to group"> 
+        </form>
     </body>
 </html> 

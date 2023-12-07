@@ -45,8 +45,14 @@ Content-Type: application/json
 }
 
 ### POST NEW EVENTS IN GROUP
-POST http://localhost:8080/groups/2/events/?id=G5v0Z9Yc3zOy3
+POST http://localhost:8080/groups/2/events
 Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+    "id": "vvG1zZ9YJwb39L"
+}
+
 
 ### DELETE EVENT FROM GROUP
 DELETE http://localhost:8080/groups/2/events/G5v0Z9Yc3zOy3

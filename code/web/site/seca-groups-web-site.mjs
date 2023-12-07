@@ -48,20 +48,17 @@ export default function (secaServices) {
 
   async function addEventToGroup(req, rsp) {
     const idGroup = req.params.groupId;
-    const idEvent = req.query.id;
+    const idEvent = req.body.id;
     const token = req.token;
-    const group = await secaServices.addEventToGroup(idGroup, idEvent, token);
-    rsp.status(201).json({
-      status: `Success - Added new event (${group.name}) in group ${idGroup} sucessfully`,
-      event: group,
-    });
+    const a  =await secaServices.addEventToGroup(idGroup, idEvent, token);
+    rsp.redirect(`/site/groups/${idGroup}`);
   }
 
   async function createGroup(req, rsp) {
     const name = req.body.name;
     const description = req.body.description;
     const token = req.token;
-    const group = await secaServices.createGroup(name, description, token);
+    await secaServices.createGroup(name, description, token);
     rsp.redirect("/site/groups");
   }
 
@@ -70,22 +67,14 @@ export default function (secaServices) {
     const name = req.body.name;
     const description = req.body.description;
     const token = req.token;
-    const update = await secaServices.updateGroup(
-      idGroup,
-      name,
-      description,
-      token
-    );
-    rsp.status(200).json({
-      status: `Success - Update group ${idGroup} successfully`,
-      group: update,
-    });
+    await secaServices.updateGroup(idGroup, name, description, token);
+    rsp.redirect("/site/groups");
   }
 
   async function deleteGroup(req, rsp) {
     const idGroup = req.params.groupId;
     const token = req.token;
-    const dlt = await secaServices.deleteGroup(idGroup, token);
+    await secaServices.deleteGroup(idGroup, token);
     rsp.redirect("/site/groups");
   }
 

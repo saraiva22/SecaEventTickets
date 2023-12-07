@@ -54,7 +54,7 @@ export default function (secaServices) {
 
   async function addEventToGroup(req, rsp) {
     const idGroup = req.params.groupId;
-    const idEvent = req.query.id;
+    const idEvent = req.body.id;
     const token = req.token;
     const group = await secaServices.addEventToGroup(idGroup, idEvent, token);
     rsp.status(201).json({
