@@ -6,8 +6,20 @@
     <h1>Popular Events</h1>
     {{#each events}}
       <section style="border: 1px solid black;">
-        {{> eventPartial this}}     
+        {{> eventPartial this}}  
       </section>
+      <script>
+        function addEventFromGroup() {
+            var groupId = document.getElementsByName('group')[0].value;
+            var form = document.getElementById("addEventForm");
+            form.action = "/site/groups/" + groupId + "/events";
+        }
+      </script>
+      <form id="addEventForm" method="POST" onsubmit="addEventFromGroup()">
+          <p>Group: <input type="number" min="0" name="group" value=""></p>
+          <input type="hidden" name="id" value="{{id}}">
+          <input type="submit" value="Add Event to Group">
+      </form>
       <br>
     {{/each}}
   </body>
