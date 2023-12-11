@@ -20,14 +20,13 @@
                 {{/if}}
             </p> 
         </section>
-        <div style="display:inline-block;">
-            <form method = "GET" action="/site/groups/{{id}}/update">
-                <input type = "submit" value = "Update Group">
-            <form method="POST" action="/site/groups/{{id}}/delete">
+            <form method = "GET" action="/site/groups/{{id}}/update" style="display: inline;">
+                <input type = "submit" value = "Edit Group">
+            </form>
+            <form method="POST" action="/site/groups/{{id}}/delete" style="display: inline;">
                 <input type="submit" value="Delete Group">
             </form>
-            </form>
-        </div>
+            
         <form method = "POST" action="/site/groups/{{id}}/events">
             <p>id: <input type = "text" name ="id" value =""> </p>
             <input type ="submit" value = "Add event to group"> 

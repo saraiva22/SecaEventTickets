@@ -51,7 +51,7 @@ export default function (secaServices) {
     const idGroup = req.params.groupId;
     const idEvent = req.body.id;
     const token = req.token;
-    const event = await secaServices.addEventToGroup(idGroup, idEvent, token);
+    await secaServices.addEventToGroup(idGroup, idEvent, token);
     rsp.redirect(`/site/groups/${idGroup}`);
   }
 
@@ -75,7 +75,7 @@ export default function (secaServices) {
     const name = req.body.name;
     const description = req.body.description;
     const token = req.token;
-    const event = await secaServices.updateGroup(
+    await secaServices.updateGroup(
       idGroup,
       name,
       description,
@@ -95,12 +95,12 @@ export default function (secaServices) {
     const idGroup = req.params.groupId;
     const idEvent = req.params.eventsId;
     const token = req.token;
-    const dlt = await secaServices.deleteEventFromGroup(
+    await secaServices.deleteEventFromGroup(
       idGroup,
       idEvent,
       token
     );
-    rsp.redirect("/site/groups");
+    rsp.redirect(`/site/groups/${idGroup}`);
   }
 
   // Auxiliary functions
