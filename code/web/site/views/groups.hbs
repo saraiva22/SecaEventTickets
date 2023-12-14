@@ -1,25 +1,29 @@
-<!DOCTYPE html>
 <html>
-    <head>
-        <title>SECA Groups</title>
-    </head>
-    <body>
-        <h1>All Groups</h1>
-        <h2>Create a new Group</h2>
-        <form method="POST" action="/site/groups">
-            <p>Name: <input type="text" name="name" value=""></p>
-            <p>Description: <input type="text" name="description" value=""></p>
-            <input type="submit" value="Create Group">
-        </form>
-        <hr>
-        <section>
-            {{#each groups}}
-                <section style="border: 1px solid black;">
-                    <p><a href="/site/groups/{{id}}">{{name}}</a></p>
-                    <p>{{description}}</p>
-                </section>
-                <br>              
-            {{/each}}
+  <head>
+    <title>SECA Groups</title>
+  </head>
+  <body>
+    <h1>All Groups</h1>
+    <h2>Create a new Group</h2>
+    <form method="POST" action="/site/groups">
+      <p>Name: <input type="text" name="name" value="" /></p>
+      <p>Description: <input type="text" name="description" value="" /></p>
+      <input type="submit" value="Create Group" />
+    </form>
+    <hr />
+    <section>
+      {{#each groups}}
+        <section style="border: 1px solid black;">
+          <p>Name: <a href="/site/groups/{{id}}">{{name}}</a></p>
+          <p>Description: {{description}}</p>
         </section>
-    </body>
+        {{#if eventId}}
+          <form method="POST" action="/site/groups/{{id}}/events?eventId={{eventId}}">
+            <button name="event">Add Event</button>
+          </form>
+        {{/if}}
+        <br />
+      {{/each}}
+    </section>
+  </body>
 </html>

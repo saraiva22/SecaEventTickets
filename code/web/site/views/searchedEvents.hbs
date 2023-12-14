@@ -6,10 +6,13 @@
     <body>
         <h1>Search Events</h1>
         {{#each events}}
-            <section style= "border: 1px solid black;">
-                <li>{{> eventPartial this }}</li>
+            <section style="border: 1px solid black;">
+                {{> eventPartial this}} 
             </section>
-           <br>  
+            <form action="/site/groups">
+            <button name="eventId" value="{{id}}">Add Event</button>
+            </form>
+            <br>
         {{/each}}
     </body>
 </html>

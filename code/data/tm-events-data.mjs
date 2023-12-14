@@ -1,25 +1,25 @@
-//const keyCarolina = "HV0SEcncD1AbMPARE2lOJZqdsVg3pXiX";
-const keyFrancisco = "7SgPqRlqGPcGEgFz5TYT01W1iUZlDFNl";
+const keyCarolina = "HV0SEcncD1AbMPARE2lOJZqdsVg3pXiX";
+//const keyFrancisco = "7SgPqRlqGPcGEgFz5TYT01W1iUZlDFNl";
 const ratioImage = "16_9";
 const widthImage = "205";
 
 export async function getPopularEvents(s, p) {
   return ProcessRequestFromApi(
-    `https://app.ticketmaster.com/discovery/v2/events/?sort=relevance,desc&size=${s}&page=${p}&apikey=${keyFrancisco}`,
+    `https://app.ticketmaster.com/discovery/v2/events/?sort=relevance,desc&size=${s}&page=${p}&apikey=${keyCarolina}`,
     false
   );
 }
 
 export async function getSearchedEvents(keyword, s, p) {
   return ProcessRequestFromApi(
-    `https://app.ticketmaster.com/discovery/v2/events/?keyword=${keyword}&size=${s}&page=${p}&apikey=${keyFrancisco}`,
+    `https://app.ticketmaster.com/discovery/v2/events/?keyword=${keyword}&size=${s}&page=${p}&apikey=${keyCarolina}`,
     false
   );
 }
 
 export async function getEventById(id) {
   return ProcessRequestFromApi(
-    `https://app.ticketmaster.com/discovery/v2/events/?id=${id}&apikey=${keyFrancisco}`,
+    `https://app.ticketmaster.com/discovery/v2/events/?id=${id}&apikey=${keyCarolina}`,
     false
   )
     .then((event) => event[0])

@@ -26,11 +26,6 @@
             <form method="POST" action="/site/groups/{{id}}/delete" style="display: inline;">
                 <input type="submit" value="Delete Group">
             </form>
-            
-        <form method = "POST" action="/site/groups/{{id}}/events">
-            <p>id: <input type = "text" name ="id" value =""> </p>
-            <input type ="submit" value = "Add event to group"> 
-        </form>
         <script>
             function deleteEventFromGroup(id) {
                 var eventId = document.getElementsByName('event')[0].value;
