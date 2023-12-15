@@ -26,7 +26,7 @@ export default function (secaTmData) {
 
   async function getSearchedEvents(keyword, s, p) {
     if (!isValidString(keyword))
-      throw errors.INVALID_PARAMETER(",must be a string");
+      throw errors.INVALID_PARAMETER("keyword must be a string");
     const searchedEvents = await secaTmData.getSearchedEvents(keyword, s, p);
     if (searchedEvents) return searchedEvents;
     throw errors.EVENT_NOT_FOUND(`events in ${keyword}`);

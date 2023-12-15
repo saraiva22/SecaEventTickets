@@ -75,7 +75,6 @@ hbs.handlebars.registerHelper("eventDetails", function (param, options) {
 // Web site routes
 app.get("/site/home", staticWebSite.getHome);
 
-// Web Api routes
 app.get("/site/events/popular", eventsWebSite.getPopularEvents);
 app.get("/site/events", eventsWebSite.getSearchedEvents);
 app.get("/site/events/:eventId", eventsWebSite.getEventDetails);
@@ -91,6 +90,7 @@ app.post(
   groupsWebSite.deleteEventFromGroup
 );
 
+// Web Api routes
 // Get Popular Events
 app.get("/events/popular", eventsWebApi.getPopularEvents);
 

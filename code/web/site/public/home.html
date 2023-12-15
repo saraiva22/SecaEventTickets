@@ -7,10 +7,20 @@
   <body>
     <h1 style="text-align: center">SECA Web Site</h1>
     <p>
-      <a href="http://localhost:8080/site/events/popular">Popular Events</a>
+      <form method="GET" action="/site/events">
+        <h2>Search Events</h2>
+        <input type="text" name="keyword" value="">
+        <input type="submit" value="Search Events">
+      </form>
+    <p>
+      <form method="GET" action="/site/events/popular">
+        <input type="submit" value="Popular Events">
+      </form>
     </p>
     <p>
-      <a href="http://localhost:8080/site/groups">My Groups</a>
+      <form method="GET" action="/site/groups">
+        <input type="submit" value="My Groups">
+      </form>
     </p>
   </body>
 </html>
