@@ -1,33 +1,37 @@
-// Module manages application users data.
-// In this specific module, data is stored ElasticSearch
-
 import { get, post, del, put } from "./utils/fetch-wrapper.mjs";
+import crypto from "crypto";
 import uriManager from "./utils/uri-manager-elastic.mjs";
+import errors from "../../common/errors.mjs";
 
 const INDEX_NAME = "users";
 const URI_MANAGER = await uriManager(INDEX_NAME);
 
-// Create the index unconditionally. If the index already exists, nothing happiness
+export async function createUser(username) {
+  const checkUser = await getUserByUsername(username);
+  if (!checkUser.length) {
+    const user = {
+      username: username,
+      token: crypto.randomUUID(),
+    };
 
-export function createUser(username) {
-  return getUserBy("username", username);
-}
-
-export function getUserId(userToken) {
-  return getUserBy("token", userToken);
-}
-
-async function getUserByToken(token) {
-  return getUserBy("token", token);
+    return await post(URI_MANAGER.createDoc(), user).then((body) => {
+      return user;
+    });
+  }
+  throw errors.USER_EXISTS(username);
 }
 
 async function getUserByUsername(username) {
-  return getUserBy("username", username);
+  return await getUserBy("username", username);
 }
 
-async function getUserBy(propName, value) {
+async function getUserByToken(token) {
+  return await getUserBy("token", token);
+}
+
+export async function getUserBy(propName, value) {
   const uri = `${URI_MANAGER.searchDocs()}?q=${propName}:${value}`;
-  return get(uri).then((body) => body.hits.hits.map(createUserFrom));
+  return await get(uri).then((body) => body.hits.hits.map(createUserFrom));
 }
 
 function createUserFrom(groupElastic) {

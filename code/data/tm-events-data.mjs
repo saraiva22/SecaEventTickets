@@ -81,7 +81,7 @@ function getDetails(obj, bol) {
   }
   newEvent.segment = classifications?.segment?.name;
   newEvent.genre = classifications?.genre?.name;
-  newEvent.subGenre = classifications.subGenre.name;
+  newEvent.subGenre = classifications?.subGenre?.name;
   newEvent.url = obj.url;
   return newEvent;
 }

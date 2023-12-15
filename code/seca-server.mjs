@@ -6,15 +6,18 @@ import express from "express";
 import url from "url";
 import path from "path";
 import hbs from "hbs";
+import morgan from "morgan";
+import passport from "passport";
+import expressSession from "express-session";
 
 // DATA MEM IMPORTS
 import * as secaTmData from "./data/tm-events-data.mjs";
- //import * as secaGroupsData from "./data/local/seca-groups-data-mem.mjs";
-import * as secaUsersData from "./data/local/seca-users-data-mem.mjs";
+//import * as secaGroupsData from "./data/local/seca-groups-data-mem.mjs";
+//import * as secaUsersData from "./data/local/seca-users-data-mem.mjs";
 
 // DATA ELASTICSEARCH IMPORTS
-import * as secaGroupsData from "./data/elastic/seca-groups-data-elastic.mjs";
- //import * as secaUsersData from "./data/elastic/seca-users-data-elastic.mjs";
+import * as secaGroupsElastic from "./data/elastic/seca-groups-data-elastic.mjs";
+import * as secaUsersElastic from "./data/elastic/seca-users-data-elastic.mjs";
 
 // SERVICE IMPORTS
 import eventsServiceInit from "./services/seca-events-services.mjs";
@@ -37,14 +40,14 @@ const eventsWebSite = eventsSiteInit(secaEventsServices);
 // Groups - Service and Web Api
 const secaGroupsServices = groupsServiceInit(
   secaEventsServices,
-  secaGroupsData,
-  secaUsersData
+  secaGroupsElastic,
+  secaUsersElastic
 );
 const groupsWebApi = groupsApiInit(secaGroupsServices);
 const groupsWebSite = groupsSiteInit(secaGroupsServices);
 
 // Users - Service and Web Api
-const secaUsersServices = usersServiceInit(secaUsersData);
+const secaUsersServices = usersServiceInit(secaUsersElastic);
 const usersWebApi = usersApiInit(secaUsersServices);
 
 const PORT = 8080;
@@ -56,8 +59,16 @@ let app = express();
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use(cors());
 app.use(express.json());
+app.use(morgan("dev"));
 app.use(express.urlencoded());
 app.use("/site", express.static("./web/site/public"));
+
+// Passport initialization
+//app.use(passport.session())
+//app.use(passport.initialize())
+
+//passport.serializeUser(serializeUserDeserializeUser)
+//passport.deserializeUser(serializeUserDeserializeUser)
 
 // Handlebars view engine setup
 const currentFileDir = url.fileURLToPath(new URL(".", import.meta.url));

@@ -21,8 +21,8 @@ export default function (secaServices) {
     };
   }
 
-  function createUser(req, rsp) {
-    const newUser = secaServices.createUser(req.body.username);
+  async function createUser(req, rsp) {
+    const newUser = await secaServices.createUser(req.body.username);
     rsp.status(201).json({
       status: "Success - Added new user sucessfully",
       newUser: newUser,

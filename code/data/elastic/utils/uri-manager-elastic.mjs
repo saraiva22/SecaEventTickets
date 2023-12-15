@@ -1,7 +1,5 @@
 import { put } from "./fetch-wrapper.mjs";
 
-
-
 // Constants
 const PORT = 9200
 const URI_PREFIX = `http://localhost:${PORT}/`

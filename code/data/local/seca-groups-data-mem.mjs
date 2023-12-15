@@ -11,6 +11,7 @@ let GROUPS = new Array(NUM_GROUPS).fill(0).map((v, idx) => {
     events: [],
   };
 });
+
 GROUPS.filter((g) => g.id == 4 && g.userId == 0).map((g) =>
   g.events.push({
     id: "Z7r9jZ1AdJ9uK",
