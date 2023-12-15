@@ -76,15 +76,11 @@ export default function (secaServices) {
 
   async function updateGroup(req, rsp) {
     const idGroup = req.params.groupId;
-    const name = req.body.name;
-    const description = req.body.description;
-    const token = req.token;
-    const update = await secaServices.updateGroup(
-      idGroup,
-      name,
-      description,
-      token
-    );
+    const newGroup = {
+      name: req.body.name,
+      description: req.body.description,
+    };
+    const update = await secaServices.updateGroup(idGroup, newGroup, req.token);
     rsp.status(200).json({
       status: `Success - Update group ${idGroup} successfully`,
       group: update,

@@ -53,11 +53,11 @@ export async function deleteGroup(groupId) {
   return group;
 }
 
-export async function updateGroup(groupId, name, description) {
-  const groupIndex = getGroupIdx(groupId);
+export async function updateGroup(groupToUpdate) {
+  const groupIndex = getGroupIdx(groupToUpdate.id);
   const group = GROUPS[groupIndex];
-  group.name = name;
-  group.description = description;
+  group.name = groupToUpdate.name;
+  group.description = groupToUpdate.description;
   return group;
 }
 
@@ -89,5 +89,5 @@ function getEventIdx(groupIdx, eventId) {
   if (eventIdx != -1) {
     return eventIdx;
   }
-  throw errors.EVENT_NOT_FOUND(groupIdx);
+  throw errors.EVENT_NOT_FOUND(eventIdx);
 }

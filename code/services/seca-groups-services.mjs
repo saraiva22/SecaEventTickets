@@ -56,10 +56,12 @@ export default function (secaEventsServices, secaGroupsData, secaUsersData) {
     return await secaGroupsData.addEventToGroup(groupId, event);
   }
 
-  async function updateGroup(groupId, name, description, userToken) {
+  async function updateGroup(groupId, newGroup, userToken) {
     const userId = await secaUsersData.getUserId(userToken);
     const group = await getGroup(groupId, userId);
-    return await secaGroupsData.updateGroup(groupId, name, description);
+    group.name = newGroup.name;
+    group.description = newGroup.description;
+    return await secaGroupsData.updateGroup(group);
   }
 
   async function deleteEventFromGroup(groupId, eventId, userToken) {
@@ -70,9 +72,6 @@ export default function (secaEventsServices, secaGroupsData, secaUsersData) {
 
   // Auxilry Functions
   async function getGroup(groupId, userId) {
-    if (isNaN(Number(groupId))) {
-      throw errors.INVALID_ARGUMENT("groupId");
-    }
     const group = await secaGroupsData.getGroup(groupId);
     if (group.userId == userId) {
       return group;

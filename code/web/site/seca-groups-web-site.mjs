@@ -72,15 +72,11 @@ export default function (secaServices) {
 
   async function updateGroup(req, rsp) {
     const idGroup = req.params.groupId;
-    const name = req.body.name;
-    const description = req.body.description;
-    const token = req.token;
-    await secaServices.updateGroup(
-      idGroup,
-      name,
-      description,
-      token
-    );
+    const newGroup = {
+      name: req.body.name,
+      description: req.body.description,
+    };
+    await secaServices.updateGroup(idGroup, newGroup, req.token);
     rsp.redirect(`/site/groups/${idGroup}`);
   }
 
@@ -95,11 +91,7 @@ export default function (secaServices) {
     const idGroup = req.params.groupId;
     const idEvent = req.params.eventsId;
     const token = req.token;
-    await secaServices.deleteEventFromGroup(
-      idGroup,
-      idEvent,
-      token
-    );
+    await secaServices.deleteEventFromGroup(idGroup, idEvent, token);
     rsp.redirect(`/site/groups/${idGroup}`);
   }
 
