@@ -29,6 +29,15 @@ async function getUserByToken(token) {
   return await getUserBy("token", token);
 }
 
+export async function getUserId(token) {
+  const user = await getUserByToken(token);
+  const arg = Array.from(user)[0];
+  if (arg.token == token) {
+    return arg.id;
+  }
+  throw errors.USER_NOT_FOUND();
+}
+
 export async function getUserBy(propName, value) {
   const uri = `${URI_MANAGER.searchDocs()}?q=${propName}:${value}`;
   return await get(uri).then((body) => body.hits.hits.map(createUserFrom));

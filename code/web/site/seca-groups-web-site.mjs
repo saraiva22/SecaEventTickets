@@ -101,6 +101,6 @@ export default function (secaServices) {
   // Auxiliary functions
   function getToken(req) {
     // TODO: Handle token properly
-    return (req.token = "14d72b99-48f6-48d3-94d3-5a4dcfd96c80");
+    return (req.token = "9bc1de82-4258-439d-a8e5-d1fb77e15678");
   }
 }

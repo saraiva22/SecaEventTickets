@@ -72,7 +72,7 @@ export default function (secaEventsServices, secaGroupsData, secaUsersData) {
 
   // Auxilry Functions
   async function getGroup(groupId, userId) {
-    const group = await secaGroupsData.getGroup(groupId);
+    const group = await secaGroupsData.getGroupFromElastic(groupId);
     if (group.userId == userId) {
       return group;
     }
