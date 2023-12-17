@@ -1,15 +1,32 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
   <head>
     <title>SECA Groups</title>
+    <script>
+      function checkform(form) {
+        const nameField = form.elements['name'];
+        if (nameField.value.trim() === '') {
+          alert("Group Name can't be blank");
+          return false; 
+        }
+        return true; 
+      }
+    </script>
   </head>
   <body>
     <h1>All Groups</h1>
     <h2>Create a new Group</h2>
-    <form method="POST" action="/site/groups">
-      <p>Name: <input type="text" name="name" value="" /></p>
-      <p>Description: <input type="text" name="description" value="" /></p>
-      <input type="submit" value="Create Group" />
-    </form>
+    <section>
+      <form method="POST" style="display: inline;" onsubmit="return checkform(this)">
+        <p>Name: <input type="text" name="name" value="" /></p>
+        <p>Description: <input type="text" name="description" value="" /></p>
+        <input type="submit" value="Create Group" />
+      </form>
+      <button
+        onclick="window.location.href='/site/home'"
+        style="margin-left: 1065px;"
+      >Home Screen</button>
+    </section>
     <hr />
     <section>
       {{#each groups}}
@@ -18,7 +35,10 @@
           <p>Description: {{description}}</p>
         </section>
         {{#if eventId}}
-          <form method="POST" action="/site/groups/{{id}}/events?eventId={{eventId}}">
+          <form
+            method="POST"
+            action="/site/groups/{{id}}/events?eventId={{eventId}}"
+          >
             <button name="event">Add Event</button>
           </form>
         {{/if}}

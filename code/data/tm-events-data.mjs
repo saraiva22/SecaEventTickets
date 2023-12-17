@@ -30,7 +30,7 @@ export async function getEventById(id) {
 
 export async function getEventDetails(eventId) {
   return ProcessRequestFromApi(
-    `https://app.ticketmaster.com/discovery/v2/events/${eventId}?apikey=${keyFrancisco}`,
+    `https://app.ticketmaster.com/discovery/v2/events/${eventId}?apikey=${keyCarolina}`,
     true
   )
     .then((event) => event)

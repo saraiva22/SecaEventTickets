@@ -5,6 +5,15 @@
     </head>
     <body>
         <h1>Group Details</h1>
+        <section style="display: inline;">
+        <button
+            onclick="window.location.href='/site/groups'"
+            style="margin-left: 1033px;"
+        >Go Back To Groups</button>
+        <button
+            onclick="window.location.href='/site/home'"
+        >Home Screen</button>
+        </section>
         <section style="border: 1px solid black;">
             {{> groupPartial this}}  
             <p>Events:
@@ -13,6 +22,9 @@
                     <div style="border: 1px solid black;">
                         {{> eventPartial this}}
                     </div>
+                    <form method="POST" action="/site/groups/{{../id}}/events/{{id}}">
+                        <input type="submit" value="Delete Event">
+                    </form>
                 <br>
                 {{/each}}
                 {{else}}
@@ -26,16 +38,5 @@
             <form method="POST" action="/site/groups/{{id}}/delete" style="display: inline;">
                 <input type="submit" value="Delete Group">
             </form>
-        <script>
-            function deleteEventFromGroup(id) {
-                var eventId = document.getElementsByName('event')[0].value;
-                var form = document.getElementById("deleteEventForm");
-                form.action = "/site/groups/" + id + "/events/" + eventId;
-            }
-        </script>
-        <form id="deleteEventForm" method="POST" onsubmit="deleteEventFromGroup({{id}})">
-            <p>id: <input type="text" name="event" value=""></p>
-            <input type="submit" value="Delete event from group">
-        </form>
     </body>
 </html> 
