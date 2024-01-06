@@ -53,8 +53,11 @@ export default function (secaServices) {
   }
 
   function logout(req, rsp) {
-    req.logout((err) => {
-      rsp.redirect("/site/home");
+    rsp.clearCookie("connect.sid");
+    req.logout(function (err) {
+      req.session.destroy(function (err) {
+        rsp.redirect("/site/home");
+      });
     });
   }
 
