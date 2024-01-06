@@ -35,13 +35,15 @@ import eventsSiteInit from "./web/site/seca-events-web-site.mjs";
 import groupsSiteInit from "./web/site/seca-groups-web-site.mjs";
 import usersSiteInit from "./web/site/seca-users-web-site.mjs";
 
-// AUTHORIZATION IMPORTS
-import authorizationInit from "./web/site/seca-login-web-site.mjs";
-
 // Events - Service and Web Api
 const secaEventsServices = eventsServiceInit(secaTmData);
 const eventsWebApi = eventsApiInit(secaEventsServices);
 const eventsWebSite = eventsSiteInit(secaEventsServices);
+
+// Users - Service and Web Api
+const secaUsersServices = usersServiceInit(secaUsersElastic);
+const usersWebApi = usersApiInit(secaUsersServices);
+const usersWebSite = usersSiteInit(secaUsersServices);
 
 // Groups - Service and Web Api
 const secaGroupsServices = groupsServiceInit(
@@ -50,15 +52,7 @@ const secaGroupsServices = groupsServiceInit(
   secaUsersElastic
 );
 const groupsWebApi = groupsApiInit(secaGroupsServices);
-const groupsWebSite = groupsSiteInit(secaGroupsServices);
-
-// Users - Service and Web Api
-const secaUsersServices = usersServiceInit(secaUsersElastic);
-const usersWebApi = usersApiInit(secaUsersServices);
-const usersWebSite = usersSiteInit(secaUsersServices);
-
-// Authorization
-const auth = authorizationInit();
+const groupsWebSite = groupsSiteInit(secaGroupsServices, secaUsersServices);
 
 const PORT = 8080;
 const swaggerDocument = yaml.load("./docs/events-api.yaml");
@@ -88,7 +82,7 @@ app.use(passport.initialize());
 passport.serializeUser(serializeUserDeserializeUser);
 passport.deserializeUser(serializeUserDeserializeUser);
 
-app.use("/site/groups", auth.verifyAuthenticated);
+app.use("/site/groups", usersWebSite.verifyAuthenticated);
 
 // Handlebars view engine setup
 const currentFileDir = url.fileURLToPath(new URL(".", import.meta.url));
@@ -125,7 +119,10 @@ app.post(
 );
 
 // URIs for users
-app.get("/site/login", usersWebSite.createUser);
+app.get("/site/login", usersWebSite.userForm);
+app.post("/site/login", usersWebSite.validateLogin);
+app.get("/site/signup", usersWebSite.userForm);
+app.post("/site/signup", usersWebSite.createUser);
 
 // Web Api routes
 // Get Popular Events

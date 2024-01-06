@@ -8,7 +8,7 @@ const URI_MANAGER = await uriManager(INDEX_NAME);
 
 export async function createUser(username) {
   const checkUser = await getUserByUsername(username);
-  if (!checkUser.length) {
+  if (checkUser == undefined) {
     const user = {
       username: username,
       token: crypto.randomUUID(),
@@ -21,8 +21,9 @@ export async function createUser(username) {
   throw errors.USER_EXISTS(username);
 }
 
-async function getUserByUsername(username) {
-  return await getUserBy("username", username);
+export async function getUserByUsername(username) {
+  const user = await getUserBy("username", username);
+  return user[0];
 }
 
 async function getUserByToken(token) {

@@ -1,0 +1,22 @@
+<html>
+  <head>
+    <title>Login</title>
+  </head>
+  <body>
+    {{#if login}}
+    <h1>LogIn</h1>
+    {{/if}}
+    {{#if signup}}
+    <h1>SignUp</h1>
+    {{/if}}
+    <section>
+        {{#if login}}
+            {{> logInPartial this}} 
+        {{/if}}
+
+        {{#if signup}}
+            {{> signUpPartial this}}   
+        {{/if}}
+    </section>
+  </body>
+</html>
