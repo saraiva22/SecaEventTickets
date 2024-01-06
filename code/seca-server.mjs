@@ -31,6 +31,9 @@ import groupsApiInit from "./web/api/seca-groups-web-api.mjs";
 import * as staticWebSite from "./web/site/seca-static-web-site.mjs";
 import eventsSiteInit from "./web/site/seca-events-web-site.mjs";
 import groupsSiteInit from "./web/site/seca-groups-web-site.mjs";
+import  homeWebSite from "./web/site/seca-users-web-site.mjs"
+
+
 
 // Events - Service and Web Api
 const secaEventsServices = eventsServiceInit(secaTmData);
@@ -50,6 +53,10 @@ const groupsWebSite = groupsSiteInit(secaGroupsServices);
 const secaUsersServices = usersServiceInit(secaUsersElastic);
 const usersWebApi = usersApiInit(secaUsersServices);
 
+// SITE
+ const secaSite = homeWebSite(secaUsersServices);
+
+
 const PORT = 8080;
 const swaggerDocument = yaml.load("./docs/events-api.yaml");
 
@@ -64,11 +71,11 @@ app.use(express.urlencoded());
 app.use("/site", express.static("./web/site/public"));
 
 // Passport initialization
-//app.use(passport.session())
-//app.use(passport.initialize())
+// app.use(passport.session())
+// app.use(passport.initialize())
 
-//passport.serializeUser(serializeUserDeserializeUser)
-//passport.deserializeUser(serializeUserDeserializeUser)
+// passport.serializeUser(serializeUserDeserializeUser)
+// passport.deserializeUser(serializeUserDeserializeUser)
 
 // Handlebars view engine setup
 const currentFileDir = url.fileURLToPath(new URL(".", import.meta.url));
@@ -83,8 +90,31 @@ hbs.handlebars.registerHelper("eventDetails", function (param, options) {
   }
 });
 
+
+// Public routes
+
+app.use("/auth", secaSite);
+app.get("/home", secaSite);
+app.get("/auth/home", secaSite);
+
+app.get("/login", secaSite);
+app.post("/login", secaSite);
+// app.get("/register", registrationForm);
+// app.post("/register", createUser);
+app.post("/logout", secaSite);
+
+// app.get('/auth/home', secaSite.getHome)
+// app.get("/events/popular", eventsWebSite.getPopularEvents);
+// app.get("/events", eventsWebSite.getSearchedEvents);
+// app.get("/events/:eventId", eventsWebSite.getEventDetails);
+
+
+
+
+
 // Web site routes
 app.get("/site/home", staticWebSite.getHome);
+
 
 app.get("/site/events/popular", eventsWebSite.getPopularEvents);
 app.get("/site/events", eventsWebSite.getSearchedEvents);
