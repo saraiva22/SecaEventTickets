@@ -15,7 +15,6 @@ export default function () {
       console.log(user);
       req.login(user, () => rsp.redirect("/auth/home"));
     }
-
     function validateUser(username, password) {
       return true;
     }
