@@ -23,14 +23,20 @@ import * as secaUsersElastic from "./data/elastic/seca-users-data-elastic.mjs";
 import eventsServiceInit from "./services/seca-events-services.mjs";
 import usersServiceInit from "./services/seca-users-services.mjs";
 import groupsServiceInit from "./services/seca-groups-services.mjs";
+
 // WEB API IMPORTS
 import eventsApiInit from "./web/api/seca-events-web-api.mjs";
 import usersApiInit from "./web/api/seca-users-web-api.mjs";
 import groupsApiInit from "./web/api/seca-groups-web-api.mjs";
+
 // WEB SITE IMPORTS
 import * as staticWebSite from "./web/site/seca-static-web-site.mjs";
 import eventsSiteInit from "./web/site/seca-events-web-site.mjs";
 import groupsSiteInit from "./web/site/seca-groups-web-site.mjs";
+import usersSiteInit from "./web/site/seca-users-web-site.mjs";
+
+// AUTHORIZATION IMPORTS
+import authorizationInit from "./web/site/seca-login-web-site.mjs";
 
 // Events - Service and Web Api
 const secaEventsServices = eventsServiceInit(secaTmData);
@@ -49,12 +55,24 @@ const groupsWebSite = groupsSiteInit(secaGroupsServices);
 // Users - Service and Web Api
 const secaUsersServices = usersServiceInit(secaUsersElastic);
 const usersWebApi = usersApiInit(secaUsersServices);
+const usersWebSite = usersSiteInit(secaUsersServices);
+
+// Authorization
+const auth = authorizationInit();
 
 const PORT = 8080;
 const swaggerDocument = yaml.load("./docs/events-api.yaml");
 
 console.log("Setting up server");
 let app = express();
+
+app.use(
+  expressSession({
+    secret: "Client Secret",
+    resave: false,
+    saveUninitialized: false,
+  })
+);
 
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use(cors());
@@ -64,11 +82,13 @@ app.use(express.urlencoded());
 app.use("/site", express.static("./web/site/public"));
 
 // Passport initialization
-//app.use(passport.session())
-//app.use(passport.initialize())
+app.use(passport.session());
+app.use(passport.initialize());
 
-//passport.serializeUser(serializeUserDeserializeUser)
-//passport.deserializeUser(serializeUserDeserializeUser)
+passport.serializeUser(serializeUserDeserializeUser);
+passport.deserializeUser(serializeUserDeserializeUser);
+
+app.use("/site/groups", auth.verifyAuthenticated);
 
 // Handlebars view engine setup
 const currentFileDir = url.fileURLToPath(new URL(".", import.meta.url));
@@ -86,9 +106,12 @@ hbs.handlebars.registerHelper("eventDetails", function (param, options) {
 // Web site routes
 app.get("/site/home", staticWebSite.getHome);
 
+// URIs for events
 app.get("/site/events/popular", eventsWebSite.getPopularEvents);
 app.get("/site/events", eventsWebSite.getSearchedEvents);
 app.get("/site/events/:eventId", eventsWebSite.getEventDetails);
+
+// URIs for groups
 app.get("/site/groups", groupsWebSite.getAllGroups);
 app.post("/site/groups", groupsWebSite.createGroup);
 app.get("/site/groups/:groupId", groupsWebSite.getGroupsDetails);
@@ -100,6 +123,9 @@ app.post(
   "/site/groups/:groupId/events/:eventsId",
   groupsWebSite.deleteEventFromGroup
 );
+
+// URIs for users
+app.get("/site/login", usersWebSite.createUser);
 
 // Web Api routes
 // Get Popular Events
@@ -141,5 +167,9 @@ app.delete(
 app.listen(PORT, () =>
   console.log(`Server listening in http://localhost:${PORT}`)
 );
+
+function serializeUserDeserializeUser(user, done) {
+  done(null, user);
+}
 
 console.log("End setting up server");
