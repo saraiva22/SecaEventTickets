@@ -9,6 +9,7 @@ import hbs from "hbs";
 import morgan from "morgan";
 import passport from "passport";
 import expressSession from "express-session";
+import cookieParser from "cookie-parser";
 
 // DATA MEM IMPORTS
 import * as secaTmData from "./data/tm-events-data.mjs";
@@ -73,6 +74,7 @@ app.use(cors());
 app.use(express.json());
 app.use(morgan("dev"));
 app.use(express.urlencoded());
+app.use(cookieParser());
 app.use("/site", express.static("./web/site/public"));
 
 // Passport initialization
@@ -123,6 +125,7 @@ app.get("/site/login", usersWebSite.userForm);
 app.post("/site/login", usersWebSite.validateLogin);
 app.get("/site/signup", usersWebSite.userForm);
 app.post("/site/signup", usersWebSite.createUser);
+app.post("/site/logout", usersWebSite.logout);
 
 // Web Api routes
 // Get Popular Events

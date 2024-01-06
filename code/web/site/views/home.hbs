@@ -22,10 +22,19 @@
         <input type="submit" value="My Groups">
       </form>
     </p>
+    {{#if login}}
     <p>
       <form method="GET" action="/site/login">
-        <input type="submit" value="Log In/Sign Up">
+        <input type="submit" value="Log In">
       </form>
     </p>
+    {{/if}}
+     {{#if logout}}
+    <p>
+      <form method="POST" action="/site/logout">
+        <input type="submit" value="Log Out">
+      </form>
+    </p>
+    {{/if}}
   </body>
 </html>
