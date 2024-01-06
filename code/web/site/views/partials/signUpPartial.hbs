@@ -1,4 +1,4 @@
-<form method="POST" action="/site/signup">
+<form method="POST" action="/site/signup" onsubmit="return validateForm()">
   <p>
     Username:
     <input type="text" name="username" value="" />
@@ -17,3 +17,37 @@
   </p>
   <button style="display: inline;">SignUp</button>
 </form>
+<script>
+  function validateForm() {
+    var username = document.getElementsByName("username")[0].value;
+    var email = document.getElementsByName("email")[0].value;
+    var password = document.getElementsByName("password")[0].value;
+    var confpassword = document.getElementsByName("confpassword")[0].value;
+
+    if (isBlank(username)) {
+      alert("Username field is blank");
+      return false;
+    }
+
+    if (isBlank(email)) {
+      alert("Email field is blank");
+      return false;
+    }
+
+    if (isBlank(password)) {
+      alert("Password field is blank");
+      return false;
+    }
+
+    if (isBlank(confpassword)) {
+      alert("Confirm Password field is blank");
+      return false;
+    }
+
+    return true;
+  }
+
+  function isBlank(value) {
+    return value == "";
+  }
+</script>

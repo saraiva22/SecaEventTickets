@@ -11,8 +11,8 @@ export default function (secaData) {
     getUserByUsername: getUserByUsername,
   };
 
-  async function createUser(username) {
-    return await secaData.createUser(username);
+  async function createUser(username, email, password) {
+    return await secaData.createUser(username, email, password);
   }
 
   function getUserId(token) {

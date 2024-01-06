@@ -1,12 +1,34 @@
-<form method="POST" action="/site/login">
+<form method="POST" action="/site/login" onsubmit="return validateForm()">
   <p>
     Username:
-    <input type="text" name="username" value="" />
+    <input type="text" name="username" value=""/>
   </p>
   <p>
     Password:
-    <input type="password" name="password" value="" />
+    <input type="password" name="password" value=""/>
   </p>
   <button style="display: inline;">LogIn</button>
 </form>
 <button onClick="window.location.href='/site/signup';" style="display: inline;">SignUp</button>
+<script>
+  function validateForm() {
+    var username = document.getElementsByName("username")[0].value;
+    var password = document.getElementsByName("password")[0].value;
+
+    if (isBlank(username)) {
+      alert("Username field is blank");
+      return false;
+    }
+
+    if (isBlank(password)) {
+      alert("Password field is blank");
+      return false;
+    }
+
+    return true;
+  }
+
+  function isBlank(value) {
+    return value == "";
+  }
+</script>

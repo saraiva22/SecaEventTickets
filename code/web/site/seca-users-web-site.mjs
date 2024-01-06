@@ -45,7 +45,6 @@ export default function (secaServices) {
   }
 
   function verifyAuthenticated(req, rsp, next) {
-    console.log("verifyAuthenticated", req.user);
     if (req.user) {
       return next();
     }
@@ -71,7 +70,15 @@ export default function (secaServices) {
   }
 
   async function createUser(req, rsp) {
-    const newUser = await secaServices.createUser(req.body.username);
-    rsp.redirect("/site/home");
+    const username = req.body.username;
+    const email = req.body.email;
+    const password = req.body.password;
+    const checkpass = req.body.confpassword;
+    if (password == checkpass) {
+      const newUser = await secaServices.createUser(username, email, password);
+      validateLogin(req, rsp)
+    } else {
+      rsp.redirect("/site/signup");
+    }
   }
 }

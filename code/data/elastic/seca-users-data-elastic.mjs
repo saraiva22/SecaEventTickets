@@ -6,11 +6,13 @@ import errors from "../../common/errors.mjs";
 const INDEX_NAME = "users";
 const URI_MANAGER = await uriManager(INDEX_NAME);
 
-export async function createUser(username) {
+export async function createUser(username, email, password) {
   const checkUser = await getUserByUsername(username);
   if (checkUser == undefined) {
     const user = {
       username: username,
+      email: email,
+      password: password,
       token: crypto.randomUUID(),
     };
 

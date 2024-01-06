@@ -93,9 +93,12 @@ app.set("view engine", "hbs");
 app.set("views", viewsDir);
 
 hbs.registerPartials(path.join(viewsDir, "partials"));
-hbs.handlebars.registerHelper("eventDetails", function (param, options) {
-  if (param) {
-    return options.fn(this);
+
+hbs.handlebars.registerHelper("checkBlank", function (field, value, options) {
+  if (value === "" || value === undefined || value === null) {
+    return `<script>alert(${field} is blank);</script>`;
+  } else {
+    return options.inverse(this);
   }
 });
 
