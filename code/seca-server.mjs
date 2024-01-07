@@ -88,7 +88,7 @@ app.use("/site/groups", usersWebSite.verifyAuthenticated);
 
 // Handlebars view engine setup
 const currentFileDir = url.fileURLToPath(new URL(".", import.meta.url));
-const viewsDir = path.join(currentFileDir, "web", "site", "resources","views");
+const viewsDir = path.join(currentFileDir, "web", "site", "resources", "views");
 app.set("view engine", "hbs");
 app.set("views", viewsDir);
 
@@ -103,8 +103,8 @@ hbs.handlebars.registerHelper("checkBlank", function (field, value, options) {
 });
 
 // Public resources setup
-const publicFilesDir = `${currentFileDir}/web/site/resources/public`
-app.use('/site', express.static(publicFilesDir))
+const publicFilesDir = `${currentFileDir}/web/site/resources/public`;
+app.use("/site", express.static(publicFilesDir));
 
 // Web site routes
 app.get("/site/home", staticWebSite.getHome);
