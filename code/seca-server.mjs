@@ -10,6 +10,7 @@ import morgan from "morgan";
 import passport from "passport";
 import expressSession from "express-session";
 import cookieParser from "cookie-parser";
+import bodyParser from "body-parser";
 
 // DATA MEM IMPORTS
 import * as secaTmData from "./data/tm-events-data.mjs";
@@ -75,6 +76,7 @@ app.use(express.json());
 app.use(morgan("dev"));
 app.use(express.urlencoded());
 app.use(cookieParser());
+app.use(bodyParser.json());
 app.use("/site", express.static("./web/site/public"));
 
 // Passport initialization

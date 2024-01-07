@@ -15,15 +15,15 @@
         >Home Screen</button>
         </section>
         <section style="border: 1px solid black;">
-            <form method = "POST" action="/site/groups/{{id}}/update">
-            <p>Name: <input type = "text" name="name" value = "{{name}}"> </p>
-            <p>Description: <input type="text" name ="description" value="{{description}}"></p>
-        </section>
+            <form id="updateDetails">
+            <p>Name: <input type = "text" name="name" value = "{{name}}" id="name"> </p>
+            <p>Description: <input type="text" name ="description" value="{{description}}" id="description"></p>
+            </form>
             <input type = "submit" value = "Update Group" id="updateGroup">
-            <script type="application/ecmascript" src="/site/js/groups.js"></script>
+            <script type="application/ecmascript" src="/site/js/groupsUpdate.js"></script>
             <script type="application/ecmascript">
                 registerPutGroup('{{token}}')
             </script>
-        </form>
+        </section>
     </body>
 </html> 

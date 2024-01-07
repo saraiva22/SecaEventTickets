@@ -25,7 +25,10 @@ export default function (secaGroupsServices, secaUsersServices) {
     return async function (req, rsp) {
       const token = await getToken(req);
       if (!token) {
-        rsp.status(401).render("errors", { code: NaN, error: `Invalid authentication token` });
+        rsp.status(401).render("errors", {
+          code: NaN,
+          error: `Invalid authentication token`,
+        });
         return;
       }
       req.token = token;
@@ -54,7 +57,6 @@ export default function (secaGroupsServices, secaUsersServices) {
       idGroup,
       token
     );
-    groupDetails.token = token
     rsp.render("groupDetails", groupDetails);
   }
 
@@ -78,6 +80,7 @@ export default function (secaGroupsServices, secaUsersServices) {
     const idGroup = req.params.groupId;
     const token = req.token;
     const event = await secaGroupsServices.getGroupsDetails(idGroup, token);
+    event.token = token;
     rsp.render("updateGroup", event);
   }
 
