@@ -7,15 +7,15 @@
         <h1>Update Your Group</h1>
         <section style="display: inline;">
         <button
-            onclick="window.location.href='/site/groups'"
+            onclick="window.location.href='/site/auth/groups'"
             style="margin-left: 1033px;"
         >Go Back To Groups</button>
         <button
-            onclick="window.location.href='/site/home'"
+            onclick="window.location.href='/site/auth/home'"
         >Home Screen</button>
         </section>
         <section style="border: 1px solid black;">
-            <form method = "POST" action="/site/groups/{{id}}/update">
+            <form method = "POST" action="/site/auth/groups/{{id}}/update">
             <p>Name: <input type = "text" name="name" value = "{{name}}"> </p>
             <p>Description: <input type="text" name ="description" value="{{description}}"></p>
         </section>

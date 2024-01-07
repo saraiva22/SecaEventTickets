@@ -59,7 +59,7 @@ export default function (secaGroupsServices, secaUsersServices) {
     const idEvent = req.query.eventId;
     const token = req.token;
     await secaGroupsServices.addEventToGroup(idGroup, idEvent, token);
-    rsp.redirect(`/site/groups/${idGroup}`);
+    rsp.redirect(`/site/auth/groups/${idGroup}`);
   }
 
   async function createGroup(req, rsp) {
@@ -67,7 +67,7 @@ export default function (secaGroupsServices, secaUsersServices) {
     const description = req.body.description;
     const token = req.token;
     await secaGroupsServices.createGroup(name, description, token);
-    rsp.redirect("/site/groups");
+    rsp.redirect("/site/auth/groups");
   }
 
   async function updateGroupPage(req, rsp) {
@@ -84,14 +84,14 @@ export default function (secaGroupsServices, secaUsersServices) {
       description: req.body.description,
     };
     await secaGroupsServices.updateGroup(idGroup, newGroup, req.token);
-    rsp.redirect(`/site/groups/${idGroup}`);
+    rsp.redirect(`/site/auth/groups/${idGroup}`);
   }
 
   async function deleteGroup(req, rsp) {
     const idGroup = req.params.groupId;
     const token = req.token;
     await secaGroupsServices.deleteGroup(idGroup, token);
-    rsp.redirect("/site/groups");
+    rsp.redirect("/site/auth/groups");
   }
 
   async function deleteEventFromGroup(req, rsp) {
@@ -99,7 +99,7 @@ export default function (secaGroupsServices, secaUsersServices) {
     const idEvent = req.params.eventsId;
     const token = req.token;
     await secaGroupsServices.deleteEventFromGroup(idGroup, idEvent, token);
-    rsp.redirect(`/site/groups/${idGroup}`);
+    rsp.redirect(`/site/auth/groups/${idGroup}`);
   }
 
   // Auxiliary functions

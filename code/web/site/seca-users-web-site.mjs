@@ -32,7 +32,7 @@ export default function (secaServices) {
         username: req.body.username,
         password: req.body.password,
       };
-      req.login(user, () => rsp.redirect("/site/home"));
+      req.login(user, () => rsp.redirect("/site/auth/home"));
     } else {
       rsp.redirect("/site/login");
     }
@@ -75,7 +75,7 @@ export default function (secaServices) {
     const password = req.body.password;
     const checkpass = req.body.confpassword;
     if (password == checkpass) {
-      const newUser = await secaServices.createUser(username, email, password);
+    await secaServices.createUser(username, email, password);
       validateLogin(req, rsp)
     } else {
       rsp.redirect("/site/signup");
