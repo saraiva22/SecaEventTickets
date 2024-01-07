@@ -21,7 +21,7 @@ export default function (secaServices) {
         return await reqProcessor(req, rsp);
       } catch (e) {
         const rspError = errorToHttp(e);
-        rsp.status(rspError.status).json(rspError.body);
+        rsp.status(rspError.status).render("errors", rspError.body);
       }
     };
   }

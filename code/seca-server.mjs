@@ -84,7 +84,7 @@ app.use(passport.initialize());
 passport.serializeUser(serializeUserDeserializeUser);
 passport.deserializeUser(serializeUserDeserializeUser);
 
-app.use("/site/auth", usersWebSite.verifyAuthenticated);
+app.use("/site/groups", usersWebSite.verifyAuthenticated);
 
 // Handlebars view engine setup
 const currentFileDir = url.fileURLToPath(new URL(".", import.meta.url));
@@ -102,9 +102,12 @@ hbs.handlebars.registerHelper("checkBlank", function (field, value, options) {
   }
 });
 
+// Public resources setup
+const publicFilesDir = `${currentFileDir}/web/site/resources/public`
+app.use('/site', express.static(publicFilesDir))
+
 // Web site routes
 app.get("/site/home", staticWebSite.getHome);
-app.get("/site/auth/home",staticWebSite.getHome);
 
 // URIs for events
 app.get("/site/events/popular", eventsWebSite.getPopularEvents);
@@ -112,40 +115,61 @@ app.get("/site/events", eventsWebSite.getSearchedEvents);
 app.get("/site/events/:eventId", eventsWebSite.getEventDetails);
 
 // URIs for groups
-app.get("/site/auth/groups", groupsWebSite.getAllGroups);
-app.post("/site/auth/groups", groupsWebSite.createGroup);
-app.get("/site/auth/groups/:groupId", groupsWebSite.getGroupsDetails);
-app.post("/site/auth/groups/:groupId/delete", groupsWebSite.deleteGroup);
-app.get("/site/auth/groups/:groupId/update", groupsWebSite.updateGroupPage);
-app.post("/site/auth/groups/:groupId/update", groupsWebSite.updateGroup);
-app.post("/site/auth/groups/:groupId/events", groupsWebSite.addEventToGroup);
+app.get("/site/groups", groupsWebSite.getAllGroups);
+app.post("/site/groups", groupsWebSite.createGroup);
+app.get("/site/groups/:groupId", groupsWebSite.getGroupsDetails);
+app.post("/site/groups/:groupId/delete", groupsWebSite.deleteGroup);
+app.get("/site/groups/:groupId/update", groupsWebSite.updateGroupPage);
+app.post("/site/groups/:groupId/update", groupsWebSite.updateGroup);
+app.post("/site/groups/:groupId/events", groupsWebSite.addEventToGroup);
 app.post(
-  "/site/auth/groups/:groupId/events/:eventsId",
+  "/site/groups/:groupId/events/:eventsId",
   groupsWebSite.deleteEventFromGroup
 );
 
-// URIs for Users
+// URIs for users
 app.get("/site/login", usersWebSite.userForm);
 app.post("/site/login", usersWebSite.validateLogin);
 app.get("/site/signup", usersWebSite.userForm);
 app.post("/site/signup", usersWebSite.createUser);
 app.post("/site/logout", usersWebSite.logout);
 
-// Web API Routes
-app.get("/events/popular", eventsWebApi.getPopularEvents); // Get Popular Events
-app.get("/events", eventsWebApi.getSearchedEvents); // Get Search Events according to keyword
-app.get("/events/:eventId", eventsWebApi.getEventDetails); // Get Event Details
-app.post("/users", usersWebApi.createUser); // Create User
-app.get("/groups", groupsWebApi.getAllGroups); // Get All Groups of User
-app.post("/groups", groupsWebApi.createGroup); // Create New Group
-app.get("/groups/:groupId", groupsWebApi.getGroupsDetails); // Get Group Details
-app.put("/groups/:groupId", groupsWebApi.updateGroup); // Update Name and Group Description
-app.delete("/groups/:groupId", groupsWebApi.deleteGroup); // Delete a Group
-app.post("/groups/:groupId/events", groupsWebApi.addEventToGroup); // Add Event to One Group
+// Web Api routes
+// Get Popular Events
+app.get("/events/popular", eventsWebApi.getPopularEvents);
+
+// Get Search Events according to keyword
+app.get("/events", eventsWebApi.getSearchedEvents);
+
+// Get Event Details
+app.get("/events/:eventId", eventsWebApi.getEventDetails);
+
+// Create User
+app.post("/users", usersWebApi.createUser);
+
+// Get All Groups of User
+app.get("/groups", groupsWebApi.getAllGroups);
+
+// Create New Group
+app.post("/groups", groupsWebApi.createGroup);
+
+// Get Group Details
+app.get("/groups/:groupId", groupsWebApi.getGroupsDetails);
+
+// Update Name and Group Description
+app.put("/groups/:groupId", groupsWebApi.updateGroup);
+
+// Delete a Group
+app.delete("/groups/:groupId", groupsWebApi.deleteGroup);
+
+// Add Event to One Group
+app.post("/groups/:groupId/events", groupsWebApi.addEventToGroup);
+
+// Delete an Event From Group
 app.delete(
   "/groups/:groupId/events/:eventsId",
   groupsWebApi.deleteEventFromGroup
-); // Delete an Event From Group
+);
 
 app.listen(PORT, () =>
   console.log(`Server listening in http://localhost:${PORT}`)

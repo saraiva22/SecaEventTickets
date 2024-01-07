@@ -25,7 +25,7 @@ export default function (secaGroupsServices, secaUsersServices) {
     return async function (req, rsp) {
       const token = await getToken(req);
       if (!token) {
-        rsp.status(401).json({ error: `Invalid authentication token` });
+        rsp.status(401).render("errors", { code: NaN, error: `Invalid authentication token` });
         return;
       }
       req.token = token;
@@ -33,7 +33,7 @@ export default function (secaGroupsServices, secaUsersServices) {
         return await reqProcessor(req, rsp);
       } catch (e) {
         const rspError = errorToHttp(e);
-        rsp.status(rspError.status).json(rspError.body);
+        rsp.status(rspError.status).render("errors", rspError.body);
       }
     };
   }
@@ -44,13 +44,17 @@ export default function (secaGroupsServices, secaUsersServices) {
     groups.forEach((g) => {
       g.eventId = req.query.eventId;
     });
-    return rsp.render("groups", { groups: groups });
+    return rsp.render("groups", { groups: groups, token: token });
   }
 
   async function getGroupsDetails(req, rsp) {
     const idGroup = req.params.groupId;
     const token = req.token;
-    const groupDetails = await secaGroupsServices.getGroupsDetails(idGroup, token);
+    const groupDetails = await secaGroupsServices.getGroupsDetails(
+      idGroup,
+      token
+    );
+    groupDetails.token = token
     rsp.render("groupDetails", groupDetails);
   }
 
@@ -59,7 +63,7 @@ export default function (secaGroupsServices, secaUsersServices) {
     const idEvent = req.query.eventId;
     const token = req.token;
     await secaGroupsServices.addEventToGroup(idGroup, idEvent, token);
-    rsp.redirect(`/site/auth/groups/${idGroup}`);
+    rsp.redirect(`/site/groups/${idGroup}`);
   }
 
   async function createGroup(req, rsp) {
@@ -67,7 +71,7 @@ export default function (secaGroupsServices, secaUsersServices) {
     const description = req.body.description;
     const token = req.token;
     await secaGroupsServices.createGroup(name, description, token);
-    rsp.redirect("/site/auth/groups");
+    rsp.redirect("/site/groups");
   }
 
   async function updateGroupPage(req, rsp) {
@@ -84,14 +88,14 @@ export default function (secaGroupsServices, secaUsersServices) {
       description: req.body.description,
     };
     await secaGroupsServices.updateGroup(idGroup, newGroup, req.token);
-    rsp.redirect(`/site/auth/groups/${idGroup}`);
+    rsp.redirect(`/site/groups/${idGroup}`);
   }
 
   async function deleteGroup(req, rsp) {
     const idGroup = req.params.groupId;
     const token = req.token;
     await secaGroupsServices.deleteGroup(idGroup, token);
-    rsp.redirect("/site/auth/groups");
+    rsp.redirect("/site/groups");
   }
 
   async function deleteEventFromGroup(req, rsp) {
@@ -99,7 +103,7 @@ export default function (secaGroupsServices, secaUsersServices) {
     const idEvent = req.params.eventsId;
     const token = req.token;
     await secaGroupsServices.deleteEventFromGroup(idGroup, idEvent, token);
-    rsp.redirect(`/site/auth/groups/${idGroup}`);
+    rsp.redirect(`/site/groups/${idGroup}`);
   }
 
   // Auxiliary functions

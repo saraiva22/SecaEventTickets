@@ -7,11 +7,11 @@
         <h1>Group Details</h1>
         <section style="display: inline;">
         <button
-            onclick="window.location.href='/site/auth/groups'"
+            onclick="window.location.href='/site/groups'"
             style="margin-left: 1033px;"
         >Go Back To Groups</button>
         <button
-            onclick="window.location.href='/site/auth/home'"
+            onclick="window.location.href='/site/home'"
         >Home Screen</button>
         </section>
         <section style="border: 1px solid black;">
@@ -22,8 +22,8 @@
                     <div style="border: 1px solid black;">
                         {{> eventPartial this}}
                     </div>
-                    <form method="POST" action="/site/auth/groups/{{../id}}/events/{{id}}">
-                        <input type="submit" value="Delete Event">
+                    <form method="POST" action="/site/groups/{{../id}}/events/{{id}}">
+                        <input type="submit" value="Delete Event" id="deleteEventFromGroup">
                     </form>
                 <br>
                 {{/each}}
@@ -32,11 +32,13 @@
                 {{/if}}
             </p> 
         </section>
-            <form method = "GET" action="/site/auth/groups/{{id}}/update" style="display: inline;">
+            <form method = "GET" action="/site/groups/{{id}}/update" style="display: inline;">
                 <input type = "submit" value = "Edit Group">
             </form>
-            <form method="POST" action="/site/auth/groups/{{id}}/delete" style="display: inline;">
-                <input type="submit" value="Delete Group">
-            </form>
+            <input type="submit" value="Delete Group" id="deleteGroup">
+            <script type="application/ecmascript" src="/site/js/groups.js"></script>
+            <script type="application/ecmascript">
+                registerDeleteGroup('{{token}}')
+            </script>
     </body>
 </html> 

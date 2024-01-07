@@ -1,6 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/css/style.css" />
     <title>SECA Groups</title>
     <script>
       function checkform(form) {
@@ -23,27 +28,33 @@
         <input type="submit" value="Create Group" />
       </form>
       <button
-        onclick="window.location.href='/site/auth/home'"
+        onclick="window.location.href='/site/home'"
         style="margin-left: 1065px;"
       >Home Screen</button>
     </section>
     <hr />
-    <section>
       {{#each groups}}
-        <section style="border: 1px solid black;">
-          <p>Name: <a href="/site/auth/groups/{{id}}">{{name}}</a></p>
-          <p>Description: {{description}}</p>
-        </section>
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#{{name}}" aria-expanded="false" aria-controls="c{{name}}">
+              Name: <a href="/site/groups/{{id}}">{{name}}</a>
+            </button>
+          </h2>
+          <div id="{{name}}" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+              Description: {{description}}
+            </div>
+          </div>
+        </div>
         {{#if eventId}}
           <form
             method="POST"
-            action="/site/auth/groups/{{id}}/events?eventId={{eventId}}"
+            action="/site/groups/{{id}}/events?eventId={{eventId}}"
           >
             <button name="event">Add Event</button>
           </form>
         {{/if}}
         <br />
       {{/each}}
-    </section>
   </body>
 </html>

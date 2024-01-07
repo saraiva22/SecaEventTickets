@@ -20,7 +20,7 @@ export default function (secaServices) {
         return await reqProcessor(req, rsp);
       } catch (e) {
         const rspError = errorToHttp(e);
-        rsp.status(rspError.status).json(rspError.body);
+        rsp.status(rspError.status).render("errors", rspError.body);
       }
     };
   }
@@ -32,7 +32,7 @@ export default function (secaServices) {
         username: req.body.username,
         password: req.body.password,
       };
-      req.login(user, () => rsp.redirect("/site/auth/home"));
+      req.login(user, () => rsp.redirect("/site/home"));
     } else {
       rsp.redirect("/site/login");
     }
