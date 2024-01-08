@@ -846,7 +846,7 @@ npm install body-parser
 npm install mocha
 ```
 
-- In `package.json` file and the following parameter:
+- In `package.json` file, add the following parameter:
 
 ```json
 "scripts": {
