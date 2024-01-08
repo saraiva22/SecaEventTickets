@@ -57,6 +57,7 @@ export default function (secaGroupsServices, secaUsersServices) {
       idGroup,
       token
     );
+    groupDetails.token = token;
     rsp.render("groupDetails", groupDetails);
   }
 

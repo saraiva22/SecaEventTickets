@@ -22,9 +22,9 @@
                     <div style="border: 1px solid black;">
                         {{> eventPartial this}}
                     </div>
-                    <form method="POST" action="/site/groups/{{../id}}/events/{{id}}">
-                        <input type="submit" value="Delete Event" id="deleteEventFromGroup">
-                    </form>
+                    <input type="submit" value="Delete Event" class="deleteEventFromGroup">
+                    <script type="application/ecmascript" src="/site/js/groupsEventDelete.js"></script>
+                    <script type="application/ecmascript"> registerDeleteGroupEvent('{{../token}}','{{id}}') </script>
                 <br>
                 {{/each}}
                 {{else}}

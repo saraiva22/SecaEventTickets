@@ -43,7 +43,7 @@ export default function (secaEventsServices, secaGroupsData, secaUsersData) {
 
   async function deleteGroup(groupId, userToken) {
     const userId = await secaUsersData.getUserId(userToken);
-    const group = await getGroup(groupId, userId);
+    await getGroup(groupId, userId);
     return await secaGroupsData.deleteGroup(groupId);
   }
 
@@ -66,7 +66,7 @@ export default function (secaEventsServices, secaGroupsData, secaUsersData) {
 
   async function deleteEventFromGroup(groupId, eventId, userToken) {
     const userId = await secaUsersData.getUserId(userToken);
-    const check = await checkEvent(groupId, userId, eventId);
+    await checkEvent(groupId, userId, eventId);
     return await secaGroupsData.deleteEventFromGroup(groupId, eventId);
   }
 

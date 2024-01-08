@@ -19,6 +19,7 @@ function registerPutGroup(tokenClient) {
     const options = {
       method: "PUT",
       headers: {
+        "Content-Type": "application/json",
         Authorization: `Bearer ${tokenClient}`,
       },
       body: JSON.stringify({
