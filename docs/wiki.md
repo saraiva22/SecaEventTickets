@@ -44,6 +44,7 @@ For data storage was used ElasticSearch database, organized in 2 indices:
 The user index serves as the repository for all user-related data, including username, password, userId, and token. When creating a new user, the system checks the chosen username to ensure that it is unique. A new user is then added to the database. During the login process, the system utilizes the _search method to verify the existence of a user with matching credentials (username and password) before granting access. 
 
 > Users storage
+
     - **id** internal identifier for user
     - **username** identfier chosed by the user
     - **password** user authenticator
@@ -55,6 +56,7 @@ The user index serves as the repository for all user-related data, including use
 The groups index stores data related to each group, including name, description, events, user_Id, groupId, and token. The user_Id within the group information is crucial as it establishes the relationship between a user and their groups. To remove a event from a group, a script is executed to delete the event from the events array within the group, simplifying the data structure. 
 
 > Groups storage
+
     - **id** internal identifier for group
     - **name** group name
     - **description** group description
@@ -67,7 +69,7 @@ On the first stage of the API implementation, the module data-local was responsa
 
 ## API Documentation
 
-```
+```yaml
 openapi: 3.0.1
 info:
   title: SECA API
@@ -846,7 +848,7 @@ npm install mocha
 
 - In `package.json` file and the following parameter:
 
-```
+```json
 "scripts": {
     "test": "mocha",
     "start": "node ./code/seca-server.mjs",
