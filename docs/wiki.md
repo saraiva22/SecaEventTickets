@@ -45,11 +45,11 @@ The user index serves as the repository for all user-related data, including use
 
 > Users storage
 
-    - **id** internal identifier for user
-    - **username** identfier chosed by the user
-    - **password** user authenticator
-    - **email** user's email
-    - **token** random UUID
+- **id** internal identifier for user
+- **username** identfier chosed by the user
+- **password** user authenticator
+- **email** user's email
+- **token** random UUID
 
 ### Groups
 
@@ -57,11 +57,11 @@ The groups index stores data related to each group, including name, description,
 
 > Groups storage
 
-    - **id** internal identifier for group
-    - **name** group name
-    - **description** group description
-    - **userId** identifier of the user that owns the group
-    - **events** array with all the added events to the group
+- **id** internal identifier for group
+- **name** group name
+- **description** group description
+- **userId** identifier of the user that owns the group
+- **events** array with all the added events to the group
 
 ##### Side note: 
 On the first stage of the API implementation, the module data-local was responsable for storing data regarding groups, users and TM queries in a local environment. The storage was implemented using arrays to store the different objects.
