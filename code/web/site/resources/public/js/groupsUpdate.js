@@ -5,13 +5,10 @@ function registerPutGroup(tokenClient) {
   console.log("button:", button);
 
   async function handleClick() {
-    console.log("click");
     const uriArray = window.location.pathname.split("/");
     const groupId = uriArray[uriArray.length - 2];
-    console.log(groupId);
 
     const form = document.getElementById("updateDetails");
-    console.log(form);
     const name = form.elements["name"].value;
     const description = form.elements["description"].value;
 

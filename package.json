@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "mocha",
-    "start": "node ./seca-server.mjs",
+    "start": "node ./code/seca-server.mjs",
     "start-dev": "nodemon ./code/seca-server.mjs"
   },
   "author": "",

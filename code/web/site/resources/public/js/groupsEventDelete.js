@@ -4,10 +4,8 @@ function registerDeleteGroupEvent(tokenClient, eventId) {
   buttons.forEach((button) => {
     button.addEventListener("click", handleClick);
   });
-  console.log("button:", button);
 
   async function handleClick() {
-    console.log("click");
     const groupId = window.location.pathname.split("/").pop();
     console.log(groupId);
     console.log(eventId);
