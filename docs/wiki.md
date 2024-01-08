@@ -862,12 +862,12 @@ npm install mocha
 
 ![Elastic Search Response](./images/image.png)
 
-### Launch Server
+## Launch Server
 
-## Deployment mode
+### Deployment mode
 
 `npm run start`
 
-## Development mode
+### Development mode
 
 `npm run start-dev`
