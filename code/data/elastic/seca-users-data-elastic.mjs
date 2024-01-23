@@ -50,3 +50,5 @@ function createUserFrom(groupElastic) {
   let user = Object.assign({ id: groupElastic._id }, groupElastic._source);
   return user;
 }
+
+

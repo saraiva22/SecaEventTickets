@@ -39,8 +39,9 @@ export default function (secaServices) {
   }
 
   async function validateUser(username, password) {
-    const exists = await secaServices.getUserByUsername(username);
-    if (exists != undefined) return true;
+    const user = await secaServices.getUserByUsername(username);
+
+    if (user != undefined && user.password == password) return true;
     else return false;
   }
 
@@ -75,8 +76,8 @@ export default function (secaServices) {
     const password = req.body.password;
     const checkpass = req.body.confpassword;
     if (password == checkpass) {
-    await secaServices.createUser(username, email, password);
-      validateLogin(req, rsp)
+      await secaServices.createUser(username, email, password);
+      validateLogin(req, rsp);
     } else {
       rsp.redirect("/site/signup");
     }

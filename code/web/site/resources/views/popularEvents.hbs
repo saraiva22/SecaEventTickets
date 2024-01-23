@@ -9,6 +9,18 @@
         onclick="window.location.href='/site/home'"
         style="margin-left: 1165px;"
       >Home Screen</button>
+      <form action="/site/events/popular" method="get">
+      <label for="size">Page Size:</label>
+      <input type="number" id="size" name="s" value="{{size}}">
+      <input type="hidden" name="p" value="{{currentPage}}">
+      <input type="submit" value="Set Page Size">
+    </form>
+      {{#if previousPage}}
+      <a href="/site/events/popular?s={{size}}&p={{previousPage}}">Previous</a>
+    {{/if}}
+    {{#if nextPage}}
+      <a href="/site/events/popular?s={{size}}&p={{nextPage}}">Next</a>
+    {{/if}}
     {{#each events}}
       <section style="border: 1px solid black;">
         {{> eventPartial this}}  

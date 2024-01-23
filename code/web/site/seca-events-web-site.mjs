@@ -1,7 +1,7 @@
 import errors from "../../common/errors.mjs";
 import errorToHttp from "../errors-to-http-responses.mjs";
 
-const SIZE = 20;
+const SIZE = 30;
 const PAGE = 1;
 
 export default function (secaServices) {
@@ -30,7 +30,16 @@ export default function (secaServices) {
     const s = req.query.s != undefined ? req.query.s : SIZE;
     const p = req.query.p != undefined ? req.query.p : PAGE;
     const popular = await secaServices.getPopularEvents(s, p);
-    rsp.render("popularEvents", { events: popular });
+    const previousPage = Number(p) > 1 ? Number(p) - 1 : undefined;
+    const nextPage = Number(p) < SIZE ? Number(p) + 1 : undefined;
+    const size = Number(s) > 0 ? s : undefined;
+    rsp.render("popularEvents", {
+      events: popular,
+      previousPage: previousPage,
+      nextPage: nextPage,
+      size: size,
+      currentPage: p,
+    });
   }
 
   async function getSearchedEvents(req, rsp) {
@@ -38,7 +47,17 @@ export default function (secaServices) {
     const s = req.query.s != undefined ? req.query.s : SIZE;
     const p = req.query.p != undefined ? req.query.p : PAGE;
     const events = await secaServices.getSearchedEvents(keyword, s, p);
-    rsp.render("searchedEvents", { events: events });
+    const previousPage = Number(p) > 1 ? Number(p) - 1 : undefined;
+    const nextPage = Number(p) < SIZE ? Number(p) + 1 : undefined;
+    const size = Number(s) > 0 ? s : undefined;
+    rsp.render("searchedEvents", {
+      events: events,
+      keyword: keyword,
+      previousPage: previousPage,
+      nextPage: nextPage,
+      size: size,
+      currentPage: p,
+    });
   }
 
   async function getEventDetails(req, rsp) {
