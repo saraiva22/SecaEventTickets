@@ -1,4 +1,5 @@
 import errors from "../common/errors.mjs";
+import bcrypt from "bcrypt";
 
 export default function (secaData) {
   if (!secaData) {
@@ -12,7 +13,8 @@ export default function (secaData) {
   };
 
   async function createUser(username, email, password) {
-    return await secaData.createUser(username, email, password);
+    const codedPassword = await bcrypt.hash(password, 15);
+    return await secaData.createUser(username, email, codedPassword);
   }
 
   function getUserId(token) {

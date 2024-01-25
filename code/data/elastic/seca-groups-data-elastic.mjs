@@ -5,8 +5,9 @@ import errors from "../../common/errors.mjs";
 const INDEX_NAME = "groups";
 const URI_MANAGER = await uriManager(INDEX_NAME);
 
-export async function getAllGroups(userId) {
-  const uri = `${URI_MANAGER.searchDocs()}?q=userId:${userId}`;
+export async function getAllGroups(userId, s, p) {
+  const from = s * p
+  const uri = `${URI_MANAGER.searchDocs()}?from=${from}&size=${s}&q=userId:${userId}`;
   return await get(uri).then((body) =>
     body.hits.hits.map(createGroupFromElastic)
   );

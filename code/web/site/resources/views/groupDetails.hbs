@@ -8,7 +8,7 @@
         <section style="display: inline;">
         <button
             onclick="window.location.href='/site/groups'"
-            style="margin-left: 1033px;"
+            style="margin-left: 990px;"
         >Go Back To Groups</button>
         <button
             onclick="window.location.href='/site/home'"
@@ -22,7 +22,7 @@
                     <div style="border: 1px solid black;">
                         {{> eventPartial this}}
                     </div>
-                    <input type="submit" value="Delete Event" class="deleteEventFromGroup">
+                    <button type="submit" class="deleteEventFromGroup">Delete Event</button>
                     <script type="application/ecmascript" src="/site/js/groupsEventDelete.js"></script>
                     <script type="application/ecmascript"> registerDeleteGroupEvent('{{../token}}','{{id}}') </script>
                 <br>
@@ -33,9 +33,9 @@
             </p> 
         </section>
             <form method = "GET" action="/site/groups/{{id}}/update" style="display: inline;">
-                <input type = "submit" value = "Edit Group">
+                <button type = "submit">Edit Group</button>
             </form>
-            <input type="submit" value="Delete Group" id="deleteGroup">
+            <button type="submit" id="deleteGroup">Delete Group</button>
             <script type="application/ecmascript" src="/site/js/groupsDelete.js"></script>
             <script type="application/ecmascript">
                 registerDeleteGroup('{{token}}')

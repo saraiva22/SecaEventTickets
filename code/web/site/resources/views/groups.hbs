@@ -25,14 +25,39 @@
       <form method="POST" style="display: inline;" onsubmit="return checkform(this)">
         <p>Name: <input type="text" name="name" value="" /></p>
         <p>Description: <input type="text" name="description" value="" /></p>
-        <input type="submit" value="Create Group" />
+        <button type="submit">Create Group</button>
       </form>
       <button
         onclick="window.location.href='/site/home'"
-        style="margin-left: 1065px;"
+        style="margin-left: 1030px;"
       >Home Screen</button>
     </section>
     <hr />
+      <form action="/site/groups" method="get">
+          <label for="size">Page Size:</label>
+          <input type="number" id="size" name="s" value="{{size}}">
+          <input type="hidden" name="p" value="{{currentPage}}">
+          <button type="submit">Set Page Size</button>
+      </form>
+      {{#if previousPage includeZero=true}}
+        <button 
+          onclick="window.location.href='/site/groups?p={{previousPage}}&s={{size}}'"
+          {{#if (isNotDefined nextPage)}}
+            style="margin-left: 1175px;"
+          {{else}}
+            style="margin-left: 1125px;"
+          {{/if}}
+        >Previous</button>
+      {{/if}}
+      {{#if nextPage}}
+        <button 
+          onclick="window.location.href='/site/groups?p={{nextPage}}&s={{size}}'"
+          {{#if (isNotDefined previousPage)}}
+            style="margin-left: 1205px;"
+          {{/if}}
+        >Next</button>
+      {{/if}}
+      <p></p>
       {{#each groups}}
         <div class="accordion-item">
           <h2 class="accordion-header">

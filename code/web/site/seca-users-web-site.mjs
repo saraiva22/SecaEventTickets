@@ -1,5 +1,6 @@
 import errors from "../../common/errors.mjs";
 import errorToHttp from "../errors-to-http-responses.mjs";
+import bcrypt from "bcrypt";
 
 export default function (secaServices) {
   if (!secaServices) {
@@ -26,11 +27,13 @@ export default function (secaServices) {
   }
 
   async function validateLogin(req, rsp) {
-    const valid = await validateUser(req.body.username, req.body.password);
+    const username = req.body.username
+    const password = req.body.password
+    const valid = await validateUser(username, password);
     if (valid) {
       const user = {
-        username: req.body.username,
-        password: req.body.password,
+        username: username,
+        password: password,
       };
       req.login(user, () => rsp.redirect("/site/home"));
     } else {
@@ -40,9 +43,13 @@ export default function (secaServices) {
 
   async function validateUser(username, password) {
     const user = await secaServices.getUserByUsername(username);
-
-    if (user != undefined && user.password == password) return true;
-    else return false;
+    if (user == null) {
+      throw errors.USER_NOT_FOUND;
+    }
+    if (await bcrypt.compare(password, user.password)) {
+      return true;
+    }
+    return false;
   }
 
   function verifyAuthenticated(req, rsp, next) {

@@ -7,21 +7,33 @@
         <h1>Search Events</h1>
         <button
             onclick="window.location.href='/site/home'"
-            style="margin-left: 1165px;"
+            style="margin-left: 1140px;"
         >Home Screen</button>
         <form action="/site/events" method="get">
             <input type="hidden" name="keyword" value="{{keyword}}">
             <label for="size">Page Size:</label>
             <input type="number" id="size" name="s" value="{{size}}">
             <input type="hidden" name="p" value="{{currentPage}}">
-            <input type="submit" value="Set Page Size">
+            <button type="submit">Set Page Size</button>
         </form>
-      {{#if previousPage}}
-      <a href="/site/events?keyword={{keyword}}&s={{size}}&p={{previousPage}}">Previous</a>
-    {{/if}}
-    {{#if nextPage}}
-      <a href="/site/events?keyword={{keyword}}&s={{size}}&p={{nextPage}}">Next</a>
-    {{/if}}
+        {{#if previousPage}}
+            <button 
+                onclick="window.location.href='/site/events?keyword={{keyword}}&s={{size}}&p={{previousPage}}'"
+                {{#if (isNotDefined nextPage)}}
+                    style="margin-left: 1175px;"
+                {{else}}
+                    style="margin-left: 1125px;"
+                {{/if}}
+            >Previous</button>
+        {{/if}}
+        {{#if nextPage}}
+            <button 
+                onclick="window.location.href='/site/events?keyword={{keyword}}&s={{size}}&p={{nextPage}}'"
+                {{#if (isNotDefined previousPage)}}
+                    style="margin-left: 1205px;"
+                {{/if}}
+            >Next</button>
+        {{/if}}
         {{#each events}}
             <section style="border: 1px solid black;">
                 {{> eventPartial this}} 

@@ -4,22 +4,37 @@
     <title>SECA Popular Events</title>
   </head>
   <body>
-    <h1>Popular Events</h1>
     <button
-        onclick="window.location.href='/site/home'"
-        style="margin-left: 1165px;"
-      >Home Screen</button>
+      onclick="window.location.href='/site/home'"
+      style="margin-left: 1145px;"
+    >Home Screen</button>
+    <h1>Popular Events</h1>
+    <br>
+    <section style="display: inline;">
       <form action="/site/events/popular" method="get">
-      <label for="size">Page Size:</label>
-      <input type="number" id="size" name="s" value="{{size}}">
-      <input type="hidden" name="p" value="{{currentPage}}">
-      <input type="submit" value="Set Page Size">
-    </form>
-      {{#if previousPage}}
-      <a href="/site/events/popular?s={{size}}&p={{previousPage}}">Previous</a>
+        <label for="size">Page Size:</label>
+        <input type="number" id="size" name="s" value="{{size}}">
+        <input type="hidden" name="p" value="{{currentPage}}">
+        <button type="submit">Set Page Size</button>
+      </form>
+    </section>
+    {{#if previousPage}}
+      <button 
+        onclick="window.location.href='/site/events/popular?s={{size}}&p={{previousPage}}'"
+        {{#if (isNotDefined nextPage)}}
+          style="margin-left: 1175px;"
+        {{else}}
+          style="margin-left: 1125px;"
+        {{/if}}
+      >Previous</button>
     {{/if}}
     {{#if nextPage}}
-      <a href="/site/events/popular?s={{size}}&p={{nextPage}}">Next</a>
+      <button 
+        onclick="window.location.href='/site/events/popular?s={{size}}&p={{nextPage}}'"
+        {{#if (isNotDefined previousPage)}}
+          style="margin-left: 1205px;"
+        {{/if}}
+      >Next</button>
     {{/if}}
     {{#each events}}
       <section style="border: 1px solid black;">

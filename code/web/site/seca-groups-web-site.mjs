@@ -43,11 +43,22 @@ export default function (secaGroupsServices, secaUsersServices) {
 
   async function getAllGroups(req, rsp) {
     const token = req.token;
-    const groups = await secaGroupsServices.getAllGroups(token);
+    const s = req.query.s != undefined ? req.query.s : 10;
+    const p = req.query.p != undefined ? req.query.p : 0;
+    const previousPage = Number(p) > 0 ? Number(p) - 1 : undefined;
+    const nextPage = await getNextPage(token, s, p);
+    const groups = await secaGroupsServices.getAllGroups(token, s, p);
     groups.forEach((g) => {
       g.eventId = req.query.eventId;
     });
-    return rsp.render("groups", { groups: groups, token: token });
+    return rsp.render("groups", {
+      groups: groups,
+      token: token,
+      size: s,
+      previousPage: previousPage,
+      nextPage: nextPage,
+      currentPage: p,
+    });
   }
 
   async function getGroupsDetails(req, rsp) {
@@ -115,5 +126,11 @@ export default function (secaGroupsServices, secaUsersServices) {
     const username = req.user.username;
     const user = await secaUsersServices.getUserByUsername(username);
     return user.token;
+  }
+
+  async function getNextPage(token, size, page) {
+    const next = Number(page) + 1;
+    const checkNext = await secaGroupsServices.getAllGroups(token, size, next);
+    return checkNext.length != 0 ? next : undefined;
   }
 }

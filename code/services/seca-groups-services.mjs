@@ -21,9 +21,9 @@ export default function (secaEventsServices, secaGroupsData, secaUsersData) {
     updateGroup: updateGroup,
   };
 
-  async function getAllGroups(userToken) {
+  async function getAllGroups(userToken, s, p) {
     const userId = await secaUsersData.getUserId(userToken);
-    return await secaGroupsData.getAllGroups(userId);
+    return await secaGroupsData.getAllGroups(userId, s, p);
   }
 
   async function getGroupsDetails(groupId, userToken) {

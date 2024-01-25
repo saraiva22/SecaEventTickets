@@ -5,6 +5,16 @@
     </head>
     <body>
         <h1>Event Details</h1>
+        <span style="display: inline;">
+        <button
+            onclick="window.location.href='/site/events/popular'"
+            style="margin-left: 1015px;"
+        >Go Back To Events</button>
+        <button
+            onclick="window.location.href='/site/home'"
+        >Home Screen</button>
+        </span>
+        <p></p>
         <section style="border: 1px solid black;">
             <section>
                 {{> eventPartial this}}   
