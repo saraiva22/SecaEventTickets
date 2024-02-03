@@ -22,10 +22,19 @@ export default function (secaServices) {
   }
 
   async function createUser(req, rsp) {
-    const newUser = await secaServices.createUser(req.body.username);
-    rsp.status(201).json({
-      status: "Success - Added new user sucessfully",
-      newUser: newUser,
-    });
+    const username = req.body.username;
+    const email = req.body.email;
+    const password = req.body.password;
+    const checkpass = req.body.confpassword;
+    if (password == checkpass) {
+      const newUser = await secaServices.createUser(username, email, password);
+      rsp.status(201).json({
+        status: "Success - Added new user sucessfully",
+        newUser: newUser,
+      });
+    } else {
+      rsp.status(400).json({ error: `The user data is invalid` });
+      return;
+    }
   }
 }
