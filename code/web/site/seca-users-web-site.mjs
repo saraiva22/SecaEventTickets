@@ -27,8 +27,8 @@ export default function (secaServices) {
   }
 
   async function validateLogin(req, rsp) {
-    const username = req.body.username
-    const password = req.body.password
+    const username = req.body.username;
+    const password = req.body.password;
     const valid = await validateUser(username, password);
     if (valid) {
       const user = {
@@ -37,19 +37,10 @@ export default function (secaServices) {
       };
       req.login(user, () => rsp.redirect("/site/home"));
     } else {
-      rsp.redirect("/site/login");
+      rsp
+        .cookie("credentials", "Wrong Username or Password")
+        .redirect("/site/login");
     }
-  }
-
-  async function validateUser(username, password) {
-    const user = await secaServices.getUserByUsername(username);
-    if (user == null) {
-      throw errors.USER_NOT_FOUND;
-    }
-    if (await bcrypt.compare(password, user.password)) {
-      return true;
-    }
-    return false;
   }
 
   function verifyAuthenticated(req, rsp, next) {
@@ -69,9 +60,15 @@ export default function (secaServices) {
   }
 
   function userForm(req, rsp) {
-    console.log(req.originalUrl);
     if (req.originalUrl.includes("login")) {
-      rsp.render("login", { login: true });
+      const cred = req.cookies.credentials;
+      if (cred) {
+        rsp
+          .clearCookie("credentials")
+          .render("login", { login: true, credentials: cred });
+      } else {
+        rsp.render("login", { login: true });
+      }
     } else {
       rsp.render("login", { signup: true });
     }
@@ -88,5 +85,17 @@ export default function (secaServices) {
     } else {
       rsp.redirect("/site/signup");
     }
+  }
+
+  // Auxilary Functions
+  async function validateUser(username, password) {
+    const user = await secaServices.getUserByUsername(username);
+    if (user == null) {
+      throw errors.USER_NOT_FOUND;
+    }
+    if (await bcrypt.compare(password, user.password)) {
+      return true;
+    }
+    return false;
   }
 }

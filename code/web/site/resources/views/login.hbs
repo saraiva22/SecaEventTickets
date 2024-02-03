@@ -19,6 +19,11 @@
             {{#if login}}
               <h1 class="text-center mb-4">Log In</h1>
               {{> logInPartial this}}
+              {{#if credentials}}
+                <script>
+                  alert('{{credentials}}');
+                </script>
+              {{/if}} 
             {{/if}}
             
             {{#if signup}}

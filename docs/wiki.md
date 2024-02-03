@@ -6,31 +6,31 @@ The application is structured into two major components: the server component an
 
 ### Modules
 
-1. Server Entry Point - seca-server.mjs:
+**1. Server Entry Point - seca-server.mjs:**
 
 The main entry point of the server application, seca-server.mjs, manages the server routes. It acts as a traffic controller, directing incoming requests to the appropriate modules for processing. 
 
-2. Web API Communication - seca-web-api:
+**2. Web API Communication - seca-web-api:**
 
 The seca-web-api module facilitates communication between the client and server through JSON responses. Services are accessible without a graphical interface, which helps fast communication between client and server. 
 
-3. User Interface - seca-web-site:
+**3. User Interface - seca-web-site:**
 
 The user interface is handled by seca-web-site. The use of HandleBars formatting language allows dynamic content, while CSS ensures a visually appealing experience. This module prioritizes simplicity and efficiency in displaying essential information to users.
 
-4. API services - seca-services:
+**4. API services - seca-services:**
 
 seca-services.mjs is dedicated to implement all the API available services. Is the bridge between the server and data storage/database. It plays a critical role in ensuring the reliability of the server by throwing exceptions and checking each request before storing data. 
 
-5. TM API Integration - tm-events-data:
+**5. TM API Integration - tm-events-data:**
 
 The tm-events-data module communicates with the TicketMaster API, allowing the application to retrieve events details, search for specific events by name, and display popular events.
 
-6. Elastic Database Management - seca-data-elastic:
+**6. Elastic Database Management - seca-data-elastic:**
 
 The seca-data-elastic module serves as the foundation for tracking individual user information, managing the addition and removal of groups and events, and updating group information. It also handles user credentials for validation and registration.
 
-7. User Authentication and Authorization - seca-users-web-site.mjs:
+**7. User Authentication and Authorization - seca-users-web-site.mjs:**
 
 Handling all login and signup actions, the seca-users-web-site.mjs module is responsible for user authentication and authorization. It grants authorized users access to their individual information and enables actions such as adding or removing groups and events. 
 
@@ -43,11 +43,13 @@ For data storage was used ElasticSearch database, organized in 2 indices:
 
 The user index serves as the repository for all user-related data, including username, password, userId, and token. When creating a new user, the system checks the chosen username to ensure that it is unique. A new user is then added to the database. During the login process, the system utilizes the _search method to verify the existence of a user with matching credentials (username and password) before granting access. 
 
+The user's password is never stored as clear text, is encrypted using Hashing with size 15 given by hash method of bcrypt library. In order to compare the password introduced with the one stored, is used compare method of the same library.
+
 > Users storage
 
 - **id** internal identifier for user
 - **username** identfier chosed by the user
-- **password** user authenticator
+- **password** user authenticator (encrypted)
 - **email** user's email
 - **token** random UUID
 
