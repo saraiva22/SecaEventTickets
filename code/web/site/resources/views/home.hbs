@@ -42,7 +42,7 @@
         {{#if logout}}
           <li class="nav-item">
             <form method="POST" action="/site/logout">
-              <button type="submit" class="btn btn-link nav-link">Log Out</button>
+             <button type="submit" class="btn btn-danger btn-lg">Log Out</button>
             </form>
           </li>
         {{/if}}
@@ -54,9 +54,9 @@
 <!-- Main Content -->
 <div class="container mt-4">
   <form method="GET" action="/site/events" class="search-events-form">
-    <h2>Search Events</h2>
-    <input type="text" name="keyword" class="form-control" placeholder="Enter Event Name">
-    <button type="submit" class="btn btn-primary">Search Events</button>
+    <h2 class="mt-4 px-3">Search Events</h2>
+    <input type="text" name="keyword" class="form-control mt-4 px-3" placeholder="Enter Event Name">
+    <button type="submit" class="btn btn-primary mt-4 px-3">Search Events</button>
   </form>
 </div>
 
