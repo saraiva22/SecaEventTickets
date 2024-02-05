@@ -1,9 +1,8 @@
 import { put } from "./fetch-wrapper.mjs";
 
 // Constants
-const PORT = 9200
-const URI_PREFIX = `http://localhost:${PORT}/`
-//const REFRESH = '?refresh=wait';
+const PORT = 9200;
+const URI_PREFIX = `http://localhost:${PORT}/`;
 
 export default async function (index) {
   // Create the index unconditionally. If the index already exists, nothing happiness

@@ -14,7 +14,6 @@ export async function post(uri, body) {
     return fetchInternal(uri, { method: "POST"}, body)
 }
 
-
 async function fetchInternal(uri, options = { }, body = undefined) {
     if(body) {
         options.headers = {

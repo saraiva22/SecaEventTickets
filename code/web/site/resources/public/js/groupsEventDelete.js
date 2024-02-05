@@ -7,8 +7,6 @@ function registerDeleteGroupEvent(tokenClient, eventId) {
 
   async function handleClick() {
     const groupId = window.location.pathname.split("/").pop();
-    console.log(groupId);
-    console.log(eventId);
 
     const uriDelete = `/groups/${groupId}/events/${eventId}`;
     const options = {
@@ -20,7 +18,7 @@ function registerDeleteGroupEvent(tokenClient, eventId) {
 
     const rsp = await fetch(uriDelete, options);
     if (rsp.ok) {
-      alert(`Task with id ${groupId} deleted`);
+      alert(`Event with id ${eventId} deleted`);
       window.location = `/site/groups/${groupId}`;
     }
   }

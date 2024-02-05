@@ -10,7 +10,6 @@ export async function getAllGroups(userId, s, p) {
   const uri = p
     ? `${URI_MANAGER.searchDocs()}?from=${from}&size=${s}&q=userId:${userId}`
     : `${URI_MANAGER.searchDocs()}?q=userId:${userId}`;
-  console.log(uri);
   return await get(uri).then((body) =>
     body.hits.hits.map(createGroupFromElastic)
   );

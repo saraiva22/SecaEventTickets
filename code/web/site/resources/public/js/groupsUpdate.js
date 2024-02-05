@@ -27,7 +27,7 @@ function registerPutGroup(tokenClient) {
 
     const rsp = await fetch(uriUpdate, options);
     if (rsp.ok) {
-      alert(`Task with id ${groupId} updated`);
+      alert(`Group with id ${groupId} updated`);
       window.location = "/site/groups";
     }
   }

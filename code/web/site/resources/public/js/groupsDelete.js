@@ -11,7 +11,7 @@ function registerDeleteGroup(tokenClient) {
 
     const uriDelete = `/groups/${groupId}`;
     const options = {
-      method: 'DELETE',
+      method: "DELETE",
       headers: {
         Authorization: `Bearer ${tokenClient}`,
       },
@@ -19,9 +19,8 @@ function registerDeleteGroup(tokenClient) {
 
     const rsp = await fetch(uriDelete, options);
     if (rsp.ok) {
-      alert(`Task with id ${groupId} deleted`);
+      alert(`Group with id ${groupId} deleted`);
       window.location = "/site/groups";
     }
   }
 }
-
